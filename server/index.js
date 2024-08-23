@@ -1,11 +1,11 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const PORT = 3001;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+conn.sync({ alter: false }).then(() => {
+  server.listen(PORT, () => {
+    console.log(
+      `Server listening at ${PORT}, running on ${process.env.NODE_ENV.toUpperCase()}_DB enviroment`
+    ); // eslint-disable-line no-console
+  });
 });
