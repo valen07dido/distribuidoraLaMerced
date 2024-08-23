@@ -44,6 +44,12 @@ const {
   Wishlist,
 } = sequelize.models;
 //relaciones entre modelos
+User.hasOne(UserCredentials, {
+  onDelete: "CASCADE",
+});
+UserCredentials.belongsTo(User);
+User.belongsTo(UserRole, { foreignKey: "rolId", as: "role" });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
