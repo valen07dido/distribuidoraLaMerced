@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  return sequelize.define(
-    "ProductStock",
+    return sequelize.define(
+    "ProductCategory",
     {
       id: {
         type: DataTypes.UUID,
@@ -10,9 +10,10 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      amount: {
-        type: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
     },
     {
