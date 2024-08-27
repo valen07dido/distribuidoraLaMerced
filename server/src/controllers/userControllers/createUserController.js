@@ -1,38 +1,52 @@
-const { User, UserRole } = require("../../db"); // Asegúrate de tener el modelo User y UserRole en db.js
+const { User, UserRole } = require("../../db");
 const bcrypt = require("bcrypt");
 
 const createUser = async (userData) => {
   try {
     const { name, surname, birthdate, email, telephone, password, roleId } = userData;
 
-    // Verificamos si el correo ya existe
+    // Verificar si el usuario ya existe por su correo electrónico
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       throw new Error("El correo ya está registrado.");
     }
 
-    // Hash de la contraseña antes de guardarla
+    // Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 8);
 
-    // Verificar si el rol existe, si se proporciona
+    let assignedRoleId = roleId;
+
+    // Verificar si el rol proporcionado existe o usar el rol por defecto
     if (roleId) {
       const existingRole = await UserRole.findByPk(roleId);
       if (!existingRole) {
-        throw new Error("El rol especificado no existe.");
+        console.log("El rol especificado no existe. Se asignará el rol por defecto.");
+        assignedRoleId = null;
       }
     }
 
-    // Crear el nuevo usuario
+    // Usar `findOrCreate` para obtener o crear el rol por defecto "customer"
+    if (!assignedRoleId) {
+      const [defaultRole, created] = await UserRole.findOrCreate({
+        where: { role_name: "customer" },
+        defaults: {
+          role_name: "customer",
+        },
+      });
+      assignedRoleId = defaultRole.id; // Asignar el id del rol por defecto "customer"
+    }
+
+    // Crear el nuevo usuario con el rol asignado
     const newUser = await User.create({
       name,
       surname,
       birthdate,
       email,
       telephone,
-      isActive: false, // Inicialmente el usuario no está activo hasta que verifique su correo
+      isActive: false,
       isVerified: false,
       password: hashedPassword,
-      rolId: roleId || null, // Asignar rol si se proporciona
+      rolId: assignedRoleId,
     });
 
     return newUser;
@@ -43,5 +57,4 @@ const createUser = async (userData) => {
 
 module.exports = {
   createUser,
-  // Otros controladores aquí...
 };
