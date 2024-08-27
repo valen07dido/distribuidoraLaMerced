@@ -6,6 +6,7 @@ var cors = require("cors");
 const session = require('express-session');3
 const secret=process.env.SECRET_KEY
 const server = express();
+const routes = require("./routes/mainRouter");
 
 server.use(session({
   secret: secret, // Una palabra mágica para crear pulseras
@@ -17,6 +18,7 @@ server.use(morgan("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+server.use("/", routes);
 
 server.use((err, req, res, next) => {
     const status = err.status || 500;
