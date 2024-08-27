@@ -1,8 +1,16 @@
-const { getUsers } = require("../../controllers/userControllers/getUsers");
+const {
+  getUsers,
+  getUsersByID,
+} = require("../../controllers/userControllers/getUsers");
 
 const getUserhandler = async (req, res) => {
+  const { id } = req.params;
   try {
-      console.log(getUsers)
+    if (id) {
+      const response = await getUsersByID(id);
+      if (response.error) return res.status(404).json(response.response);
+      return res.status(200).json(response);
+    }
     const response = await getUsers();
     if (response.error) return res.status(404).json(response.response);
     return res.status(200).json(response);
@@ -11,7 +19,6 @@ const getUserhandler = async (req, res) => {
   }
 };
 
-
-module.exports={
-    getUserhandler
-}
+module.exports = {
+  getUserhandler,
+};

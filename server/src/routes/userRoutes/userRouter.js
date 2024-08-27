@@ -5,5 +5,6 @@ const {
 const useRouter = Router();
 
 useRouter.get("/", getUserhandler);
+useRouter.get("/:id", getUserhandler);
 
 module.exports = useRouter;
