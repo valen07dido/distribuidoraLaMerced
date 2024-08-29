@@ -1,4 +1,4 @@
-const { User, UserRole } = require("../../db");
+const { User, UserRole, UserCredentials } = require("../../db");
 const bcrypt = require("bcrypt");
 
 const createUser = async (userData) => {
@@ -47,6 +47,13 @@ const createUser = async (userData) => {
       isVerified: false,
       password: hashedPassword,
       rolId: assignedRoleId,
+    });
+
+    // Crear las credenciales del usuario
+    await UserCredentials.create({
+      id: newUser.id, // Asumimos que el id de User se usa también en UserCredentials
+      username: email, // Suponiendo que el username es el correo electrónico
+      password: hashedPassword, // Usamos la misma contraseña hasheada
     });
 
     return newUser;
