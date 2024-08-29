@@ -51,9 +51,10 @@ const createUser = async (userData) => {
 
     // Crear las credenciales del usuario
     await UserCredentials.create({
-      id: newUser.id, // Asumimos que el id de User se usa también en UserCredentials
-      username: email, // Suponiendo que el username es el correo electrónico
-      password: hashedPassword, // Usamos la misma contraseña hasheada
+      id: newUser.id,   
+      username: email, 
+      password: hashedPassword, 
+      UserId:newUser.id
     });
 
     return newUser;
