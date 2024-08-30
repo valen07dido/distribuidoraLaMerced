@@ -49,7 +49,6 @@ const createUser = async (userData) => {
       rolId: assignedRoleId,
     });
 
-    // Crear las credenciales del usuario
     await UserCredentials.create({
       id: newUser.id,   
       username: email, 

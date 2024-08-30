@@ -1,18 +1,30 @@
+// controllers/userControllers/loginControllers.js
 require("dotenv").config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User, UserRole } = require("../../db");
+const { User, UserCredentials, UserRole } = require("../../db");
 
 const secret = process.env.SECRET_KEY; // Clave secreta para el token
 
-const loginUser = async (email, password) => {
+const loginUser = async (username, password) => {
   try {
-    // Verificar si el usuario existe
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
+    // Verificar si las credenciales del usuario existen
+    const userCredentials = await UserCredentials.findOne({ where: { username } });
+    
+    if (!userCredentials) {
       return {
         error: true,
         response: "El usuario no existe",
+      };
+    }
+
+    // Obtener los detalles del usuario desde el modelo User
+    const user = await User.findOne({ where: { id: userCredentials.id } });
+
+    if (!user) {
+      return {
+        error: true,
+        response: "Detalles del usuario no encontrados",
       };
     }
 
@@ -35,7 +47,7 @@ const loginUser = async (email, password) => {
     }
 
     // Verificamos la contraseña usando bcrypt
-    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    const isPasswordValid = bcrypt.compareSync(password, userCredentials.password);
     if (!isPasswordValid) {
       return {
         error: true,
@@ -51,7 +63,7 @@ const loginUser = async (email, password) => {
         response: "Rol del usuario no encontrado",
       };
     }
-    
+
     const { role_name } = userRole;
 
     // Datos para el token
@@ -72,6 +84,7 @@ const loginUser = async (email, password) => {
       user: `${user.name} ${user.surname}`,
     };
   } catch (error) {
+    console.error(error);
     return {
       error: true,
       response: "Error interno del servidor",
