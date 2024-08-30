@@ -8,6 +8,8 @@ const secret = process.env.SECRET_KEY; // Clave secreta para el token
 
 const loginUser = async (username, password) => {
   try {
+
+    //! TODO: VALIDAR DATOS
     // Verificar si las credenciales del usuario existen
     const userCredentials = await UserCredentials.findOne({ where: { username } });
     
