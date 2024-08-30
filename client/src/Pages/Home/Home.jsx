@@ -23,6 +23,7 @@ const Home = () => {
         showArrows={false}
         showIndicators={false}
         swipeScrollTolerance={5}
+        transitionTime={1000}
         interval={3000} 
         className={styles.carousel}
       >
@@ -32,12 +33,7 @@ const Home = () => {
         <div>
           <img src={banner2} alt="Banner 2" className={styles.carouselImg}/>
         </div>
-        <div>
-          <img src={banner3} alt="Banner 3" className={styles.carouselImg}/>
-        </div>
-        <div>
-          <img src={banner4} alt="Banner 4" className={styles.carouselImg}/>
-        </div>
+
       </Carousel>
       <div className={styles.products}>
         <h1>Nuestros productos</h1>
