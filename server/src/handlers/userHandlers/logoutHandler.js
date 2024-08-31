@@ -1,16 +1,22 @@
+// handlers/userHandlers/logoutHandler.js
+const { logoutUser } = require("../../controllers/userControllers/logoutController");
 
-const logoutHandler = (req, res) => {
-    try {
-      res.clearCookie("access-token"); // Eliminar la cookie del token de acceso
-      return res.status(200).json({ message: "Sesión cerrada correctamente." });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        error: true,
-        response: "Error al cerrar sesión.",
-      });
-    }
-  };
-  
-  module.exports = { logoutHandler };
-  
+// Handler para cerrar sesión
+const logoutHandler = async (req, res) => {
+  const token = req.headers["authorization"];
+
+  if (!token) {
+    return res.status(401).json({ error: true, message: "Token no proporcionado." });
+  }
+
+  try {
+    const result = await logoutUser(token);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: true, message: error.message });
+  }
+};
+
+module.exports = { logoutHandler };
