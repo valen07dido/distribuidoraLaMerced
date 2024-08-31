@@ -14,6 +14,8 @@ const ProductCartModel = require("./models/productModels/ProductCart");
 const ProductImageModel = require("./models/productModels/ProductImage");
 const ProductStockModel = require("./models/productModels/ProductStock");
 const ProductCategoryModel = require("./models/productModels/ProductCategory");
+const BlackListedTokensModel=require("./models/blackListTokenModel");
+const blackListTokenModel = require("./models/blackListTokenModel");
 
 // Inicialización de Sequelize
 const sequelize = new Sequelize(database, {
@@ -32,6 +34,7 @@ const ProductCart = ProductCartModel(sequelize);
 const ProductImage = ProductImageModel(sequelize);
 const ProductStock = ProductStockModel(sequelize);
 const ProductCategory = ProductCategoryModel(sequelize);
+const BlackListedTokens=blackListTokenModel(sequelize)
 
 // Definir relaciones entre modelos
 User.hasOne(UserCredentials, { onDelete: "CASCADE" });
