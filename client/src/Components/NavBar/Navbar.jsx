@@ -16,7 +16,7 @@ const Navbar = () => {
       <Link to="/">
         <img src={logo} alt="logo" className={styles.logo} />
       </Link>
-      <div className={`${styles.flex1} ${menuOpen ? styles.menuOpen : ''}`}>
+      <div className={`${styles.flex1} ${menuOpen ? styles.menuOpen : ""}`}>
         <Link to="/productos" className={styles.links} onClick={toggleMenu}>
           Productos
         </Link>
