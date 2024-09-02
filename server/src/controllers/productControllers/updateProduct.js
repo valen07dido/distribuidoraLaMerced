@@ -70,7 +70,6 @@ const updateProductController = async (id, field, value) => {
         throw new Error("Campo de producto no válido para actualizar.");
     }
 
-    // Guardar los cambios en el producto
     await item.save();
 
     return { message: "Producto actualizado correctamente", item };
