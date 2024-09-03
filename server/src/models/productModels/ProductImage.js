@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       address: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false, 
+        unique: false,
       },
     },
     {
