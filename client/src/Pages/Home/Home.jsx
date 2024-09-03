@@ -4,10 +4,9 @@ import Card from "../../Components/Card/Card";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Importa los estilos del carrusel
 import prueba from "../../../public/productos/Criadores/Criadores_Frente_18x18_RGB_300dpi_Gris.jpg";
-import banner1 from "../../../public/imagenes/banner1.jpg";
-import banner2 from "../../../public/imagenes/banner2.jpg";
-import banner3 from "../../../public/imagenes/banner3.jpg";
-import banner4 from "../../../public/imagenes/banner4.jpg";
+import carrousel1 from "../../../public/imagenes/banner1.jpg";
+import carrousel2 from "../../../public/imagenes/banner2.jpg";
+import bannerNosotros from "../../../public/imagenes/banner-deleita.jpg";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -28,10 +27,10 @@ const Home = () => {
         className={styles.carousel}
       >
         <div>
-          <img src={banner1} alt="Banner 1" className={styles.carouselImg} />
+          <img src={carrousel1} alt="Banner 1" className={styles.carouselImg} />
         </div>
         <div>
-          <img src={banner2} alt="Banner 2" className={styles.carouselImg} />
+          <img src={carrousel2} alt="Banner 2" className={styles.carouselImg} />
         </div>
       </Carousel>
       <div className={styles.products}>
@@ -40,13 +39,54 @@ const Home = () => {
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
-          <Card image={prueba} title="Criadores" />
         </div>
         <div className={styles.more}>
-          <IoIosArrowDown />
           <Link to="/productos" className={styles.links}>
+            <IoIosArrowDown />
             Conoce todos nuestros productos
           </Link>
+        </div>
+      </div>
+      <div className={styles.about}>
+        <div className={styles.flexAbout}>
+          <div className={styles.textCont}>
+        <h1 className={styles.titleAbout}>Un poco de nuestra historia</h1>
+            <p className={styles.text}>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat
+              atque nihil tenetur praesentium magnam ipsum consequatur tempore,
+              fugit quasi adipisci ducimus. Doloremque nulla at, veritatis iste
+              voluptate nam molestias sunt!
+            </p>
+            <p className={styles.text}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
+              repellendus libero sint dolorem sit nostrum officiis alias quas.
+              Accusantium pariatur quidem numquam quasi asperiores, excepturi
+              voluptates accusamus eos aut quo?
+            </p>
+            <p className={styles.text}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
+              repellendus libero sint dolorem sit nostrum officiis alias quas.
+              Accusantium pariatur quidem numquam quasi asperiores, excepturi
+              voluptates accusamus eos aut quo?
+            </p>
+            <p className={styles.text}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
+              repellendus libero sint dolorem sit nostrum officiis alias quas.
+              Accusantium pariatur quidem numquam quasi asperiores, excepturi
+              voluptates accusamus eos aut quo?
+            </p>
+            <p className={styles.text}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
+              repellendus libero sint dolorem sit nostrum officiis alias quas.
+              Accusantium pariatur quidem numquam quasi asperiores, excepturi
+              voluptates accusamus eos aut quo?
+            </p>
+          </div>
+          <img
+            src={bannerNosotros}
+            alt="banner"
+            className={styles.imageAbout}
+          />
         </div>
       </div>
     </div>
