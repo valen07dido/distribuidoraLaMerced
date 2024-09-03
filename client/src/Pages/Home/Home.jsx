@@ -35,7 +35,11 @@ const Home = () => {
       </Carousel>
       <div className={styles.products}>
         <h1>Nuestros productos</h1>
-        <div className={styles.grid}>
+        <div
+          data-aos="fade-in" // AOS animation
+          data-aos-duration="1000" // Animation duration
+          className={styles.grid}
+        >
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
@@ -49,8 +53,12 @@ const Home = () => {
       </div>
       <div className={styles.about}>
         <div className={styles.flexAbout}>
-          <div className={styles.textCont}>
-        <h1 className={styles.titleAbout}>Un poco de nuestra historia</h1>
+          <div
+            data-aos="fade-right" // AOS animation
+            data-aos-duration="1000" // Animation duration
+            className={styles.textCont}
+          >
+            <h1 className={styles.titleAbout}>Un poco de nuestra historia</h1>
             <p className={styles.text}>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat
               atque nihil tenetur praesentium magnam ipsum consequatur tempore,
@@ -83,6 +91,8 @@ const Home = () => {
             </p>
           </div>
           <img
+            data-aos="fade-left" 
+            data-aos-duration="1000"
             src={bannerNosotros}
             alt="banner"
             className={styles.imageAbout}
