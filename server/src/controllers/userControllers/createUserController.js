@@ -8,7 +8,10 @@ const createUser = async (userData) => {
     // Verificar si el usuario ya existe por su correo electrónico
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      throw new Error("El correo ya está registrado.");
+      return {
+        error: true,
+        response: "El correo ya esta registrado",
+      };
     }
 
     // Hashear la contraseña
@@ -58,7 +61,10 @@ const createUser = async (userData) => {
 
     return newUser;
   } catch (error) {
-    throw new Error(error.message);
+    return {
+      error: true,
+      response: "Error al crear usuario.",
+    };
   }
 };
 

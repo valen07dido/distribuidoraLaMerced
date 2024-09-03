@@ -39,8 +39,10 @@ const wishlistController = async (userId, productId) => {
       return { response: "Producto añadido a la wishlist" };
     }
   } catch (error) {
-    console.error("Error en wishlistController:", error.message);
-    throw new Error(error.message);
+    return {
+      error: true,
+      response: "Campo de producto no válido para actualizar.",
+    };
   }
 };
 

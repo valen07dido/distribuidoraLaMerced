@@ -13,7 +13,6 @@ const createProduct = async ({
   stock,
 }) => {
   try {
-    // Verificar si el producto ya existe
     const existingProduct = await Product.findOne({ where: { name } });
     if (existingProduct) {
       throw new Error("El producto ya existe");
@@ -52,8 +51,10 @@ const createProduct = async ({
 
     return newProduct;
   } catch (error) {
-    console.error("Error al crear el producto:", error.message);
-    throw error;
+    return{
+      error:true,
+      response:"algo fallo!"
+  }
   }
 };
 

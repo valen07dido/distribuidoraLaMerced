@@ -12,7 +12,10 @@ const logoutUser = async (token) => {
       message: "Sesión cerrada exitosamente.",
     };
   } catch (error) {
-    throw new Error("Error cerrando sesión: " + error.message);
+    return {
+      error: true,
+      response: "Error al cerrar sesion",
+    };
   }
 };
 

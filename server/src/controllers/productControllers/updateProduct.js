@@ -30,12 +30,19 @@ const updateProductController = async (id, field, value) => {
         item.description = value;
         break;
       case "price":
-        if (isNaN(value)) throw new Error("El precio debe ser un número.");
+        if (isNaN(value))
+          return {
+            error: true,
+            response: "el precio debe ser numero",
+          };
         item.price = value;
         break;
       case "image": {
         if (!Array.isArray(value)) {
-          throw new Error("Las imágenes deben proporcionarse en un array.");
+          return {
+            error: true,
+            response: "Mal formato de imagen",
+          };
         }
 
         // Eliminar todas las imágenes existentes asociadas al producto
@@ -61,20 +68,31 @@ const updateProductController = async (id, field, value) => {
       }
       case "category": {
         //verificar categoria
-        const category = await ProductCategory.findOne({ where: {name} });
-        if (!category) throw new Error("Categoría no encontrada.");
+        const category = await ProductCategory.findOne({ where: { name } });
+        if (!category) {
+          return {
+            error: true,
+            response: "Categoría no encontrada.",
+          };
+        }
         item.categoryId = value;
         break;
       }
       default:
-        throw new Error("Campo de producto no válido para actualizar.");
+        return {
+          error: true,
+          response: "Campo de producto no válido para actualizar.",
+        };
     }
 
     await item.save();
 
     return { message: "Producto actualizado correctamente", item };
   } catch (error) {
-    throw new Error(error.message || "Error al actualizar el producto.");
+    return {
+      error: true,
+      response: "Error al actualizar el producto",
+    };
   }
 };
 
