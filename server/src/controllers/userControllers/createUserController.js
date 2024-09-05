@@ -5,7 +5,12 @@ const createUser = async (userData) => {
   try {
     const { name, surname, birthdate, email, telephone, password, roleId } = userData;
 
-    // Verificar si el usuario ya existe por su correo electrónico
+    if(!name||!surname||!birthdate||!email||!telephone||!password){
+      return{
+        error:true,
+        response:"Faltan datos"
+      }
+    }
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return {
@@ -14,12 +19,10 @@ const createUser = async (userData) => {
       };
     }
 
-    // Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 8);
 
     let assignedRoleId = roleId;
 
-    // Verificar si el rol proporcionado existe o usar el rol por defecto
     if (roleId) {
       const existingRole = await UserRole.findByPk(roleId);
       if (!existingRole) {
@@ -28,7 +31,6 @@ const createUser = async (userData) => {
       }
     }
 
-    // Usar `findOrCreate` para obtener o crear el rol por defecto "customer"
     if (!assignedRoleId) {
       const [defaultRole, created] = await UserRole.findOrCreate({
         where: { role_name: "customer" },
@@ -36,10 +38,9 @@ const createUser = async (userData) => {
           role_name: "customer",
         },
       });
-      assignedRoleId = defaultRole.id; // Asignar el id del rol por defecto "customer"
+      assignedRoleId = defaultRole.id; 
     }
 
-    // Crear el nuevo usuario con el rol asignado
     const newUser = await User.create({
       name,
       surname,

@@ -4,6 +4,12 @@ const { BlackListedTokens } = require("../../db");
 // Controlador para cerrar sesión (Logout)
 const logoutUser = async (token) => {
   try {
+    if(!token){
+      return {
+        error: true,
+        response: "No se recibio token",
+      };
+    }
     // Agregar el token a la lista negra
     await BlackListedTokens.create({ token });
 

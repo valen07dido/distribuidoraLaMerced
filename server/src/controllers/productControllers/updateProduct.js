@@ -1,4 +1,3 @@
-// controllers/productControllers/updateProductController.js
 const {
   Product,
   ProductImage,
@@ -8,20 +7,15 @@ const {
 
 const updateProductController = async (id, field, value) => {
   try {
-    console.log(`Field: ${field}, Value: ${value}, ID: ${id}`);
-
-    // Verificar que el ID sea del tipo esperado
     if (typeof id !== "string" && typeof id !== "number") {
       throw new Error("El ID proporcionado no es válido.");
     }
 
-    // Buscar el producto por su ID correctamente
     const item = await Product.findByPk(id);
     if (!item) {
-      throw new Error("No encontramos el producto a modificar");
+      throw new Error("No encontramos el producto a modificar.");
     }
 
-    // Validar y actualizar el campo especificado
     switch (field) {
       case "name":
         item.name = value;
@@ -33,7 +27,7 @@ const updateProductController = async (id, field, value) => {
         if (isNaN(value))
           return {
             error: true,
-            response: "el precio debe ser numero",
+            response: "El precio debe ser un número.",
           };
         item.price = value;
         break;
@@ -41,20 +35,18 @@ const updateProductController = async (id, field, value) => {
         if (!Array.isArray(value)) {
           return {
             error: true,
-            response: "Mal formato de imagen",
+            response: "Mal formato de imagen.",
           };
         }
 
-        // Eliminar todas las imágenes existentes asociadas al producto
         await ProductImage.destroy({ where: { ProductId: id } });
 
-        // Crear nuevas imágenes
         const imagePromises = value.map((imageUrl) =>
           ProductImage.create({ ProductId: id, address: imageUrl })
         );
         await Promise.all(imagePromises);
 
-        return { message: "Imágenes actualizadas correctamente" };
+        return { message: "Imágenes actualizadas correctamente." };
       }
       case "stock": {
         const stock = await ProductStock.findOne({ where: { ProductId: id } });
@@ -64,19 +56,22 @@ const updateProductController = async (id, field, value) => {
         } else {
           await ProductStock.create({ ProductId: id, amount: value });
         }
-        return { message: "Stock actualizado correctamente" };
+        return { message: "Stock actualizado correctamente." };
       }
       case "category": {
-        //verificar categoria
-        const category = await ProductCategory.findOne({ where: { name } });
+        const category = await ProductCategory.findOne({
+          where: { name: value },
+        });
+
         if (!category) {
-          return {
-            error: true,
-            response: "Categoría no encontrada.",
-          };
+          // Si no existe la categoría, creamos una nueva
+          const newCategory = await ProductCategory.create({ name: value });
+          await item.addProductCategory(newCategory); // Asocia la nueva categoría
+        } else {
+          // Asignamos la categoría existente
+          await item.addProductCategory(category);
         }
-        item.categoryId = value;
-        break;
+        return { message: "Categoría actualizada correctamente." };
       }
       default:
         return {
@@ -91,7 +86,7 @@ const updateProductController = async (id, field, value) => {
   } catch (error) {
     return {
       error: true,
-      response: "Error al actualizar el producto",
+      response: `${error.message}. Error al actualizar el producto.`,
     };
   }
 };

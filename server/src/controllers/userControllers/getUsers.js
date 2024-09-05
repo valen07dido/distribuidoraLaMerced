@@ -5,18 +5,17 @@ const getUsers = async () => {
   if (user.length === 0) {
     return {
       error: true,
-      response: `Users not found`,
+      response: `No existen usuarios.`,
     };
   }
   return user;
 };
 const getUsersByID = async (id) => {
   const user = await User.findByPk(id);
-
   if (!user) {
     return {
       error: true,
-      response: `User not found`,
+      response: `Ese usuario no existe`,
     };
   }
   return user;
