@@ -7,22 +7,58 @@ const {
 
 const getProducts = async (id) => {
   if (id) {
-    const product = await Product.findByPk(id);
-    if(!product){
-        return{
-            error:true,
-            response:"no existe producto con ese id"
-        }
+    const product = await Product.findByPk(id, {
+      include: [
+        {
+          model: ProductImage,
+          attributes: ["address"], // Incluir solo los campos relevantes
+        },
+        {
+          model: ProductStock,
+          attributes: ["amount"],
+        },
+        {
+          model: ProductCategory,
+          attributes: ["name"],
+          through: { attributes: [] }, // Evitar traer la tabla intermedia
+        },
+      ],
+    });
+
+    if (!product) {
+      return {
+        error: true,
+        response: "No existe producto con ese ID.",
+      };
     }
+
     return product;
   } else {
-    const products = await Product.findAll();
-    if(!products || products.length ===0){
-        return{
-            error:true,
-            response:"no hay productos creados"
-        }
+    const products = await Product.findAll({
+      include: [
+        {
+          model: ProductImage,
+          attributes: ["address"],
+        },
+        {
+          model: ProductStock,
+          attributes: ["amount"],
+        },
+        {
+          model: ProductCategory,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    if (!products || products.length === 0) {
+      return {
+        error: true,
+        response: "No hay productos creados.",
+      };
     }
+
     return products;
   }
 };
