@@ -91,13 +91,21 @@ const Home = () => {
             </p>
           </div>
           <img
-            data-aos="fade-left" 
+            data-aos="fade-left"
             data-aos-duration="1000"
             src={bannerNosotros}
             alt="banner"
             className={styles.imageAbout}
           />
         </div>
+      </div>
+      data-aos-duration="1000"
+      <div className={styles.contact} data-aos="zoom-in">
+        <h1>Queres ser distribuidor o comprar nuestros productos?</h1>
+        <h2 className={styles.contactLink}>
+          haz click <Link to="/contacto">aqui</Link> y enterate como unirte a
+          nosotros.
+        </h2>
       </div>
     </div>
   );
