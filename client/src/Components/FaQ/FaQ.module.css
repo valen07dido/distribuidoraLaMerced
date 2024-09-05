@@ -1,0 +1,38 @@
+.faqContainer {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #b19563;
+  border-radius: 25px;
+}
+
+.faqTitle {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.faqList {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  margin-bottom: 15px;
+}
+
+.faqQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: #eaeaea;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.faqAnswer {
+  margin-top: 10px;
+  padding-left: 15px;
+  font-size: 1rem;
+}

@@ -11,7 +11,7 @@ const getProducts = async (id) => {
       include: [
         {
           model: ProductImage,
-          attributes: ["address"], // Incluir solo los campos relevantes
+          attributes: ["address"], 
         },
         {
           model: ProductStock,
@@ -20,7 +20,7 @@ const getProducts = async (id) => {
         {
           model: ProductCategory,
           attributes: ["name"],
-          through: { attributes: [] }, // Evitar traer la tabla intermedia
+          through: { attributes: [] },
         },
       ],
     });

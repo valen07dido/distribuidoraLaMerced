@@ -105,6 +105,9 @@
 .contactLink{
   color: #f5f5f5;
 }
+.faqContainer{
+  width: 90%;
+}
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);

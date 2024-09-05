@@ -9,6 +9,7 @@ import carrousel2 from "../../../public/imagenes/banner2.jpg";
 import bannerNosotros from "../../../public/imagenes/banner-deleita.jpg";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import FAQ from "../../Components/FaQ/FaQ";
 
 const Home = () => {
   return (
@@ -36,8 +37,8 @@ const Home = () => {
       <div className={styles.products}>
         <h1>Nuestros productos</h1>
         <div
-          data-aos="fade-in" // AOS animation
-          data-aos-duration="1000" // Animation duration
+          data-aos="fade-in"
+          data-aos-duration="1000"
           className={styles.grid}
         >
           <Card image={prueba} title="Criadores" />
@@ -106,6 +107,9 @@ const Home = () => {
           haz click <Link to="/contacto">aqui</Link> y enterate como unirte a
           nosotros.
         </h2>
+      </div>
+      <div className={styles.faqContainer}>
+        <FAQ />
       </div>
     </div>
   );
