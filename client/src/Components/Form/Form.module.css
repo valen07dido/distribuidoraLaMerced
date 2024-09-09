@@ -1,0 +1,154 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 20px;
+  background-color: #b19563;
+  border-radius: 20px;
+}
+
+.title {
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.name {
+  font-size: 1.2em;
+}
+
+.containerNet {
+  display: flex;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid grey;
+  transition: 0.3s;
+}
+
+.inputGroup {
+  position: relative;
+  margin: 45px 0;
+}
+
+.inputGroup input {
+  width: 100%;
+  border-radius: 10px;
+  font-size: large;
+  color: #5a5a5a;
+  border: none;
+  border-bottom: 1px solid #5a5a5a;
+  padding: 10px 0;
+}
+
+.inputGroup label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 10px;
+  font-size: 18px;
+  color: #5a5a5a;
+  transition: 0.3s;
+}
+
+.inputGroup input:focus ~ label,
+.inputGroup input:valid ~ label {
+  top: -35px;
+  left: 0;
+  color: #ffffff;
+  font-size: 19px;
+}
+.form {
+  width: 700px;
+  border: solid 2px #ffff;
+  padding: 20px 20px;
+  border-radius: 10px;
+}
+.buttons {
+  font-size: 1.2rem;
+  background-color: black;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  border-radius: 10px;
+  border: none;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+.alert {
+  background-color: #b19563;
+  color: black;
+  border: 2px white solid;
+  border-radius: 20px;
+}
+.message {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 19px;
+  border-radius: 10px;
+}
+/*  */
+.inputGroupError {
+  position: relative;
+  margin: 45px 0;
+}
+
+.inputGroupError input {
+  width: 100%;
+  border-radius: 10px;
+  font-size: large;
+  color: red;
+  border: none;
+  border: 3px solid red;
+  margin-right: 50px;
+  padding: 10px 0;
+}
+
+.inputGroupError label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 10px;
+  font-size: 18px;
+  color: #5a5a5a;
+  transition: 0.3s;
+}
+
+.inputGroupError input:focus ~ label,
+.inputGroupError input:valid ~ label {
+  top: -35px;
+  left: 0;
+  color: red;
+  font-size: 19px;
+}
+.messageError {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 19px;
+  border-radius: 10px;
+  border: 3px solid red;
+}
+.error {
+  font-size: 19px;
+  color: red;
+}
+
+@media (width < 768px) {
+  .container {
+    width: 100%;
+  }
+  .form {
+    width: 100%;
+  }
+}
