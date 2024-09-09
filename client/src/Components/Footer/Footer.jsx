@@ -12,16 +12,16 @@ const Footer = () => {
         <img src={logo} alt="logo" className={styles.logo} />
         <div className={styles.LinkContainer}>
           <Link to="/" className={styles.text}>
-            Home
+            Inicio
           </Link>
           <Link to="/nosotros" className={styles.text}>
-            About
+            Nosotros
           </Link>
           <Link to="/contacto" className={styles.text}>
-            Contact
+            Contacto
           </Link>
         </div>
-        <div className={styles.LinkContainer}>
+        <div className={styles.LinkContainer1}>
           <Link to="" className={styles.text}>
             <FaInstagram /> Instagram
           </Link>

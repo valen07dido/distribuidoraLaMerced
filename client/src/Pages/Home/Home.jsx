@@ -92,7 +92,7 @@ const Home = () => {
             </p>
           </div>
           <img
-            data-aos="fade-left"
+            data-aos="fade-right"
             data-aos-duration="1000"
             src={bannerNosotros}
             alt="banner"
