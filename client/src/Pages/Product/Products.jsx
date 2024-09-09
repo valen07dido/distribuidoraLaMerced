@@ -92,9 +92,13 @@ const Products = () => {
       <h1>Productos</h1>
 
       {/* Filtros */}
-      <div>
+      <div className={styles.filter}>
         <label>Categoría:</label>
-        <select value={filters.category} onChange={handleCategoryChange}>
+        <select
+          value={filters.category}
+          onChange={handleCategoryChange}
+          className={styles.category}
+        >
           <option value="">Todas</option>
           <option value="category1">Categoría 1</option>
           <option value="category2">Categoría 2</option>
@@ -110,6 +114,7 @@ const Products = () => {
           onChange={(e) =>
             handlePriceRangeChange(e.target.value, filters.priceRange.max)
           }
+          className={styles.inputs}
         />
         <input
           type="number"
@@ -118,10 +123,10 @@ const Products = () => {
           onChange={(e) =>
             handlePriceRangeChange(filters.priceRange.min, e.target.value)
           }
+          className={styles.inputs}
         />
       </div>
 
-      {/* Productos */}
       {loading ? (
         <p>Cargando...</p>
       ) : (
@@ -145,13 +150,23 @@ const Products = () => {
         <button
           disabled={page === 1}
           onClick={() => handlePageChange(page - 1)}
+          className={
+            page ===1
+              ? styles.notAllowed
+              : styles.pagination
+          }
         >
           Anterior
         </button>
-        <span>Página {page}</span>
+        <span className={styles.page}>Página {page}</span>
         <button
           disabled={page * pageSize >= filteredProducts.length}
           onClick={() => handlePageChange(page + 1)}
+          className={
+            page * pageSize >= filteredProducts.length
+              ? styles.notAllowed
+              : styles.pagination
+          }
         >
           Siguiente
         </button>
