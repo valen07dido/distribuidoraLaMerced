@@ -39,10 +39,10 @@ const Footer = () => {
           </p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13375.94403208508!2d-61.1637438!3d-33.0568352!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7d3f1b754a959%3A0x8e50043216d83a40!2sDistribuidora%20%22La%20Merced%E2%80%9D%20-%20Alimento%20Balanceado!5e0!3m2!1ses!2sar!4v1725640863637!5m2!1ses!2sar"
-            allowfullscreen=""
+            allowFullScreen
+            referrerPolicy="no-referrer"
             loading="lazy"
             className={styles.map}
-            referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>
