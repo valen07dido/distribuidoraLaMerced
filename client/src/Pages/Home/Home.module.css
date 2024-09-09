@@ -56,7 +56,11 @@
 }
 
 .about {
-  background-color: #b19563;
+  background-image: url("../../../public/imagenes/cute-dog-park.jpg");
+  background-position: center;
+  background-size: cover; /* Cambia de contain a cover para asegurar que la imagen cubra el contenedor */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   margin: 10px 0;
   border-radius: 25px;
   width: 90%;
@@ -68,16 +72,17 @@
 
 .flexAbout {
   display: flex;
-  justify-content: center;
+  justify-content: end; /* Cambia de end a center para alinear la imagen y el texto centrados */
   align-items: center;
   width: 100%;
+  gap: 20px; /* Añade espacio entre la imagen y el texto */
 }
 
 .imageAbout {
-  width: 40%;
-  height: 90%;
+  width: 40%; /* Aumenta el ancho para que la imagen sea más grande */
+  height: auto; /* Ajusta la altura automáticamente */
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 20px 20px 20px 0 ;
 }
 
 .textCont {

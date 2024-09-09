@@ -14,6 +14,7 @@ import FAQ from "../../Components/FaQ/FaQ";
 const Home = () => {
   return (
     <div className={styles.container}>
+      {/* Carrusel de imágenes */}
       <Carousel
         autoPlay
         infiniteLoop={true}
@@ -28,23 +29,23 @@ const Home = () => {
         className={styles.carousel}
       >
         <div>
-          <img src={carrousel1} alt="Banner 1" className={styles.carouselImg} />
+          <img src={carrousel1} alt="Primer banner promocional" className={styles.carouselImg} />
         </div>
         <div>
-          <img src={carrousel2} alt="Banner 2" className={styles.carouselImg} />
+          <img src={carrousel2} alt="Segundo banner promocional" className={styles.carouselImg} />
         </div>
       </Carousel>
+
+      {/* Sección de productos */}
       <div className={styles.products}>
         <h1>Nuestros productos</h1>
-        <div
-          data-aos="fade-in"
-          data-aos-duration="1000"
-          className={styles.grid}
-        >
+        <div data-aos="fade-in" data-aos-duration="1000" className={styles.grid}>
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
           <Card image={prueba} title="Criadores" />
         </div>
+
+        {/* Botón para más productos */}
         <div className={styles.more}>
           <Link to="/productos" className={styles.links}>
             <IoIosArrowDown />
@@ -52,62 +53,29 @@ const Home = () => {
           </Link>
         </div>
       </div>
+
+      {/* Sección "Sobre nosotros" */}
       <div className={styles.about}>
         <div className={styles.flexAbout}>
-          <div
-            data-aos="fade-right" // AOS animation
-            data-aos-duration="1000" // Animation duration
-            className={styles.textCont}
-          >
-            <h1 className={styles.titleAbout}>Un poco de nuestra historia</h1>
-            <p className={styles.text}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat
-              atque nihil tenetur praesentium magnam ipsum consequatur tempore,
-              fugit quasi adipisci ducimus. Doloremque nulla at, veritatis iste
-              voluptate nam molestias sunt!
-            </p>
-            <p className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
-              repellendus libero sint dolorem sit nostrum officiis alias quas.
-              Accusantium pariatur quidem numquam quasi asperiores, excepturi
-              voluptates accusamus eos aut quo?
-            </p>
-            <p className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
-              repellendus libero sint dolorem sit nostrum officiis alias quas.
-              Accusantium pariatur quidem numquam quasi asperiores, excepturi
-              voluptates accusamus eos aut quo?
-            </p>
-            <p className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
-              repellendus libero sint dolorem sit nostrum officiis alias quas.
-              Accusantium pariatur quidem numquam quasi asperiores, excepturi
-              voluptates accusamus eos aut quo?
-            </p>
-            <p className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi,
-              repellendus libero sint dolorem sit nostrum officiis alias quas.
-              Accusantium pariatur quidem numquam quasi asperiores, excepturi
-              voluptates accusamus eos aut quo?
-            </p>
-          </div>
           <img
             data-aos="fade-right"
             data-aos-duration="1000"
             src={bannerNosotros}
-            alt="banner"
+            alt="Sobre nosotros, banner informativo"
             className={styles.imageAbout}
           />
         </div>
       </div>
-      data-aos-duration="1000"
+
+      {/* Sección de contacto */}
       <div className={styles.contact} data-aos="zoom-in">
-        <h1>Queres ser distribuidor o comprar nuestros productos?</h1>
-        <h2 className={styles.contactLink}>
-          haz click <Link to="/contacto">aqui</Link> y enterate como unirte a
-          nosotros.
+        <h1>¿Quieres ser distribuidor o comprar nuestros productos?</h1>
+        <h2>
+          Haz clic <Link to="/contacto" className={styles.contactLink}>aquí</Link> y entérate de cómo unirte a nosotros.
         </h2>
       </div>
+
+      {/* Sección de preguntas frecuentes */}
       <div className={styles.faqContainer}>
         <FAQ />
       </div>
