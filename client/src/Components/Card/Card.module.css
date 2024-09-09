@@ -19,3 +19,11 @@
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 720px) {
+  .container {
+    width: 80%;
+  }
+  .img {
+    width: 250px;
+  }
+}
