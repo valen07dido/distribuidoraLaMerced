@@ -5,16 +5,17 @@ import { Link } from "react-router-dom";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Products = () => {
-  const [products, setProducts] = useState([]); // Todos los productos
-  const [filteredProducts, setFilteredProducts] = useState([]); // Productos filtrados
-  const [categories, setCategories] = useState([]); // Categorías únicas
-  const [page, setPage] = useState(1); // Página actual
-  const [pageSize, setPageSize] = useState(6); // Cantidad por página
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [types, setTypes] = useState([]); // Tipos únicos
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
   const [filters, setFilters] = useState({
     category: "",
-    priceRange: { min: 0, max: 50000 },
-  }); // Filtros
-  const [loading, setLoading] = useState(false); // Loading state
+    type: "", // Filtro para tipos
+  });
+  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -22,8 +23,8 @@ const Products = () => {
       const response = await fetch(`${url}/product`);
       const data = await response.json();
       setProducts(data);
-      setFilteredProducts(data); // Inicialmente todos los productos están filtrados
-      extractUniqueCategories(data); // Extraer categorías únicas
+      setFilteredProducts(data);
+      extractUniqueCategoriesAndTypes(data);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -31,25 +32,28 @@ const Products = () => {
     }
   };
 
-  // Llamada a la API cuando se carga el componente
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  // Función para extraer categorías únicas de los productos
-  const extractUniqueCategories = (products) => {
+  const extractUniqueCategoriesAndTypes = (products) => {
     const allCategories = products.flatMap((product) =>
       product.ProductCategories.map((category) => category.name)
     );
-    const uniqueCategories = [...new Set(allCategories)]; // Filtrar únicas
-    setCategories(uniqueCategories); // Guardar las categorías únicas
+    const uniqueCategories = [...new Set(allCategories)];
+
+    const allTypes = products.flatMap((product) =>
+      product.ProductTypes.map((type) => type.name)
+    );
+    const uniqueTypes = [...new Set(allTypes)];
+
+    setCategories(uniqueCategories);
+    setTypes(uniqueTypes);
   };
 
-  // Filtrar productos por categoría y rango de precios
   const applyFilters = () => {
     let filtered = products;
 
-    // Filtro de categoría
     if (filters.category) {
       filtered = filtered.filter((product) =>
         product.ProductCategories.some(
@@ -58,24 +62,25 @@ const Products = () => {
       );
     }
 
-    // Puedes implementar un filtro por precio aquí si tus productos incluyen un campo de precio
+    if (filters.type) {
+      filtered = filtered.filter((product) =>
+        product.ProductTypes.some((type) => type.name === filters.type)
+      );
+    }
 
     setFilteredProducts(filtered);
-    setPage(1); // Reiniciar a la página 1 después de aplicar los filtros
+    setPage(1);
   };
 
-  // Actualizar productos filtrados cuando cambien los filtros
   useEffect(() => {
     applyFilters();
   }, [filters, products]);
 
-  // Paginación
   const paginatedProducts = filteredProducts.slice(
     (page - 1) * pageSize,
     page * pageSize
   );
 
-  // Funciones para manejar los filtros
   const handleCategoryChange = (e) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -83,14 +88,6 @@ const Products = () => {
     }));
   };
 
-  const handlePriceRangeChange = (min, max) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      priceRange: { min, max },
-    }));
-  };
-
-  // Cambiar página
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -115,25 +112,24 @@ const Products = () => {
           ))}
         </select>
 
-        <label>Rango de precios:</label>
-        <input
-          type="number"
-          placeholder="Min"
-          value={filters.priceRange.min}
+        <label>Tipo:</label>
+        <select
+          value={filters.type}
           onChange={(e) =>
-            handlePriceRangeChange(e.target.value, filters.priceRange.max)
+            setFilters((prevFilters) => ({
+              ...prevFilters,
+              type: e.target.value,
+            }))
           }
-          className={styles.inputs}
-        />
-        <input
-          type="number"
-          placeholder="Max"
-          value={filters.priceRange.max}
-          onChange={(e) =>
-            handlePriceRangeChange(filters.priceRange.min, e.target.value)
-          }
-          className={styles.inputs}
-        />
+          className={styles.category}
+        >
+          <option value="">Todos</option>
+          {types.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </div>
 
       {loading ? (
@@ -149,6 +145,7 @@ const Products = () => {
                       image={product.ProductImages[0]?.address || ""}
                       name={product.name}
                       category={product.ProductCategories[0]}
+                      type={product.ProductTypes[0]}
                     />
                   </div>
                 </Link>
