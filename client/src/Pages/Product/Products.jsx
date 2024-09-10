@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import productos from "../../../utils/products"; // Asegúrate de la ruta correcta
 import styles from "./Product.module.css";
 import Card from "../../Components/Card/Card";
+import { Link } from "react-router-dom";
+const url = import.meta.env.VITE_URL_BACKEND;
 
 const Products = () => {
   const [products, setProducts] = useState([]); // Todos los productos
   const [filteredProducts, setFilteredProducts] = useState([]); // Productos filtrados
+  const [categories, setCategories] = useState([]); // Categorías únicas
   const [page, setPage] = useState(1); // Página actual
   const [pageSize, setPageSize] = useState(6); // Cantidad por página
   const [filters, setFilters] = useState({
@@ -14,16 +16,14 @@ const Products = () => {
   }); // Filtros
   const [loading, setLoading] = useState(false); // Loading state
 
-  // Simular la llamada al backend
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      if (productos.length > 0) {
-        setProducts(productos); // Guardar los productos
-        setFilteredProducts(productos); // Inicialmente, mostrar todos los productos
-      } else {
-        console.error("No products found");
-      }
+      const response = await fetch(`${url}/product`);
+      const data = await response.json();
+      setProducts(data);
+      setFilteredProducts(data); // Inicialmente todos los productos están filtrados
+      extractUniqueCategories(data); // Extraer categorías únicas
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -36,21 +36,29 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  // Función para extraer categorías únicas de los productos
+  const extractUniqueCategories = (products) => {
+    const allCategories = products.flatMap((product) =>
+      product.ProductCategories.map((category) => category.name)
+    );
+    const uniqueCategories = [...new Set(allCategories)]; // Filtrar únicas
+    setCategories(uniqueCategories); // Guardar las categorías únicas
+  };
+
   // Filtrar productos por categoría y rango de precios
   const applyFilters = () => {
     let filtered = products;
 
+    // Filtro de categoría
     if (filters.category) {
-      filtered = filtered.filter(
-        (product) => product.category === filters.category
+      filtered = filtered.filter((product) =>
+        product.ProductCategories.some(
+          (category) => category.name === filters.category
+        )
       );
     }
 
-    filtered = filtered.filter(
-      (product) =>
-        product.price >= filters.priceRange.min &&
-        product.price <= filters.priceRange.max
-    );
+    // Puedes implementar un filtro por precio aquí si tus productos incluyen un campo de precio
 
     setFilteredProducts(filtered);
     setPage(1); // Reiniciar a la página 1 después de aplicar los filtros
@@ -100,10 +108,11 @@ const Products = () => {
           className={styles.category}
         >
           <option value="">Todas</option>
-          <option value="category1">Categoría 1</option>
-          <option value="category2">Categoría 2</option>
-          <option value="cachorro">cachorro</option>
-          <option value="cachorrito">cachorrito</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
 
         <label>Rango de precios:</label>
@@ -134,9 +143,15 @@ const Products = () => {
           <div className={styles.grid}>
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (
-                <div key={product.id}>
-                  <Card image={product.image} title={product.title} />
-                </div>
+                <Link to={`/productos/${product.id}`} className={styles.card}>
+                  <div key={product.id}>
+                    <Card
+                      image={product.ProductImages[0]?.address || ""}
+                      name={product.name}
+                      category={product.ProductCategories[0]}
+                    />
+                  </div>
+                </Link>
               ))
             ) : (
               <p>No se encontraron productos.</p>
@@ -150,11 +165,7 @@ const Products = () => {
         <button
           disabled={page === 1}
           onClick={() => handlePageChange(page - 1)}
-          className={
-            page ===1
-              ? styles.notAllowed
-              : styles.pagination
-          }
+          className={page === 1 ? styles.notAllowed : styles.pagination}
         >
           Anterior
         </button>

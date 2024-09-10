@@ -12,6 +12,8 @@
   justify-items: center;
   align-items: start;
   gap: 10px;
+
+  text-decoration: none;
 }
 .filter {
   width: 100%;
@@ -22,6 +24,7 @@
   align-items: center;
   font-size: large;
   background-color: #b19563;
+  border-radius: 5px;
 }
 .category {
   width: 150px;
@@ -29,6 +32,9 @@
   font-size: large;
   border-radius: 5px;
   margin: 10px;
+}
+.card{
+  text-decoration: none;
 }
 .inputs {
   width: 150px;
