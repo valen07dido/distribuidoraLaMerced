@@ -3,6 +3,7 @@ const {
   ProductImage,
   ProductStock,
   ProductCategory,
+  ProductType,
 } = require("../../db");
 
 const getProducts = async (id) => {
@@ -11,7 +12,7 @@ const getProducts = async (id) => {
       include: [
         {
           model: ProductImage,
-          attributes: ["address"], 
+          attributes: ["address"],
         },
         {
           model: ProductStock,
@@ -19,6 +20,11 @@ const getProducts = async (id) => {
         },
         {
           model: ProductCategory,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: ProductType,
           attributes: ["name"],
           through: { attributes: [] },
         },
@@ -46,6 +52,11 @@ const getProducts = async (id) => {
         },
         {
           model: ProductCategory,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: ProductType,
           attributes: ["name"],
           through: { attributes: [] },
         },

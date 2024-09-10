@@ -3,12 +3,14 @@ const {
   ProductImage,
   ProductStock,
   ProductCategory,
+  ProductType
 } = require("../../db");
 
 const createProduct = async ({
   name,
   description,
   categoryName,
+  typeName,
   images,
   stock,
 }) => {
@@ -21,6 +23,9 @@ const createProduct = async ({
     const [category, created] = await ProductCategory.findOrCreate({
       where: { name: categoryName },
     });
+    const [type] = await ProductType.findOrCreate({
+      where: { name: typeName },
+    });
 
     const newProduct = await Product.create({
       name,
@@ -28,6 +33,7 @@ const createProduct = async ({
     });
 
     await newProduct.addProductCategory(category);
+    await newProduct.addProductType(type)
 
     if (images && images.length > 0) {
       const productImages = images.map((imageAddress) => ({
