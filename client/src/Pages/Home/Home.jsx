@@ -40,9 +40,9 @@ const Home = () => {
       <div className={styles.products}>
         <h1>Nuestros productos</h1>
         <div data-aos="fade-in" data-aos-duration="1000" className={styles.grid}>
-          <Card image={prueba} title="Criadores" />
-          <Card image={prueba} title="Criadores" />
-          <Card image={prueba} title="Criadores" />
+          <Card image={prueba} name="Criadores" />
+          <Card image={prueba} name="Criadores" />
+          <Card image={prueba} name="Criadores" />
         </div>
 
         {/* Botón para más productos */}

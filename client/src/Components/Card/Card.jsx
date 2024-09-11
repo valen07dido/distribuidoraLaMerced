@@ -17,9 +17,10 @@ const Card = ({ image, name, category, type }) => {
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <img src={image} className={styles.img} alt={name} />
-        {/* Miga de pan (categoría) sobre la imagen */}
-        <div className={styles.breadcrumb}>{category.name}</div>{" "}
-        <div className={styles.breadcrumb2}>{type.name}</div>
+        {category ? (
+          <div className={styles.breadcrumb}>{category.name}</div>
+        ) : null}
+        {type ? <div className={styles.breadcrumb2}>{type.name}</div> : null}
       </div>
       <div>
         <h1 className={styles.description}>{name}</h1>

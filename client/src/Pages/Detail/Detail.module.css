@@ -1,0 +1,47 @@
+.container {
+  padding: 60px 20px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+}
+.imageContainer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.mainImageContainer {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.mainImage {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.thumbnail:hover {
+  border: 2px solid #ccc;
+}
+
+.activeThumbnail {
+  border: 2px solid #007bff;
+}

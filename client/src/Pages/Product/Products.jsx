@@ -96,7 +96,6 @@ const Products = () => {
     <div className={styles.container}>
       <h1>Productos</h1>
 
-      {/* Filtros */}
       <div className={styles.filter}>
         <label>Categoría:</label>
         <select
