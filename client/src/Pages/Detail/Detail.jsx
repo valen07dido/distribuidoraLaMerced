@@ -55,9 +55,9 @@ const Detail = () => {
             ))}
         </div>
       </div>
-      <div>
+      <div className={styles.flex2}>
         <h1>{data.name}</h1>
-        <p>{data.description}</p>
+        <p className={styles.description}>{data.description}</p>
 
         {/* Mostrar imagen principal */}
 

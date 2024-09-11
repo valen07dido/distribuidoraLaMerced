@@ -3,10 +3,17 @@
   background-color: red;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .imageContainer {
+  margin-left: -80px;
   display: flex;
   flex-direction: row-reverse;
+  width: 50%;
+}
+.flex2{
+  width: 80%;
 }
 .mainImageContainer {
   width: 100%;
@@ -44,4 +51,7 @@
 
 .activeThumbnail {
   border: 2px solid #007bff;
+}
+.description{
+  width: 100%;
 }
