@@ -11,16 +11,16 @@
   height: auto;
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 0%,
-    black 20%,
-    black 80%,
+    transparent 00%,
+    black 5%,
+    black 95%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    black 20%,
-    black 80%,
+    black 5%,
+    black 95%,
     transparent 100%
   );
 }
@@ -32,7 +32,6 @@
   justify-content: center;
   align-items: center;
   width: 90%;
-  background: radial-gradient(#b19563, #000 50%);
   border-radius: 25px;
 }
 

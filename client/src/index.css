@@ -5,7 +5,18 @@
   font-style: normal;
 }
 body {
-  background-color: #000;
+  background: -webkit-linear-gradient(
+    324deg,
+    #d4e49d,
+    #676d3e,
+    #61684b
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    324deg,
+    #d4e49d,
+    #676d3e,
+    #61684b
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   font-family: "gothamMedium", sans-serif;
 }
 h1 {
