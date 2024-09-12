@@ -20,14 +20,14 @@ const Navbar = () => {
         <Link to="/productos" className={styles.links} onClick={toggleMenu}>
           Productos
         </Link>
+        <Link to="/beneficios" className={styles.links} onClick={toggleMenu}>
+          Beneficios
+        </Link>
         <Link to="/nosotros" className={styles.links} onClick={toggleMenu}>
           Nosotros
         </Link>
         <Link to="/contacto" className={styles.links} onClick={toggleMenu}>
           Contáctanos
-        </Link>
-        <Link to="/registrarse" className={styles.links} onClick={toggleMenu}>
-          Registrarse
         </Link>
       </div>
       <div className={styles.flex2}>

@@ -1,5 +1,6 @@
 .container {
-  width: 90%;
+  width: 350px;
+  height: 450px;
   background-color: #b19563;
   padding: 10px;
   display: flex;
@@ -43,6 +44,7 @@
   font-size: x-large;
   margin-top: 10px;
   text-align: center;
+  height: 50px;
 }
 .comunication {
   display: flex;

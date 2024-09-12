@@ -3,12 +3,26 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 65px 20px;
+  padding: 65px 0px;
 }
 
 .carousel {
-  width: 110%;
+  width: 100%;
   height: auto;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
 }
 
 .products {
@@ -18,7 +32,7 @@
   justify-content: center;
   align-items: center;
   width: 90%;
-  background-color: #b19563;
+  background: radial-gradient(#b19563, #000 50%);
   border-radius: 25px;
 }
 
@@ -56,10 +70,7 @@
 }
 
 .about {
-  background-image: url("../../../public/imagenes/cute-dog-park.jpg");
-  background-position: center;
-  background-size: cover; /* Cambia de contain a cover para asegurar que la imagen cubra el contenedor */
-  background-repeat: no-repeat;
+  position: relative; /* Para que el pseudo-elemento esté dentro del contenedor */
   background-attachment: fixed;
   margin: 10px 0;
   border-radius: 25px;
@@ -68,6 +79,24 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  /* Aplica un gradiente en el fondo para hacer el efecto de difuminado */
+  background: rgba(0, 0, 0, 0.5)
+    url("../../../public/imagenes/cute-dog-park.jpg");
+  background-blend-mode: darken;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  transition: 1s;
+}
+.about:hover {
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
+    url("../../../public/imagenes/cute-dog-park.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .flexAbout {
@@ -82,7 +111,7 @@
   width: 40%; /* Aumenta el ancho para que la imagen sea más grande */
   height: auto; /* Ajusta la altura automáticamente */
   border-radius: 10px;
-  margin: 20px 20px 20px 0 ;
+  margin: 20px 20px 20px 0;
 }
 
 .textCont {
@@ -113,7 +142,7 @@
 .faqContainer {
   width: 90%;
 }
-.cardLink{
+.cardLink {
   text-decoration: none;
 }
 

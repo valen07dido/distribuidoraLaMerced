@@ -15,21 +15,24 @@ const url = import.meta.env.VITE_URL_BACKEND;
 const Home = () => {
   const [products, setProducts] = useState([]);
   const cardToSee = 3;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProducts();
   }, []);
 
   const getProducts = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        setProducts([{
-          name: "No existen productos",
-          image: "url",
-        }]);
+        return (
+          <div>
+            <h1>Por Favor Cree un producto</h1>
+          </div>
+        );
       } else {
         // Suponiendo que cada producto tiene una propiedad `createdAt` para ordenar por fecha de creación
         const sortedProducts = data.sort(
@@ -38,6 +41,7 @@ const Home = () => {
 
         // Selecciona los últimos 3 productos
         setProducts(sortedProducts.slice(0, 3));
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error al obtener los productos", error);
@@ -76,28 +80,40 @@ const Home = () => {
       </Carousel>
 
       {/* Sección de productos */}
-      <div className={styles.products}>
-        <h1>Nuestros productos</h1>
-        <div
-          data-aos="fade-in"
-          data-aos-duration="1000"
-          className={styles.grid}
-        >
-          {products.map((product, index) => (
-            <Link to={`/productos/${product.id}`} className={styles.cardLink}>
-            <Card key={index} image={product.image || prueba} name={product.name} />
-            </Link>
-          ))}
-        </div>
+      {loading ? (
+        <h1>Cargando...</h1>
+      ) : (
+        <div className={styles.products}>
+          <h1>Nuestros productos</h1>
+          <div
+            data-aos="fade-in"
+            data-aos-duration="1000"
+            className={styles.grid}
+          >
+            {products.map((product, index) => (
+              <Link
+                to={`/productos/${product.id}`}
+                className={styles.cardLink}
+                key={index}
+              >
+                <Card
+                  key={index}
+                  image={product.image || prueba}
+                  name={product.name}
+                />
+              </Link>
+            ))}
+          </div>
 
-        {/* Botón para más productos */}
-        <div className={styles.more}>
-          <Link to="/productos" className={styles.links}>
-            <IoIosArrowDown />
-            Conoce todos nuestros productos
-          </Link>
+          {/* Botón para más productos */}
+          <div className={styles.more}>
+            <Link to="/productos" className={styles.links}>
+              <IoIosArrowDown />
+              Conoce todos nuestros productos
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Sección "Sobre nosotros" */}
       <div className={styles.about}>
@@ -113,13 +129,17 @@ const Home = () => {
       </div>
 
       {/* Sección de contacto */}
-      <div className={styles.contact} data-aos="zoom-in">
+      <div
+        className={styles.contact}
+        data-aos="fade-right"
+        data-aos-duration="1000"
+      >
         <h1>¿Quieres ser distribuidor o comprar nuestros productos?</h1>
         <h2>
-          Haz clic
+          Haz clic{" "}
           <Link to="/contacto" className={styles.contactLink}>
             aquí
-          </Link>
+          </Link>{" "}
           y entérate de cómo unirte a nosotros.
         </h2>
       </div>
