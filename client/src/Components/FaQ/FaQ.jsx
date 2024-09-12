@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./FAQ.module.css";
+import styles from "./FaQ.module.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const FAQ = () => {
