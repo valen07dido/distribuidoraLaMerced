@@ -33,10 +33,16 @@
   border-radius: 5px;
   font-size: 0.9em;
 }
-.description {
+.flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
   font-size: x-large;
-  color: #001700;
   margin-top: 10px;
+  text-align: center;
 }
 .comunication {
   display: flex;
@@ -54,6 +60,7 @@
   background-color: #25d366;
   cursor: pointer;
 }
+
 @media (max-width: 720px) {
   .container {
     width: 80%;

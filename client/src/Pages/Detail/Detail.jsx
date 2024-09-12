@@ -12,7 +12,7 @@ const Detail = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`${url}/product/${id}`);
+      const response = await fetch(`${url}/products/${id}`);
       const data = await response.json();
       setData(data);
       if (data.ProductImages && data.ProductImages.length > 0) {

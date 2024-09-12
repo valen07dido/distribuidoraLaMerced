@@ -20,7 +20,7 @@ const Products = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${url}/product`);
+      const response = await fetch(`${url}/products`);
       const data = await response.json();
       setProducts(data);
       setFilteredProducts(data);

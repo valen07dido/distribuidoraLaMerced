@@ -22,8 +22,8 @@ const Card = ({ image, name, category, type }) => {
         ) : null}
         {type ? <div className={styles.breadcrumb2}>{type.name}</div> : null}
       </div>
-      <div>
-        <h1 className={styles.description}>{name}</h1>
+      <div className={styles.flex}>
+        <h1 className={styles.title}>{name}</h1>
         <div className={styles.comunication} onClick={handleWhatsAppClick}>
           <PiWhatsappLogo /> <h3>Consultar</h3>
         </div>

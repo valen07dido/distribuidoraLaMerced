@@ -7,6 +7,6 @@ const mainRouter = Router();
 
 mainRouter.use("/users", userRouter);
 mainRouter.use("/sesion", sesionRouter);
-mainRouter.use("/product", productRouter);
+mainRouter.use("/products", productRouter);
 mainRouter.use("/send", PostMessage);
 module.exports = mainRouter;
