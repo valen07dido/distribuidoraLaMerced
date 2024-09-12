@@ -10,7 +10,7 @@ const {
 } = require("../../handlers/productHandlers/updateProductHandler.js");
 const {
   wishlistHandler,
-} = require("../../handlers/productHandlers/wishlistHandler");
+} = require("../../handlers/productHandlers/WishlistHandler");
 const { isAuthenticated } = require("../../middlewares/Authentication");
 
 const useRouter = Router();
@@ -20,4 +20,5 @@ useRouter.get("/:id", getProductHandler);
 useRouter.post("/create", isAuthenticated, createProductHandler);
 useRouter.put("/update/:id", updateProductHandler);
 useRouter.post("/wishlist/:id", wishlistHandler);
+
 module.exports = useRouter;
