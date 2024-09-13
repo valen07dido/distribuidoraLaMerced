@@ -65,6 +65,7 @@ const loginUser = async (user, password) => {
       tokenSession,
       userId: user.id,
       user: `${user.name} ${user.surname}`,
+      role: userRole.role_name
     };
   } catch (error) {
     console.error(error);
