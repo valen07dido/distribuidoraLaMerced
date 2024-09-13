@@ -4,7 +4,6 @@
   align-items: center;
   height: 65px;
   width: 100%;
-  /* !TODO: cambiar opacidad */
   background-color: #00170027;
   margin: 0;
   padding: 0 10px;
@@ -22,6 +21,9 @@
   justify-content: space-evenly;
   width: 50%;
   transition: max-height 0.3s ease-in-out;
+}
+.flex2{
+  display: flex;
 }
 
 .menuButton {
@@ -71,7 +73,21 @@
 .links:hover::before {
   transform: scaleX(1);
 }
-
+.username{
+  color: #f5f5f5;
+  cursor: pointer;
+}
+.userContainer{
+  display: flex;
+}
+.userPanel{
+  gap: 10px;
+  background-color: #b19563;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+}
 @media (max-width: 768px) {
   .flex1 {
     display: flex;

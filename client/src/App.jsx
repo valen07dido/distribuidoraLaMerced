@@ -7,7 +7,7 @@ import Contact from "./Pages/Contact/Contact";
 import Products from "./Pages/Product/Products";
 import Footer from "./Components/Footer/Footer";
 import Detail from "./Pages/Detail/Detail";
-import Benefits from "./Pages/Benefits/Benefits"
+import Benefits from "./Pages/Benefits/Benefits";
 function App() {
   return (
     <Router>

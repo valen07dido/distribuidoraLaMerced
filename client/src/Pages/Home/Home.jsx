@@ -10,11 +10,11 @@ import bannerNosotros from "../../../public/imagenes/banner-deleita.jpg";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import FAQ from "../../Components/FaQ/FaQ";
+import Loading from "../../Components/Loading/Loading";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const cardToSee = 3;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -78,10 +78,10 @@ const Home = () => {
           />
         </div>
       </Carousel>
-
+      
       {/* Sección de productos */}
       {loading ? (
-        <h1>Cargando...</h1>
+        <Loading />
       ) : (
         <div className={styles.products}>
           <h1>Nuestros productos</h1>

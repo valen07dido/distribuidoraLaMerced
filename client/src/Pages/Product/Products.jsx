@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Product.module.css";
 import Card from "../../Components/Card/Card";
 import { Link } from "react-router-dom";
+import Loading from "../../Components/Loading/Loading";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Products = () => {
@@ -132,7 +133,7 @@ const Products = () => {
       </div>
 
       {loading ? (
-        <p>Cargando...</p>
+        <Loading/>
       ) : (
         <div>
           <div className={styles.grid}>
