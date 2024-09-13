@@ -102,7 +102,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {isLoginPopupOpen && <LoginPopup onLoginSuccess={handleLoginSuccess} />}
+      {isLoginPopupOpen && <LoginPopup onLoginSuccess={handleLoginSuccess}  toggleLoginPopup={toggleLoginPopup}/>}
     </>
   );
 };

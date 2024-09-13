@@ -3,12 +3,13 @@ import styles from "./LoginPopup.module.css"; // Estilos para el popup
 const url = import.meta.env.VITE_URL_BACKEND;
 const key = import.meta.env.VITE_SECRET_KEY;
 import CryptoJS from "crypto-js";
-import getDecryptedData from "../../../utils/getDecryptedData";
+
 const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  console.log(username)
+  const [showRegister, setShowRegister] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,12 +33,19 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       localStorage.setItem("tokenSession", encryptedToken);
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
-      onLoginSuccess(result.user); 
+      onLoginSuccess(result.user);
+      toggleLoginPopup();
     } else {
       console.error("Error al iniciar sesión");
     }
+  };
 
-    toggleLoginPopup(); 
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+  };
+
+  const handleBackToLoginClick = () => {
+    setShowRegister(false);
   };
 
   return (
@@ -46,32 +54,83 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
         <button className={styles.closeButton} onClick={toggleLoginPopup}>
           &times;
         </button>
-        <h2>Iniciar Sesión</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className={styles.submitButton}>
-            Ingresar
-          </button>
-        </form>
+        <div className={styles.formData}>
+          {showRegister ? (
+            <>
+              <h2>Registro</h2>
+              <form className={styles.form}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="username">Nombre de usuario:</label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="password">Contraseña:</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <button type="submit" className={styles.submitButton}>
+                  Registrarse
+                </button>
+                <button type="button" onClick={handleBackToLoginClick}>
+                  Volver al Login
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <h2>Iniciar Sesión</h2>
+              <form onSubmit={handleSubmit} className={styles.form}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="password">Contraseña:</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <button type="submit" className={styles.submitButton}>
+                  Ingresar
+                </button>
+                <button type="button" onClick={handleRegisterClick}>
+                  ¿No tienes cuenta? Regístrate
+                </button>
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
