@@ -87,3 +87,9 @@ h2 {
   justify-content: center;
   align-items: center;
 }
+.alert {
+  background-color: #b19563;
+  color: black;
+  border: 2px white solid;
+  border-radius: 20px;
+}
