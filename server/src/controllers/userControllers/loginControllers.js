@@ -8,9 +8,8 @@ const secret = process.env.SECRET_KEY;
 const loginUser = async (user, password) => {
   try {
     const userCredentials = await UserCredentials.findOne({
-      where: { id: user.id },
+      where: { UserId: user.id },
     });
-
     if (!userCredentials) {
       return {
         error: true,

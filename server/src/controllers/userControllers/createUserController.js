@@ -55,8 +55,14 @@ const createUser = async (userData) => {
       telephone,
       isActive: false,
       isVerified: false,
-      password: hashedPassword,
       rolId: assignedRoleId,
+    });
+
+    // Crear credenciales de usuario
+    await UserCredentials.create({
+      UserId: newUser.id, // relación con el usuario recién creado
+      username: newUser.email,
+      password: hashedPassword, // guardar el password encriptado
     });
 
     // Generar token de activación

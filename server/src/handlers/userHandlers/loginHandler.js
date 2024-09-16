@@ -6,7 +6,6 @@ const loginHandler = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email } });
-
     if (!user) {
       return res.status(404).json({
         error: true,
@@ -15,9 +14,9 @@ const loginHandler = async (req, res) => {
     }
 
     const result = await loginUser(user, password);
-
+    console.log(result)
     if (result.error) {
-      return res.status(400).json(result);
+      return res.status(400).json(result.error);
     }
 
     return res
