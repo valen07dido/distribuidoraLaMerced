@@ -90,20 +90,19 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
 
-      onLoginSuccess(result.user);
       toggleLoginPopup();
       swal.close();
 
       swal.fire({
         title: "Registro exitoso",
-        text: "Se ha registrado correctamente.",
+        text: "Se ha registrado correctamente. verifique su mail para activarlo",
         icon: "success",
         customClass: { popup: styles.alert },
       });
     } else {
       swal.fire({
         title: "Error al registrarse",
-        text: result.response || "Ocurrió un error durante el registro.",
+        text: result.response,
         icon: "error",
         customClass: { popup: styles.alert },
       });
