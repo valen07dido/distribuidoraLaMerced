@@ -139,8 +139,8 @@ const Products = () => {
           <div className={styles.grid}>
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (
-                <Link to={`/productos/${product.id}`} className={styles.card}>
-                  <div key={product.id}>
+                <Link to={`/productos/${product.id}`} className={styles.card}key={product.id}>
+                  <div >
                     <Card
                       image={product.ProductImages[0]?.address || ""}
                       name={product.name}

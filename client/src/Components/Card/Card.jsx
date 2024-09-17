@@ -17,10 +17,10 @@ const Card = ({ image, name, category, type }) => {
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <img src={image} className={styles.img} alt={name} />
-        {category ? (
+        {category && (
           <div className={styles.breadcrumb}>{category.name}</div>
-        ) : null}
-        {type ? <div className={styles.breadcrumb2}>{type.name}</div> : null}
+        )}
+        {type && <div className={styles.breadcrumb2}>{type.name}</div>}
       </div>
       <div className={styles.flex}>
         <h1 className={styles.title}>{name}</h1>

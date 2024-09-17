@@ -78,10 +78,11 @@ const Navbar = () => {
               </span>
               {isUserPanelOpen && (
                 <div className={styles.userPanel}>
-                  <Link to="/perfil" className={styles.userPanelLink}>Perfil</Link>
+                  <Link to="/productos/crear" className={styles.userPanelLink}>{role==="admin"?"Editar Productos":"funcionalidad en proceso"}</Link>
+                  <Link to="/productos/editar" className={styles.userPanelLink}>{role==="admin"?"Crear Producto":"funcionalidad en proceso"}</Link>
                   <Link to="/configuracion" className={styles.userPanelLink}>Configuración</Link>
                   <button
-                    className={styles.userPanelLink}
+                    className={styles.logOut}
                     onClick={() => {
                       localStorage.removeItem("tokenSession");
                       localStorage.removeItem("username");

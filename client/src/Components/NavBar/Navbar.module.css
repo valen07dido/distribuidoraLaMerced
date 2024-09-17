@@ -4,7 +4,7 @@
   align-items: center;
   height: 65px;
   width: 100%;
-  background-color: #001700b7;
+  background-color: #001700bb;
   margin: 0;
   padding: 0 10px;
   box-sizing: border-box;
@@ -83,10 +83,35 @@
 .userPanel{
   gap: 10px;
   background-color: #b19563;
+  border: solid 1px #f5f5f5;
+  border-radius: 0 0 15px 15px;
   display: flex;
+  width: 150px;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
   top: 60px;
+  right: 60px;
+}
+.userPanelLink{
+  text-decoration: none;
+  color: #f5f5f5;
+  margin: 10px 0 10px 0;
+}
+.logOut{
+  height: 30px;
+  width: 100px;
+  margin: 5px 0 10px 0;
+  color: #f5f5f5;
+  background-color: #001700;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.logOut:hover{
+  background-color: #b19563;
+  color: #f5f5f5;
 }
 @media (max-width: 768px) {
   .flex1 {

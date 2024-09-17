@@ -1,6 +1,7 @@
 .container {
   width: 350px;
-  height: 450px;
+  height: auto; /* Hacer la altura automática */
+  min-height: 450px;
   background-color: #b19563;
   padding: 10px;
   display: flex;
@@ -9,43 +10,46 @@
   border-radius: 10px;
   position: relative;
 }
+
 .img {
-  width: 300px;
+  width: 100%; /* Ocupa el ancho disponible */
+  max-width: 300px; /* Limitar tamaño máximo */
   border-radius: 10px;
   position: relative;
 }
-.breadcrumb {
+
+.breadcrumb, .breadcrumb2 {
   position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.breadcrumb {
   top: 15px;
   left: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
 }
+
 .breadcrumb2 {
-  position: absolute;
   top: 50px;
   left: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
 }
-.flex{
+
+.flex {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .title {
-  font-size: x-large;
+  font-size: 1.2rem; /* Reducir tamaño en pantallas pequeñas */
   margin-top: 10px;
   text-align: center;
-  height: 50px;
 }
+
 .comunication {
   display: flex;
   justify-content: center;
@@ -58,6 +62,7 @@
   margin-top: 10px;
   width: 130px;
 }
+
 .comunication:hover {
   background-color: #25d366;
   cursor: pointer;
@@ -65,9 +70,16 @@
 
 @media (max-width: 720px) {
   .container {
-    width: 80%;
+    width: 90%; /* Asegurar que ocupe casi toda la pantalla en móviles */
   }
   .img {
-    width: 90%;
+    width: 100%; /* Ajustar la imagen al ancho disponible */
+    max-width: none; /* Eliminar el límite de tamaño máximo en pantallas pequeñas */
+  }
+  .title {
+    font-size: 1rem; /* Ajustar el tamaño del texto para móviles */
+  }
+  .comunication {
+    width: 100%; /* Asegurarse de que el botón ocupe el ancho completo en móviles */
   }
 }
