@@ -7,7 +7,6 @@ const cookieParser = require("cookie-parser");
 const secret = process.env.SECRET_KEY;
 const server = express();
 const routes = require("./routes/mainRouter");
-console.log(process.env.FRONTEND_URL)
 server.use(
   session({
     secret: secret,

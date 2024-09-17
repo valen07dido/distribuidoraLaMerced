@@ -12,7 +12,6 @@ async function isAuthenticated(req, res, next) {
 
   // Verificar si el token está en la lista negra
   const blacklistedToken = await BlackListedTokens.findOne({ where: { token } });
-console.log(blacklistedToken);
 
   if (blacklistedToken) {
     return res.status(401).send("Token inválido o expirado");

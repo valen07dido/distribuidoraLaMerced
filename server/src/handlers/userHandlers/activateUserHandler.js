@@ -6,7 +6,6 @@ const activateUserHandler = async (req, res) => {
   const { token } = req.params; // Tomamos el token de los params
   try {
     const response = await activateUserController(token);
-    console.log(response)
     if (response.error) {
       return res.status(404).json(response); // Si hay error, devolvemos 404
     }
