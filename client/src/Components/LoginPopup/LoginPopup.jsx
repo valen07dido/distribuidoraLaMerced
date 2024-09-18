@@ -46,6 +46,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       localStorage.setItem("tokenSession", encryptedToken);
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
+      localStorage.setItem("user",response)
       onLoginSuccess(result.user);
       toggleLoginPopup();
       swal.close();
