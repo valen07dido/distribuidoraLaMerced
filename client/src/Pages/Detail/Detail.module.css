@@ -1,19 +1,29 @@
 .container {
-  padding: 60px 20px;
-  background-color: red;
+  padding: 70px 0;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: center;
+}
+.containContent {
+  width: 90%;
+  padding: 30px;
+  background-color: #b19563;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 15px;
+  border: 1px solid white;
 }
 .imageContainer {
-  margin-left: -80px;
   display: flex;
   flex-direction: row-reverse;
   width: 50%;
 }
-.flex2{
+.flex2 {
   width: 80%;
+  margin-left: 30px;
+
 }
 .mainImageContainer {
   width: 100%;
@@ -25,6 +35,7 @@
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
+  margin-right: 100px;
 }
 
 .thumbnails {
@@ -33,6 +44,7 @@
   justify-content: start;
   gap: 10px;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .thumbnail {
@@ -52,6 +64,33 @@
 .activeThumbnail {
   border: 2px solid #007bff;
 }
-.description{
-  width: 100%;
+.description {
+  width: 90%;
+}
+.title{
+  text-align: center;
+}
+.caracters{
+  font-size: medium;
+  text-align: center;
+
+}
+@media (max-width:1100px){
+  .containContent{
+    flex-direction: column;
+  }
+  .thumbnail{
+    width: 30px;
+    height: 30px;
+  }
+  .mainImage{
+    width: 200px;
+  }
+  .title{
+    font-size:medium;
+  }
+  .description{
+    height: 500px;
+    overflow: scroll;
+  }
 }

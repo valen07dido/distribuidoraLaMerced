@@ -9,6 +9,10 @@ import Footer from "./Components/Footer/Footer";
 import Detail from "./Pages/Detail/Detail";
 import Benefits from "./Pages/Benefits/Benefits";
 import ActivateAccount from "./Pages/ActivateUser/ActivateUser";
+import ProtectedRoute from "./Components/ProtectedRoutes";
+import EditProduct from "./Pages/EditProduct/EditProduct";
+import NotFound from "./Pages/NotFound/NotFound"; // Importa la página de 404
+
 function App() {
   return (
     <Router>
@@ -21,6 +25,18 @@ function App() {
         <Route path="/productos" element={<Products />} />
         <Route path="/productos/:id" element={<Detail />} />
         <Route path="/activate/:token" element={<ActivateAccount />} />
+        
+        <Route
+          path="/editar/:token"
+          element={
+            <ProtectedRoute>
+              <EditProduct />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta para manejar páginas no encontradas */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>
