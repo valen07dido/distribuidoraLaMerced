@@ -8,7 +8,6 @@ const Detail = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
   const [selectedImage, setSelectedImage] = useState(""); // Imagen seleccionada
-  console.log(data);
 
   const getData = async () => {
     try {
@@ -29,45 +28,48 @@ const Detail = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <div className={styles.mainImageContainer}>
-          <img
-            src={selectedImage}
-            alt={data.name}
-            className={styles.mainImage}
-          />
+      <div className={styles.containContent}>
+        <div className={styles.imageContainer}>
+          <div className={styles.mainImageContainer}>
+            <img
+              src={selectedImage}
+              alt={data.name}
+              className={styles.mainImage}
+            />
+          </div>
+
+          {/* Miniaturas de las imágenes */}
+          <div className={styles.thumbnails}>
+            {data.ProductImages &&
+              data.ProductImages.length > 0 &&
+              data.ProductImages.map((image, index) => (
+                <img
+                  key={index}
+                  src={image.address}
+                  alt={`Thumbnail ${index + 1}`}
+                  className={`${styles.thumbnail} ${
+                    selectedImage === image.address
+                      ? styles.activeThumbnail
+                      : ""
+                  }`}
+                  onClick={() => setSelectedImage(image.address)}
+                />
+              ))}
+          </div>
         </div>
+        <div className={styles.flex2}>
+          <h1 className={styles.title}>{data.name}</h1>
+          {/* Mostrar categorías y tipos si están disponibles */}
+          {data.ProductCategories && data.ProductCategories.length > 0 && (
+            <h2 className={styles.caracters}>Edad: {data.ProductCategories[0].name}</h2>
+          )}
+          {data.ProductTypes && data.ProductTypes.length > 0 && (
+            <h2 className={styles.caracters}>Raza: {data.ProductTypes[0].name}</h2>
+          )}
+          <p className={styles.description}>{data.description}</p>
 
-        {/* Miniaturas de las imágenes */}
-        <div className={styles.thumbnails}>
-          {data.ProductImages &&
-            data.ProductImages.length > 0 &&
-            data.ProductImages.map((image, index) => (
-              <img
-                key={index}
-                src={image.address}
-                alt={`Thumbnail ${index + 1}`}
-                className={`${styles.thumbnail} ${
-                  selectedImage === image.address ? styles.activeThumbnail : ""
-                }`}
-                onClick={() => setSelectedImage(image.address)}
-              />
-            ))}
+          {/* Mostrar imagen principal */}
         </div>
-      </div>
-      <div className={styles.flex2}>
-        <h1>{data.name}</h1>
-        <p className={styles.description}>{data.description}</p>
-
-        {/* Mostrar imagen principal */}
-
-        {/* Mostrar categorías y tipos si están disponibles */}
-        {data.ProductCategories && data.ProductCategories.length > 0 && (
-          <h2>Edad: {data.ProductCategories[0].name}</h2>
-        )}
-        {data.ProductTypes && data.ProductTypes.length > 0 && (
-          <h2>Raza: {data.ProductTypes[0].name}</h2>
-        )}
       </div>
     </div>
   );
