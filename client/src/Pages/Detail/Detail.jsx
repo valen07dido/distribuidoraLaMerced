@@ -70,6 +70,9 @@ const Detail = () => {
 
           {/* Mostrar imagen principal */}
         </div>
+        <table>
+          hola
+        </table>
       </div>
     </div>
   );
