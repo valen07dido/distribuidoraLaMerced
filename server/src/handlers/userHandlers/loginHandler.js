@@ -14,9 +14,8 @@ const loginHandler = async (req, res) => {
     }
 
     const result = await loginUser(user, password);
-    console.log(result)
     if (result.error) {
-      return res.status(400).json(result.error);
+      return res.status(400).json(result.response);
     }
 
     return res
