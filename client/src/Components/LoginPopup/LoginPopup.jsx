@@ -8,7 +8,6 @@ import CryptoJS from "crypto-js";
 const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [birthdate, setBirthdate] = useState("");
@@ -28,38 +27,55 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       customClass: { popup: styles.alert },
     });
     swal.showLoading();
-    const response = await fetch(`${url}/sesion/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    
+    try {
+      const response = await fetch(`${url}/sesion/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const result = await response.json();
-    console.log(result)
-    if (result.login) {
-      const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
-      const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
-      const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
+      const result = await response.json();
+      console.log(result);
+      
+      if (!result.error) {
+        const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
+        const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
+        const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
 
-      localStorage.setItem("tokenSession", encryptedToken);
-      localStorage.setItem("username", encryptedUser);
-      localStorage.setItem("role", encryptedRole);
-      onLoginSuccess(result.user);
-      toggleLoginPopup();
-      swal.close();
-    } else {
+        localStorage.setItem("tokenSession", encryptedToken);
+        localStorage.setItem("username", encryptedUser);
+        localStorage.setItem("role", encryptedRole);
+        console.log("Datos guardados en localStorage:", {
+          tokenSession: encryptedToken,
+          username: encryptedUser,
+          role: encryptedRole,
+        });
+
+        onLoginSuccess(result.user);
+        toggleLoginPopup();
+        swal.close()
+      } else {
+        swal.fire({
+          title: "Algo falló",
+          text: result.response,
+          icon: "error",
+          customClass: { popup: styles.alert },
+        });
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
       swal.fire({
-        title: "Algo falló",
-        text: result,
+        title: "Error de conexión",
+        text: "No se pudo conectar al servidor. Inténtelo de nuevo.",
         icon: "error",
         customClass: { popup: styles.alert },
       });
-    }
+    } 
   };
 
-  // Función de registro
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
 
@@ -74,36 +90,52 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
     });
     swal.showLoading();
 
-    const response = await fetch(`${url}/sesion/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, surname, birthdate, email, telephone, password }),
-    });
-    const result = await response.json();
-    if (!result.error) {
-      const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
-      const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
-      const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
-
-      localStorage.setItem("tokenSession", encryptedToken);
-      localStorage.setItem("username", encryptedUser);
-      localStorage.setItem("role", encryptedRole);
-
-      toggleLoginPopup();
-      swal.close();
-
-      swal.fire({
-        title: "Registro exitoso",
-        text: "Se ha registrado correctamente. verifique su mail para activarlo",
-        icon: "success",
-        customClass: { popup: styles.alert },
+    try {
+      const response = await fetch(`${url}/sesion/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, surname, birthdate, email, telephone, password }),
       });
-    } else {
+
+      const result = await response.json();
+      if (!result.error) {
+        const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
+        const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
+        const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
+
+        localStorage.setItem("tokenSession", encryptedToken);
+        localStorage.setItem("username", encryptedUser);
+        localStorage.setItem("role", encryptedRole);
+        console.log("Datos guardados en localStorage (registro):", {
+          tokenSession: encryptedToken,
+          username: encryptedUser,
+          role: encryptedRole,
+        });
+
+        toggleLoginPopup();
+        swal.close();
+
+        swal.fire({
+          title: "Registro exitoso",
+          text: "Se ha registrado correctamente. Verifique su email para activarlo.",
+          icon: "success",
+          customClass: { popup: styles.alert },
+        });
+      } else {
+        swal.fire({
+          title: "Error al registrarse",
+          text: result.response || "Error desconocido",
+          icon: "error",
+          customClass: { popup: styles.alert },
+        });
+      }
+    } catch (error) {
+      console.error("Error en la solicitud de registro:", error);
       swal.fire({
-        title: "Error al registrarse",
-        text: result.response,
+        title: "Error de conexión",
+        text: "No se pudo conectar al servidor. Inténtelo de nuevo.",
         icon: "error",
         customClass: { popup: styles.alert },
       });
