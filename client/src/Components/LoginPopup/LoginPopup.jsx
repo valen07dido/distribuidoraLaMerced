@@ -87,7 +87,12 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
       const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
 
-      localStorage.setItem("tokenSession", encryptedToken);
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("tokenSession", encryptedToken);
+      } else {
+        console.error("localStorage no está disponible.");
+      }
+      
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
 
