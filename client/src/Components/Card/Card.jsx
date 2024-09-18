@@ -5,7 +5,7 @@ import { PiWhatsappLogo } from "react-icons/pi";
 const Card = ({ image, name, category, type }) => {
   const handleWhatsAppClick = (e) => {
     e.stopPropagation(); // Evitar que el evento de clic se propague al Link
-    const phoneNumber = "3415693753"; // Reemplaza con el número de teléfono
+    const phoneNumber = "3464581375"; // Reemplaza con el número de teléfono
     const message = `Hola, estoy interesado en el producto: ${name}`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
