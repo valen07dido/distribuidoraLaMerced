@@ -78,7 +78,7 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí se puede agregar la lógica para enviar los datos a la API
+    // todo: Aquí agregar la lógica para enviar los datos a la API
     console.log("Product created:", product);
   };
 
