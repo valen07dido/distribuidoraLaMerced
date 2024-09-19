@@ -36,7 +36,6 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
     });
 
     const result = await response.json();
-    console.log(result)
     if (result.login) {
       const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();

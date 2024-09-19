@@ -36,6 +36,7 @@
   border-radius: 10px;
   object-fit: cover;
   margin-right: 100px;
+  height: 500px;
 }
 
 .thumbnails {
@@ -62,7 +63,7 @@
 }
 
 .activeThumbnail {
-  border: 2px solid #007bff;
+  border: 2px solid #000000;
 }
 .description {
   width: 90%;
