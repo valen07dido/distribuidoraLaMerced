@@ -126,13 +126,13 @@ const Navbar = () => {
                   {role === "admin" ? (
                     <>
                       <Link
-                        to="/productos/crear"
+                         to={`/editar/${token}`}
                         className={styles.userPanelLink}
                       >
                         Editar Productos
                       </Link>
                       <Link
-                        to={`/editar/${token}`}
+                        to={`/crear/${token}`}
                         className={styles.userPanelLink}
                       >
                         Crear Producto
