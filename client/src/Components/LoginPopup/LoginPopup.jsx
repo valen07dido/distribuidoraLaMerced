@@ -14,7 +14,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
   const [birthdate, setBirthdate] = useState("");
   const [telephone, setTelephone] = useState("");
   const [showRegister, setShowRegister] = useState(false);
-
+  console.log(url); 
   // Función de login
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
