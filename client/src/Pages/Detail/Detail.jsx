@@ -61,18 +61,82 @@ const Detail = () => {
           <h1 className={styles.title}>{data.name}</h1>
           {/* Mostrar categorías y tipos si están disponibles */}
           {data.ProductCategories && data.ProductCategories.length > 0 && (
-            <h2 className={styles.caracters}>Edad: {data.ProductCategories[0].name}</h2>
+            <h2 className={styles.caracters}>
+              Edad: {data.ProductCategories[0].name}
+            </h2>
           )}
           {data.ProductTypes && data.ProductTypes.length > 0 && (
-            <h2 className={styles.caracters}>Raza: {data.ProductTypes[0].name}</h2>
+            <h2 className={styles.caracters}>
+              Raza: {data.ProductTypes[0].name}
+            </h2>
           )}
           <p className={styles.description}>{data.description}</p>
 
-          {/* Mostrar imagen principal */}
+          {/* Tabla de Composición */}
+          {/* Tabla de Composición Nutricional */}
+          {/* Tabla de Composición Nutricional */}
+          {data.composition && data.composition.length > 0 && (
+            <div>
+              <h3 className={styles.subtitle}>Composición Nutricional</h3>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Componente</th>
+                    <th>Mínimo (%)</th>
+                    <th>Máximo (%)</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.composition.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.min !== undefined ? `${item.min}%` : "-"}</td>
+                      <td>{item.max !== undefined ? `${item.max}%` : "-"}</td>
+                      <td>
+                        {/* Verifica si es el campo Valor Energético */}
+                        {item.name === "Valor Energético"
+                          ? `${item.value} kcal` // Si es Valor Energético, muestra en kcal
+                          : item.value !== undefined
+                          ? `${item.value}%` // Para otros valores muestra el %
+                          : "-"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Tabla de Guía de Alimentación */}
+          {data.feedingGuide && data.feedingGuide.length > 0 && (
+            <div>
+              <h3 className={styles.subtitle}>Guía de Alimentación</h3>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Peso Mínimo (kg)</th>
+                    <th>Peso Máximo (kg)</th>
+                    <th>Ración Mínima (g)</th>
+                    <th>Ración Máxima (g)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.feedingGuide.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.peso_min}</td>
+                      <td>
+                        {item.peso_max > 0 ? item.peso_max : "Sin límite"}
+                      </td>
+                      <td>{item.racion_min}</td>
+                      <td>{item.racion_max}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-        <table>
-          hola
-        </table>
       </div>
     </div>
   );

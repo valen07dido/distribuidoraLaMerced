@@ -13,8 +13,22 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    ingredients: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    composition: {
+      type: DataTypes.JSONB, 
+      allowNull: false,
+      defaultValue: [],
+    },
+    feedingGuide: {
+      type: DataTypes.JSONB, 
+      allowNull: false,
+      defaultValue: [],
+    },
   });
 };
