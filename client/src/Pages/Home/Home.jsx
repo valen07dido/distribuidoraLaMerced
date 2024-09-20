@@ -3,7 +3,6 @@ import styles from "./Home.module.css";
 import Card from "../../Components/Card/Card";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Importa los estilos del carrusel
-import prueba from "../../../public/productos/Criadores/Criadores_Frente_18x18_RGB_300dpi_Gris.jpg";
 import carrousel1 from "../../../public/imagenes/banner1.jpg";
 import carrousel2 from "../../../public/imagenes/banner2.jpg";
 import bannerNosotros from "../../../public/imagenes/banner-deleita.jpg";
