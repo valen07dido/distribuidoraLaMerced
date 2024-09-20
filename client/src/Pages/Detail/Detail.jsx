@@ -28,53 +28,56 @@ const Detail = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.containContent}>
-        <div className={styles.imageContainer}>
-          <div className={styles.mainImageContainer}>
-            <img
-              src={selectedImage}
-              alt={data.name}
-              className={styles.mainImage}
-            />
-          </div>
+      <div className={styles.global}>
+        <div className={styles.containContent}>
+          <div className={styles.imageContainer}>
+            <div className={styles.mainImageContainer}>
+              <img
+                src={selectedImage}
+                alt={data.name}
+                className={styles.mainImage}
+              />
+            </div>
 
-          {/* Miniaturas de las imágenes */}
-          <div className={styles.thumbnails}>
-            {data.ProductImages &&
-              data.ProductImages.length > 0 &&
-              data.ProductImages.map((image, index) => (
-                <img
-                  key={index}
-                  src={image.address}
-                  alt={`Thumbnail ${index + 1}`}
-                  className={`${styles.thumbnail} ${
-                    selectedImage === image.address
-                      ? styles.activeThumbnail
-                      : ""
-                  }`}
-                  onClick={() => setSelectedImage(image.address)}
-                />
-              ))}
+            {/* Miniaturas de las imágenes */}
+            <div className={styles.thumbnails}>
+              {data.ProductImages &&
+                data.ProductImages.length > 0 &&
+                data.ProductImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image.address}
+                    alt={`Thumbnail ${index + 1}`}
+                    className={`${styles.thumbnail} ${
+                      selectedImage === image.address
+                        ? styles.activeThumbnail
+                        : ""
+                    }`}
+                    onClick={() => setSelectedImage(image.address)}
+                  />
+                ))}
+            </div>
+          </div>
+          <div className={styles.flex2}>
+            <h1 className={styles.title}>{data.name}</h1>
+            {/* Mostrar categorías y tipos si están disponibles */}
+            {data.ProductCategories && data.ProductCategories.length > 0 && (
+              <h2 className={styles.caracters}>
+                Edad: {data.ProductCategories[0].name}
+              </h2>
+            )}
+            {data.ProductTypes && data.ProductTypes.length > 0 && (
+              <h2 className={styles.caracters}>
+                Raza: {data.ProductTypes[0].name}
+              </h2>
+            )}
+            <p className={styles.description}>{data.description}</p>
+            <h3 className={styles.subtitle}>Ingredientes:</h3>
+            <p>{data.ingredients}</p>
           </div>
         </div>
-        <div className={styles.flex2}>
-          <h1 className={styles.title}>{data.name}</h1>
-          {/* Mostrar categorías y tipos si están disponibles */}
-          {data.ProductCategories && data.ProductCategories.length > 0 && (
-            <h2 className={styles.caracters}>
-              Edad: {data.ProductCategories[0].name}
-            </h2>
-          )}
-          {data.ProductTypes && data.ProductTypes.length > 0 && (
-            <h2 className={styles.caracters}>
-              Raza: {data.ProductTypes[0].name}
-            </h2>
-          )}
-          <p className={styles.description}>{data.description}</p>
 
-          {/* Tabla de Composición */}
-          {/* Tabla de Composición Nutricional */}
-          {/* Tabla de Composición Nutricional */}
+        <div className={styles.tableContainer}>
           {data.composition && data.composition.length > 0 && (
             <div>
               <h3 className={styles.subtitle}>Composición Nutricional</h3>
