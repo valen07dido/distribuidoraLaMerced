@@ -98,7 +98,7 @@ const Home = () => {
               >
                 <Card
                   key={index}
-                  image={product.image || prueba}
+                  image={product.ProductImages[1].address}
                   name={product.name}
                 />
               </Link>
