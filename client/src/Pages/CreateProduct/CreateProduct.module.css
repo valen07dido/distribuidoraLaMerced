@@ -1,15 +1,45 @@
-.globalContainer{
-    padding: 80px 0px;
+.globalContainer {
+    padding: 80px 0;
     display: flex;
     justify-content: center;
 }
-.container{
+
+.container {
     background-color: #b19563;
     border: 2px solid #f5f5f5;
     border-radius: 15px;
     width: 90%;
+    max-width: 1200px; /* Para evitar que se extienda demasiado en pantallas grandes */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px; /* Para darle espacio interno */
+}
+
+.button {
+    background-color: #f5f5f5;
+    width: 100px; /* Se corrigió el typo en el valor de 'width' */
+    height: 40px;
+    border-radius: 5px;
+    transition: background-color 0.5s, color 0.5s; /* Se añadió la transición para el color */
+    border: none; /* Para quitar el borde por defecto de los botones */
+    margin-top: 20px; /* Separación con el contenido de arriba */
+}
+
+.button:hover {
+    background-color: #000;
+    color: #f5f5f5;
+    cursor: pointer;
+}
+.containTextarea{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0; 
+}
+.textarea{
+    resize: vertical; 
+    width: 103%;
+    height: 50px;
+    border-radius: 5px;
 }
