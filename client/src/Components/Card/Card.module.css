@@ -45,9 +45,10 @@
 }
 
 .title {
-  font-size: 1.2rem; /* Reducir tamaño en pantallas pequeñas */
+  font-size: 1.2rem; 
   margin-top: 10px;
   text-align: center;
+  height: 40px;
 }
 
 .comunication {
