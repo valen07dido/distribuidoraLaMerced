@@ -53,15 +53,14 @@ const About = () => {
         <div className={styles.containerMap}>
           <h3 className={styles.text}>
             Queremos conocerte y compartir nuestra pasión por el bienestar de
-            tus mascotas. Ven a visitarnos en Calle{" "}
+            tus mascotas. Veni a visitarnos en Calle{" "}
             <b>
               <FaLocationDot />
-              Blvd. Colón 2601, en la localidad de Casilda, Santa Fe
+              Bv. Colón 2601, en la localidad de Casilda, Santa Fe
             </b>
             . Donde podrás explorar nuestra amplia gama de productos diseñados
             especialmente para ellos. Nuestro equipo estará encantado de
-            asesorarte y ayudarte a encontrar lo que mejor se adapte a tus
-            necesidades.
+            asesorarte y ayudarte a encontrar lo mejor para tu negocio y/o emprendimiento.
           </h3>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13375.94403208508!2d-61.1637438!3d-33.0568352!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7d3f1b754a959%3A0x8e50043216d83a40!2sDistribuidora%20%22La%20Merced%E2%80%9D%20-%20Alimento%20Balanceado!5e0!3m2!1ses!2sar!4v1725640863637!5m2!1ses!2sar"
@@ -74,10 +73,10 @@ const About = () => {
         {/* <img src="../../../public/imagenes/Family.png" alt="family" /> */}
         <h2 className={styles.subtitle}>Organización</h2>
         <h3 className={styles.text}>
-          <b>Socio gerente:</b>Joaquín Marini
+          <b>Socio gerente: </b>Joaquín Marini
         </h3>
         <h3 className={styles.text}>
-          <b>Socios:</b>Agustín Marini y Pablo Marini
+          <b>Socios: </b>Agustín Marini y Pablo Marini
         </h3>
       </div>
     </div>
