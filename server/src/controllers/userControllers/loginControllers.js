@@ -53,7 +53,7 @@ const loginUser = async (user, password) => {
 
     const dataForToken = {
       userId: user.id,
-      username: `${user.name} ${user.surname}`,
+      username: `${user.name}`,
       userRole: userRole.role_name,
     };
 
@@ -63,7 +63,7 @@ const loginUser = async (user, password) => {
       login: true,
       tokenSession,
       userId: user.id,
-      user: `${user.name} ${user.surname}`,
+      user: `${user.name}`,
       role: userRole.role_name
     };
   } catch (error) {

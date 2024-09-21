@@ -90,7 +90,6 @@ const Navbar = () => {
     loadUserData(); // Cargar los datos del usuario cuando se loguea correctamente
     setIsLoginPopupOpen(false);
   };
-
   return (
     <>
       <nav className={styles.container}>
@@ -98,25 +97,51 @@ const Navbar = () => {
           <img src={logo} alt="logo" className={styles.logo} />
         </Link>
         <div className={`${styles.flex1} ${menuOpen ? styles.menuOpen : ""}`}>
-          <Link to="/productos" className={styles.links} onClick={toggleMenu}>
+          <Link
+            to="/productos"
+            className={styles.links}
+            onClick={() => {
+              toggleMenu();
+              toggleUserPanel();
+            }}
+          >
             Productos
           </Link>
-          <Link to="/beneficios" className={styles.links} onClick={toggleMenu}>
+          <Link
+            to="/beneficios"
+            className={styles.links}
+            onClick={() => {
+              toggleMenu();
+              toggleUserPanel();
+            }}
+          >
             Beneficios
           </Link>
-          <Link to="/nosotros" className={styles.links} onClick={toggleMenu}>
+          <Link
+            to="/nosotros"
+            className={styles.links}
+            onClick={() => {
+              toggleMenu();
+              toggleUserPanel();
+            }}
+          >
             Nosotros
           </Link>
-          <Link to="/contacto" className={styles.links} onClick={toggleMenu}>
+          <Link
+            to="/contacto"
+            className={styles.links}
+            onClick={() => {
+              toggleMenu();
+              toggleUserPanel();
+            }}
+          >
             Contáctanos
           </Link>
         </div>
         <div className={styles.flex2}>
-          <button className={styles.menuButton} onClick={toggleMenu}>
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+          {/* Icono de usuario y carrito */}
           {isLoggedIn ? (
-            <div className={styles.userContainer}>
+            <>
               <span className={styles.username} onClick={toggleUserPanel}>
                 Hola, {username}
               </span>
@@ -126,13 +151,15 @@ const Navbar = () => {
                   {role === "admin" ? (
                     <>
                       <Link
-                         to={`/editar/${token}`}
+                        to={`/editar/${token}`}
+                        onClick={toggleUserPanel}
                         className={styles.userPanelLink}
                       >
                         Editar Productos
                       </Link>
                       <Link
                         to={`/crear/${token}`}
+                        onClick={toggleUserPanel}
                         className={styles.userPanelLink}
                       >
                         Crear Producto
@@ -144,10 +171,7 @@ const Navbar = () => {
                       <Link to="/mi-cuenta" className={styles.userPanelLink}>
                         Mi Cuenta
                       </Link>
-                      <Link
-                        to="/mis-favoritos"
-                        className={styles.userPanelLink}
-                      >
+                      <Link to="/mis-favoritos" className={styles.userPanelLink}>
                         Mis Favoritos
                       </Link>
                     </>
@@ -160,14 +184,18 @@ const Navbar = () => {
                   </button>
                 </div>
               )}
-            </div>
+            </>
           ) : (
             <FaUser className={styles.icon} onClick={toggleLoginPopup} />
           )}
           <FaShoppingCart className={styles.icon} />
+          {/* Botón de menú hamburguesa */}
+          <button className={styles.menuButton} onClick={toggleMenu}>
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </nav>
-
+  
       {isLoginPopupOpen && (
         <LoginPopup
           onLoginSuccess={handleLoginSuccess}
@@ -176,6 +204,7 @@ const Navbar = () => {
       )}
     </>
   );
+  
 };
 
 export default Navbar;
