@@ -81,6 +81,6 @@
     font-size: 1rem; /* Ajustar el tamaño del texto para móviles */
   }
   .comunication {
-    width: 100%; /* Asegurarse de que el botón ocupe el ancho completo en móviles */
+    width: 150px; /* Asegurarse de que el botón ocupe el ancho completo en móviles */
   }
 }

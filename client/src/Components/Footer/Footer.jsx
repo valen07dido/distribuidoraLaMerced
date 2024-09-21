@@ -9,7 +9,6 @@ const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.containerInfo}>
-        <img src={logo} alt="logo" className={styles.logo} />
         <div className={styles.LinkContainer}>
           <Link to="/" className={styles.text}>
             Inicio
@@ -21,16 +20,20 @@ const Footer = () => {
             Contacto
           </Link>
         </div>
-        <div className={styles.LinkContainer1}>
-          <Link to="" className={styles.text}>
-            <FaInstagram /> Instagram
-          </Link>
-          <Link to="" className={styles.text}>
-            <FaWhatsapp /> Whatsapp
-          </Link>
-          <Link to="" className={styles.text}>
-            <FaFacebook /> Facebook
-          </Link>
+        <img src={logo} alt="logo" className={styles.logo} />
+        <div className={styles.network}>
+          <h2 className={styles.netTitle}>Visitanos en nuestras Redes!</h2>
+          <div className={styles.LinkContainer1}>
+            <Link to="" className={styles.net}>
+              <FaInstagram /> Instagram
+            </Link>
+            <Link to="" className={styles.net}>
+              <FaWhatsapp /> Whatsapp
+            </Link>
+            <Link to="" className={styles.net}>
+              <FaFacebook /> Facebook
+            </Link>
+          </div>
         </div>
       </div>
       <div>
