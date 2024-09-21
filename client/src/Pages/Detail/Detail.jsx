@@ -29,6 +29,7 @@ const Detail = () => {
   return (
     <div className={styles.container}>
       <div className={styles.global}>
+          <h1 className={styles.title}>{data.name}</h1>
         <div className={styles.containContent}>
           <div className={styles.imageContainer}>
             <div className={styles.mainImageContainer}>
@@ -58,8 +59,8 @@ const Detail = () => {
                 ))}
             </div>
           </div>
+
           <div className={styles.flex2}>
-            <h1 className={styles.title}>{data.name}</h1>
             {/* Mostrar categorías y tipos si están disponibles */}
             {data.ProductCategories && data.ProductCategories.length > 0 && (
               <h2 className={styles.caracters}>
@@ -71,13 +72,16 @@ const Detail = () => {
                 Raza: {data.ProductTypes[0].name}
               </h2>
             )}
+
             <p className={styles.description}>{data.description}</p>
+
             <h3 className={styles.subtitle}>Ingredientes:</h3>
-            <p>{data.ingredients}</p>
+            <p className={styles.ingredients}>{data.ingredients}</p>
           </div>
         </div>
 
         <div className={styles.tableContainer}>
+          {/* Tabla de Composición Nutricional */}
           {data.composition && data.composition.length > 0 && (
             <div>
               <h3 className={styles.subtitle}>Composición Nutricional</h3>
@@ -97,11 +101,10 @@ const Detail = () => {
                       <td>{item.min !== undefined ? `${item.min}%` : "-"}</td>
                       <td>{item.max !== undefined ? `${item.max}%` : "-"}</td>
                       <td>
-                        {/* Verifica si es el campo Valor Energético */}
                         {item.name === "Valor Energético"
-                          ? `${item.value} kcal` // Si es Valor Energético, muestra en kcal
+                          ? `${item.value} kcal`
                           : item.value !== undefined
-                          ? `${item.value}%` // Para otros valores muestra el %
+                          ? `${item.value}%`
                           : "-"}
                       </td>
                     </tr>
@@ -144,5 +147,4 @@ const Detail = () => {
     </div>
   );
 };
-
 export default Detail;

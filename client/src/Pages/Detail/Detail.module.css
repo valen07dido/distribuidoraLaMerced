@@ -2,34 +2,49 @@
   padding: 70px 0;
   width: 100%;
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
 }
-.global{
+
+.global {
   background-color: #b19563;
-  width: 90%;
+  width: 80%;
+  max-width: 1200px; /* Establece un ancho máximo */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
   border: 1px solid white;
   border-radius: 15px;
   padding: 30px;
-
+  display: flex;
+  flex-direction: column; /* Hace que los hijos se apilen en columna */
+  align-items: center; /* Centra los hijos horizontalmente */
 }
+
 .containContent {
-  padding: 30px;
   display: flex;
-  align-items: start;
-  justify-content: space-evenly;
-
+  flex-wrap: wrap; /* Permite que los elementos se ajusten */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
 }
+
 .imageContainer {
+  flex: 1 1 50%; /* Se adapta al 50% del ancho en pantallas grandes */
+  min-width: 300px; /* Ancho mínimo para pantallas pequeñas */
   display: flex;
+  margin-right: 90px;
   flex-direction: row-reverse;
-  width: 50%;
+  justify-content: center; /* Centra horizontalmente las imágenes */
+  align-items: center; /* Centra verticalmente las imágenes */
 }
-.flex2 {
-  width: 80%;
-  margin-left: 30px;
 
+.flex2 {
+  margin-left: 30px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido internamente */
 }
+
 .mainImageContainer {
   width: 100%;
   max-width: 500px;
@@ -40,8 +55,7 @@
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
-  margin-right: 100px;
-  height: 500px;
+  height: auto; /* Mantiene la proporción */
 }
 
 .thumbnails {
@@ -70,24 +84,31 @@
 .activeThumbnail {
   border: 2px solid #000000;
 }
-.description {
-  width: 90%;
-}
-.title{
-  text-align: center;
-}
-.caracters{
-  font-size: medium;
-  text-align: center;
 
-}
-.table {
+.description {
   width: 100%;
+  font-size: x-large;
+  text-align: center; /* Centra la descripción */
+}
+
+.title {
+  text-align: center;
+}
+
+.caracters {
+  font-size: large;
+  text-align: left;
+  width: 45%;
+}
+
+.table {
+  width: 95%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -100,28 +121,60 @@
 
 .subtitle {
   margin-top: 20px;
-  font-size: 1.2em;
+  font-size: 1.8em;
 }
-.tableContainer{
-display: flex;
-justify-content: space-evenly;
+
+.ingredients {
+  font-size: large;
 }
-@media (max-width:1100px){
-  .containContent{
+
+.tableContainer {
+  display: flex;
+  justify-content: space-evenly; /* Centra las tablas horizontalmente */
+}
+
+@media (max-width: 1100px) {
+  .containContent {
     flex-direction: column;
+    align-items: center;
   }
-  .thumbnail{
-    width: 30px;
-    height: 30px;
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
   }
-  .mainImage{
-    width: 200px;
+
+  .mainImage {
+    width: 100%;
   }
-  .title{
-    font-size:medium;
+
+  .title {
+    font-size: medium;
   }
-  .description{
-    height: 500px;
-    overflow: scroll;
+
+  .description {
+    overflow-y: scroll;
+    font-size: large;
+  }
+
+  .flex2 {
+    width: 100%;
+    margin: 0 0 0 -80px;
+    overflow-y: scroll;
+    align-items: center;
+  }
+
+  .caracters {
+    width: 100%;
+  }
+
+  .tableContainer {
+    flex-direction: column;
+    justify-content: center; /* Centra las tablas horizontalmente */
+    align-items: center; /* Centra las tablas también verticalmente */
+  }
+  .subtitle{
+    font-size: large;
   }
 }
+
