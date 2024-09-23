@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-top: 50px;
   padding: 20px 20px;
   background-color: #b19563;
   border-radius: 20px;
@@ -12,13 +13,18 @@
 .title {
   font-size: 15px;
   color: #ffffff;
-  margin-bottom: 20px;
 }
 
 .name {
   font-size: 1.2em;
 }
-
+.flex1 {
+  display: flex;
+  width: 100%;
+  margin: 0 0 -30px 0;
+  justify-content: space-between;
+  gap: 0px 20px;
+}
 .containerNet {
   display: flex;
 }
@@ -35,7 +41,8 @@
 
 .inputGroup {
   position: relative;
-  margin: 45px 0;
+  margin: 30px 0;
+  width: 100%;
 }
 
 .inputGroup input {
@@ -98,10 +105,10 @@
   font-size: 19px;
   border-radius: 10px;
 }
-/*  */
 .inputGroupError {
   position: relative;
-  margin: 45px 0;
+  margin: 15px 0;
+  width: 100%;
 }
 
 .inputGroupError input {
@@ -142,6 +149,17 @@
 .error {
   font-size: 19px;
   color: red;
+}
+.select {
+  width: 100%;
+  border-radius: 10px;
+  font-size: large;
+  color: #5a5a5a;
+  border: none;
+  border-bottom: 1px solid #5a5a5a;
+  padding: 10px 5px;
+  margin: 10px 0 40px 0;
+  font-weight: bold;
 }
 
 @media (width < 768px) {

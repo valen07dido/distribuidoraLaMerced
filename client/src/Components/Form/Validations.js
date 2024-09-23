@@ -10,11 +10,11 @@ const validations=({name,email,affair,message})=>{
     }else if(!/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(email)){
         errors.e2="El email debe ser valido."
     }
-    if(!affair||affair.length===0){
-        errors.e3="El asunto es obligatorio."
-    }else if(affair.length>25){
-        errors.e3="El asunto puede tener hasta 25 caracteres."
-    }
+    // if(!affair||affair.length===0){
+    //     errors.e3="El asunto es obligatorio."
+    // }else if(affair.length>25){
+    //     errors.e3="El asunto puede tener hasta 25 caracteres."
+    // }
     if(!message||message.length===0){
         errors.e4="El mensaje es obligatorio."
     }else if(message.length<10){
