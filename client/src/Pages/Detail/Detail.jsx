@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Detail.module.css";
 import getDecryptedData from "../../../utils/getDecryptedData"; // Para obtener el token
+import { PiWhatsappLogo } from "react-icons/pi";
+import { IoStar } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 const url = import.meta.env.VITE_URL_BACKEND;
 
@@ -12,6 +15,47 @@ const Detail = () => {
   const [quantity, setQuantity] = useState(1); // Cantidad del producto
   const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
   const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+  const [isFavorite, setIsFavorite] = useState(false); // Estado para gestionar favoritos
+
+  const handleWhatsAppConsultation = () => {
+    const phoneNumber = "3464581375"; // Cambia esto por el número de teléfono deseado
+    const message = `Hola, estoy interesado en el producto ${data.name}.`; // Mensaje predefinido
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(whatsappUrl, "_blank"); // Abre WhatsApp en una nueva pestaña
+  };
+  const handleToggleFavorite = async () => {
+    try {
+      const response = await fetch(`${url}/products/wishlist/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({ productId: id, quantity }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error en la solicitud:", errorText);
+        throw new Error("Error al modificar la lista de deseos");
+      }
+
+      const responseData = await response.json();
+
+      // Actualiza isFavorite directamente sin necesidad de hacer otra llamada a la API
+      setIsFavorite(!isFavorite);
+
+      Swal.fire({
+        title: "Se modificó su lista de deseos!",
+        icon: "success",
+      });
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
 
   const getData = async () => {
     try {
@@ -26,9 +70,38 @@ const Detail = () => {
     }
   };
 
+  const checkIfFavorite = async () => {
+    try {
+      const response = await fetch(`${url}/products/wishlist/${userId}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error("Error al verificar la wishlist");
+        return;
+      }
+
+      const wishlistData = await response.json();
+      const isProductFavorite = wishlistData.products.some((product) => {
+        console.log(product); // Muestra cada producto de la wishlist
+        return product.id === id; // Compara directamente el UUID sin parsearlo
+      });
+
+      console.log(isProductFavorite);
+      setIsFavorite(isProductFavorite); // Establece el estado si es favorito o no
+    } catch (error) {
+      console.error("Error checking wishlist:", error);
+    }
+  };
+
   useEffect(() => {
     getData();
-  }, [id]);
+    if (token) {
+      checkIfFavorite(); // Verifica si el producto es favorito si el usuario está logueado
+    }
+  }, [id]); // Elimina isFavorite de las dependencias
 
   // Función para manejar la acción de añadir al carrito
   const handleAddToCart = async () => {
@@ -67,6 +140,14 @@ const Detail = () => {
                 alt={data.name}
                 className={styles.mainImage}
               />
+              <button
+                onClick={handleToggleFavorite}
+                className={`${styles.favoriteButton} ${
+                  isFavorite ? styles.activeFavorite : ""
+                }`}
+              >
+                <IoStar />
+              </button>
             </div>
 
             {/* Miniaturas de las imágenes */}
@@ -88,8 +169,13 @@ const Detail = () => {
                 ))}
             </div>
           </div>
-
           <div className={styles.flex2}>
+            <button
+              onClick={handleWhatsAppConsultation}
+              className={styles.comunication}
+            >
+              Consultar <PiWhatsappLogo />
+            </button>
             {/* Mostrar categorías y tipos si están disponibles */}
             {data.ProductCategories && data.ProductCategories.length > 0 && (
               <h2 className={styles.caracters}>

@@ -126,7 +126,6 @@ const Navbar = () => {
             className={styles.links}
             onClick={() => {
               toggleMenu();
-              toggleUserPanel();
             }}
           >
             Productos
@@ -136,7 +135,6 @@ const Navbar = () => {
             className={styles.links}
             onClick={() => {
               toggleMenu();
-              toggleUserPanel();
             }}
           >
             Beneficios
@@ -146,7 +144,6 @@ const Navbar = () => {
             className={styles.links}
             onClick={() => {
               toggleMenu();
-              toggleUserPanel();
             }}
           >
             Nosotros
@@ -156,7 +153,6 @@ const Navbar = () => {
             className={styles.links}
             onClick={() => {
               toggleMenu();
-              toggleUserPanel();
             }}
           >
             Contáctanos

@@ -41,6 +41,46 @@ const wishlistController = async (userId, productId) => {
   }
 };
 
+const getWishlistController = async (userId) => {
+  try {
+    // Verifica si el usuario existe
+    const existingUser = await User.findByPk(userId);
+    if (!existingUser) {
+      return {
+        error: true,
+        response: "No se encontró un usuario",
+      };
+    }
+
+    // Verifica si la wishlist del usuario existe
+    const wishlist = await WishList.findOne({
+      where: { userId },
+      include: [{ model: Product }], // Incluir los productos asociados
+    });
+
+    if (!wishlist) {
+      return {
+        error: false,
+        response: "El usuario no tiene productos en su wishlist.",
+        products: [],
+      };
+    }
+
+    // Devuelve los productos en la wishlist
+    return {
+      error: false,
+      response: "Wishlist obtenida con éxito.",
+      products: wishlist.Products, // Devuelve los productos asociados a la wishlist
+    };
+  } catch (error) {
+    return {
+      error: true,
+      response: "Ocurrió un error al obtener la wishlist.",
+    };
+  }
+};
+
 module.exports = {
   wishlistController,
+  getWishlistController,
 };
