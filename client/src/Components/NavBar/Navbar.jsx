@@ -35,7 +35,6 @@ const Navbar = () => {
     const user = getDecryptedData("username");
     const role = getDecryptedData("role");
     const userId = getDecryptedData("userid");
-    console.log(userId)
     if (token && user) {
       try {
         setIsLoggedIn(true);
@@ -101,20 +100,19 @@ const Navbar = () => {
 
   const handleShopCart = () => {
     if (role && role === "admin") {
-     return Swal.fire({
+      return Swal.fire({
         title: "el admin no tiene carrito de compras",
         icon: "error",
       });
     }
     if (role && role === "customer") {
       navigate(`/carrito/${UserId}`);
-    }else{
+    } else {
       return Swal.fire({
         title: "Debe registrarse para tener carrito",
         icon: "error",
       });
     }
-
   };
   return (
     <>
@@ -205,9 +203,7 @@ const Navbar = () => {
                       </Link>
                     </>
                   )}
-                  <Link to="/configuracion" className={styles.userPanelLink}>
-                    Configuración
-                  </Link>
+
                   <button className={styles.logOut} onClick={handleLogout}>
                     Cerrar sesión
                   </button>

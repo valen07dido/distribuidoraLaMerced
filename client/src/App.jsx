@@ -13,6 +13,7 @@ import ProtectedRoute from "./Components/ProtectedRoutes";
 import EditProduct from "./Pages/EditProduct/EditProduct";
 import NotFound from "./Pages/NotFound/NotFound"; // Importa la página de 404
 import CreateProduct from "./Pages/CreateProduct/CreateProduct";
+import Cart from "./Pages/Cart/Cart";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
         <Route path="/productos" element={<Products />} />
         <Route path="/productos/:id" element={<Detail />} />
+        <Route path="/carrito/:id" element={<Cart />} />
         <Route path="/activate/:token" element={<ActivateAccount />} />
         <Route
           path="/editar/:token"

@@ -25,7 +25,6 @@ const CreateProduct = () => {
     types: [],
   });
 
-  console.log(product);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({

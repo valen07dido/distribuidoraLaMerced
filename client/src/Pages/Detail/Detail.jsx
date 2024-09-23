@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Detail.module.css";
+import getDecryptedData from "../../../utils/getDecryptedData"; // Para obtener el token
 
 const url = import.meta.env.VITE_URL_BACKEND;
 
@@ -8,6 +9,9 @@ const Detail = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
   const [selectedImage, setSelectedImage] = useState(""); // Imagen seleccionada
+  const [quantity, setQuantity] = useState(1); // Cantidad del producto
+  const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
+  const userId = getDecryptedData("userid"); // Obtén el ID del usuario
 
   const getData = async () => {
     try {
@@ -26,10 +30,35 @@ const Detail = () => {
     getData();
   }, [id]);
 
+  // Función para manejar la acción de añadir al carrito
+  const handleAddToCart = async () => {
+    try {
+      const response = await fetch(`${url}/products/cart/add/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`, // Asegúrate de usar el prefijo adecuado
+        },
+        body: JSON.stringify({ productId: id, quantity }), // Usa la cantidad seleccionada
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Obtener la respuesta como texto
+        console.error("Error en la solicitud:", errorText);
+        throw new Error("Error al añadir al carrito");
+      }
+
+      const responseData = await response.json(); // Suponiendo que la respuesta es JSON
+      // Aquí puedes actualizar el estado del carrito o mostrar un mensaje
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.global}>
-          <h1 className={styles.title}>{data.name}</h1>
+        <h1 className={styles.title}>{data.name}</h1>
         <div className={styles.containContent}>
           <div className={styles.imageContainer}>
             <div className={styles.mainImageContainer}>
@@ -72,7 +101,25 @@ const Detail = () => {
                 Raza: {data.ProductTypes[0].name}
               </h2>
             )}
-
+            {/* Añadir sección de cantidad y botón de agregar al carrito al lado de la imagen */}
+            <div className={styles.addToCartContainer}>
+              <label className={styles.quantityLabel}>
+                Cantidad:{" "}
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className={styles.quantityInput}
+                  min="1"
+                />
+              </label>
+              <button
+                onClick={handleAddToCart}
+                className={styles.addToCartButton}
+              >
+                Añadir al Carrito
+              </button>
+            </div>
             <p className={styles.description}>{data.description}</p>
 
             <h3 className={styles.subtitle}>Ingredientes:</h3>
@@ -147,4 +194,5 @@ const Detail = () => {
     </div>
   );
 };
+
 export default Detail;

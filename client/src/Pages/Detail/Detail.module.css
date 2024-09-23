@@ -2,39 +2,39 @@
   padding: 70px 0;
   width: 100%;
   display: flex;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
+  justify-content: center;
 }
 
 .global {
   background-color: #b19563;
   width: 80%;
-  max-width: 1200px; /* Establece un ancho máximo */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  max-width: 1200px;
+  margin: 0 auto;
   border: 1px solid white;
   border-radius: 15px;
   padding: 30px;
   display: flex;
-  flex-direction: column; /* Hace que los hijos se apilen en columna */
-  align-items: center; /* Centra los hijos horizontalmente */
+  flex-direction: column;
+  align-items: center;
 }
 
 .containContent {
   display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .imageContainer {
-  flex: 1 1 50%; /* Se adapta al 50% del ancho en pantallas grandes */
-  min-width: 300px; /* Ancho mínimo para pantallas pequeñas */
+  flex: 1 1 50%;
+  min-width: 300px;
   display: flex;
   margin-right: 90px;
   flex-direction: row-reverse;
-  justify-content: center; /* Centra horizontalmente las imágenes */
-  align-items: center; /* Centra verticalmente las imágenes */
+  justify-content: center;
+  align-items: start;
 }
 
 .flex2 {
@@ -42,7 +42,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el contenido internamente */
+  align-items: center;
 }
 
 .mainImageContainer {
@@ -55,7 +55,7 @@
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
-  height: auto; /* Mantiene la proporción */
+  height: auto;
 }
 
 .thumbnails {
@@ -88,7 +88,7 @@
 .description {
   width: 100%;
   font-size: x-large;
-  text-align: center; /* Centra la descripción */
+  text-align: center;
 }
 
 .title {
@@ -103,7 +103,6 @@
 
 .table {
   width: 95%;
-  border-collapse: collapse;
   margin-top: 20px;
 }
 
@@ -130,13 +129,56 @@
 
 .tableContainer {
   display: flex;
-  justify-content: space-evenly; /* Centra las tablas horizontalmente */
+  justify-content: space-evenly;
+}
+
+.addToCartContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantityLabel {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.quantityInput {
+  width: 50px;
+  padding: 5px;
+  margin-right: 20px;
+  font-size: 1rem;
+}
+
+.addToCartButton {
+  background-color: #b19563;
+  border: 2px solid #fff;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.addToCartButton:hover {
+  background-color: #d0b59d;
+  transform: scale(1.05);
 }
 
 @media (max-width: 1100px) {
   .containContent {
     flex-direction: column;
     align-items: center;
+  }
+
+  .imageContainer {
+    margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    margin-bottom: 30px; /* Espacio entre imagen y contenido */
+  }
+
+  .flex2 {
+    margin-left: 0; /* Elimina el margen izquierdo en pantallas pequeñas */
   }
 
   .thumbnail {
@@ -153,28 +195,35 @@
   }
 
   .description {
-    overflow-y: scroll;
     font-size: large;
-  }
-
-  .flex2 {
-    width: 100%;
-    margin: 0 0 0 -80px;
-    overflow-y: scroll;
-    align-items: center;
   }
 
   .caracters {
     width: 100%;
+    text-align: center; /* Centra el texto */
   }
 
   .tableContainer {
     flex-direction: column;
-    justify-content: center; /* Centra las tablas horizontalmente */
-    align-items: center; /* Centra las tablas también verticalmente */
+    justify-content: center;
+    align-items: center;
   }
-  .subtitle{
+
+  .subtitle {
     font-size: large;
   }
 }
 
+@media (max-width: 800px) {
+  .flex2 {
+    margin: 0;
+  }
+
+  .quantityInput {
+    width: 40px; /* Ajustar el tamaño del input de cantidad */
+  }
+
+  .addToCartButton {
+    width: 100%; /* Botón ocupa todo el ancho disponible */
+  }
+}
