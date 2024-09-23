@@ -25,11 +25,11 @@ const useRouter = Router();
 useRouter.get("/", getProductHandler);
 useRouter.get("/:id", getProductHandler);
 useRouter.post("/create", isAuthenticated, createProductHandler);
-useRouter.put("/update/:id", updateProductHandler);
-useRouter.post("/wishlist/:id", wishlistHandler);
-useRouter.get("/cart/:id", getCartHandler);
-useRouter.post("/cart/add/:id", addCartHandler);
-useRouter.put("/cart/update/:id", updateCartHandler);
-useRouter.delete("/cart/remove/:id", removeItemHandler);
+useRouter.put("/update/:id", isAuthenticated, updateProductHandler);
+useRouter.post("/wishlist/:id", isAuthenticated, wishlistHandler);
+useRouter.get("/cart/:id", isAuthenticated, getCartHandler);
+useRouter.post("/cart/add/:id", isAuthenticated, addCartHandler);
+useRouter.put("/cart/update/:id", isAuthenticated, updateCartHandler);
+useRouter.delete("/cart/remove/:id", isAuthenticated, removeItemHandler);
 
 module.exports = useRouter;
