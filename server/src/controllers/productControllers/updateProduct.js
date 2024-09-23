@@ -64,15 +64,22 @@ const updateProductController = async (id, field, value) => {
         });
 
         if (!category) {
-          // Si no existe la categoría, creamos una nueva
           const newCategory = await ProductCategory.create({ name: value });
-          await item.addProductCategory(newCategory); // Asocia la nueva categoría
+          await item.addProductCategory(newCategory);
         } else {
-          // Asignamos la categoría existente
           await item.addProductCategory(category);
         }
         return { message: "Categoría actualizada correctamente." };
       }
+      case "ingredients":
+        item.ingredients = value;
+        break;
+      case "composition":
+        item.composition = value; // Asegúrate de que el modelo soporte la estructura de datos
+        break;
+      case "feedingGuide":
+        item.feedingGuide = value; // Asegúrate de que el modelo soporte la estructura de datos
+        break;
       default:
         return {
           error: true,
