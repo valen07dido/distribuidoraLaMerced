@@ -28,6 +28,13 @@ const Detail = () => {
   };
   const handleToggleFavorite = async () => {
     try {
+      Swal.fire({
+        title: "Espere, estamos procesando la informacion...",
+        icon: "info",
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+
       const response = await fetch(`${url}/products/wishlist/${userId}`, {
         method: "POST",
         headers: {
@@ -36,16 +43,15 @@ const Detail = () => {
         },
         body: JSON.stringify({ productId: id, quantity }),
       });
-
-      if (!response.ok) {
-        const errorText = await response.text();
+      Swal.close();
+      if (response.error) {
+        const errorText = await response.response;
         console.error("Error en la solicitud:", errorText);
         throw new Error("Error al modificar la lista de deseos");
       }
 
       const responseData = await response.json();
 
-      // Actualiza isFavorite directamente sin necesidad de hacer otra llamada a la API
       setIsFavorite(!isFavorite);
 
       Swal.fire({
