@@ -90,17 +90,12 @@ const Home = () => {
             className={styles.grid}
           >
             {products.map((product, index) => (
-              <Link
-                to={`/productos/${product.id}`}
-                className={styles.cardLink}
-                key={index}
-              >
                 <Card
                   key={index}
                   image={product.ProductImages[1].address}
                   name={product.name}
+                  productId={product.id}
                 />
-              </Link>
             ))}
           </div>
 

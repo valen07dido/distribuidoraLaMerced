@@ -6,13 +6,19 @@ async function isAuthenticated(req, res, next) {
   const token = req.headers["authorization"];
 
   if (!token) {
-    return res.status(401).send("Necesitas iniciar sesión para entrar aquí");
+    return res.status(401).json({
+      error:true,
+      response:"Necesita iniciar sesion para entrar"
+    });
   }
 
   const blacklistedToken = await BlackListedTokens.findOne({ where: { token } });
 
   if (blacklistedToken) {
-    return res.status(401).send("Token inválido o expirado");
+    return res.status(401).json({
+      error:true,
+      response:"Token invalido o expirado"
+    });
   }
 
   jwt.verify(token, secret, (err, decoded) => {

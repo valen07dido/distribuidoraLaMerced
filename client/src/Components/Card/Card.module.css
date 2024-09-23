@@ -9,6 +9,7 @@
   align-items: center;
   border-radius: 10px;
   position: relative;
+  text-decoration: none;
 }
 
 .img {
@@ -51,21 +52,21 @@
   height: 40px;
 }
 
-.comunication {
+.addToCart {
   display: flex;
   justify-content: center;
   align-items: center;
   border: #001700 solid 1px;
   border-radius: 20px;
-  background-color: #f5f5f5;
+  background-color: #b19563;
   transition: 1s;
   color: #001700;
   margin-top: 10px;
-  width: 130px;
+  width: 200px;
 }
 
-.comunication:hover {
-  background-color: #25d366;
+.addToCart:hover {
+  background-color: #f5f5f5;
   cursor: pointer;
 }
 
