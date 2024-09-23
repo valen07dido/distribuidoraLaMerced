@@ -5,12 +5,14 @@ import styles from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import LoginPopup from "../LoginPopup/LoginPopup";
 import getDecryptedData from "../../../utils/getDecryptedData"; // Importa la función de desencriptación
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [UserId, setUserId] = useState("");
   const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
   const [role, setRole] = useState("");
   const [token, setToken] = useState("");
@@ -32,24 +34,28 @@ const Navbar = () => {
     const token = getDecryptedData("tokenSession");
     const user = getDecryptedData("username");
     const role = getDecryptedData("role");
-
+    const userId = getDecryptedData("userid");
+    console.log(userId)
     if (token && user) {
       try {
         setIsLoggedIn(true);
         setUsername(user);
         setRole(role);
         setToken(token);
+        setUserId(userId);
       } catch (error) {
         setIsLoggedIn(false);
         setUsername("");
         setRole("");
         setToken("");
+        setUserId("");
       }
     } else {
       setIsLoggedIn(false);
       setUsername("");
       setRole("");
       setToken("");
+      setUserId("");
     }
   };
 
@@ -75,9 +81,11 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("tokenSession");
     localStorage.removeItem("username");
+    localStorage.removeItem("userid");
     localStorage.removeItem("role"); // Asegúrate de eliminar también el rol
     setIsLoggedIn(false);
     setUsername("");
+    setUserId("");
     setRole(""); // Actualizar el estado del rol a vacío
     setIsUserPanelOpen(false);
     navigate("/"); // Redirigir al home después del logout
@@ -89,6 +97,24 @@ const Navbar = () => {
   const handleLoginSuccess = (user) => {
     loadUserData(); // Cargar los datos del usuario cuando se loguea correctamente
     setIsLoginPopupOpen(false);
+  };
+
+  const handleShopCart = () => {
+    if (role && role === "admin") {
+     return Swal.fire({
+        title: "el admin no tiene carrito de compras",
+        icon: "error",
+      });
+    }
+    if (role && role === "customer") {
+      navigate(`/carrito/${UserId}`);
+    }else{
+      return Swal.fire({
+        title: "Debe registrarse para tener carrito",
+        icon: "error",
+      });
+    }
+
   };
   return (
     <>
@@ -171,7 +197,10 @@ const Navbar = () => {
                       <Link to="/mi-cuenta" className={styles.userPanelLink}>
                         Mi Cuenta
                       </Link>
-                      <Link to="/mis-favoritos" className={styles.userPanelLink}>
+                      <Link
+                        to="/mis-favoritos"
+                        className={styles.userPanelLink}
+                      >
                         Mis Favoritos
                       </Link>
                     </>
@@ -188,14 +217,17 @@ const Navbar = () => {
           ) : (
             <FaUser className={styles.icon} onClick={toggleLoginPopup} />
           )}
-          <FaShoppingCart className={styles.icon} />
+          <FaShoppingCart
+            className={styles.icon}
+            onClick={() => handleShopCart()}
+          />
           {/* Botón de menú hamburguesa */}
           <button className={styles.menuButton} onClick={toggleMenu}>
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
       </nav>
-  
+
       {isLoginPopupOpen && (
         <LoginPopup
           onLoginSuccess={handleLoginSuccess}
@@ -204,7 +236,6 @@ const Navbar = () => {
       )}
     </>
   );
-  
 };
 
 export default Navbar;

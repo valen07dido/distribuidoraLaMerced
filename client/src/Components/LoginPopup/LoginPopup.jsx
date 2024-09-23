@@ -37,14 +37,17 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
 
     const result = await response.json();
     if (result.login) {
-      const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
+      const encryptedToken = CryptoJS.AES.encrypt(
+        result.tokenSession,
+        key
+      ).toString();
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
       const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
-
+      const encryptedId = CryptoJS.AES.encrypt(result.userId, key).toString();
       localStorage.setItem("tokenSession", encryptedToken);
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
-      localStorage.setItem("user",response)
+      localStorage.setItem("userid",encryptedId)
       onLoginSuccess(result.user);
       toggleLoginPopup();
       swal.close();
@@ -78,20 +81,30 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, surname, birthdate, email, telephone, password }),
+      body: JSON.stringify({
+        name,
+        surname,
+        birthdate,
+        email,
+        telephone,
+        password,
+      }),
     });
     const result = await response.json();
     if (!result.error) {
-      const encryptedToken = CryptoJS.AES.encrypt(result.tokenSession, key).toString();
+      const encryptedToken = CryptoJS.AES.encrypt(
+        result.tokenSession,
+        key
+      ).toString();
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
       const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
 
-      if (typeof(Storage) !== "undefined") {
+      if (typeof Storage !== "undefined") {
         localStorage.setItem("tokenSession", encryptedToken);
       } else {
         console.error("localStorage no está disponible.");
       }
-      
+
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
 
