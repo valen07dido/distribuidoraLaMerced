@@ -95,8 +95,10 @@ const Form = () => {
     <div className={styles.container}>
       <div>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h1>Contactanos</h1>
-          <h3>Recibe lista de precios y novedades!</h3>
+          <h1>Contáctanos</h1>
+          <h3>¡Recibe lista de precios y novedades!</h3>
+
+          {/* Nombre */}
           <div className={styles.flex1}>
             <div
               className={errors.e1 ? styles.inputGroupError : styles.inputGroup}
@@ -105,41 +107,48 @@ const Form = () => {
                 type="text"
                 name="name"
                 id="name"
-                required
                 onChange={handleChange}
                 value={data.name}
+                required
               />
               <label htmlFor="name">Nombre</label>
               {errors.e1 && <p className={styles.error}>*{errors.e1}*</p>}
             </div>
+
+            {/* Teléfono */}
             <div
-              className={errors.e2 ? styles.inputGroupError : styles.inputGroup}
+              className={errors.e3 ? styles.inputGroupError : styles.inputGroup}
             >
               <input
                 type="tel"
                 name="phone"
                 id="phone"
-                required
                 onChange={handleChange}
                 value={data.phone}
+                required
               />
-              <label htmlFor="phone">telefono</label>
+              <label htmlFor="phone">Teléfono</label>
+              {errors.e3 && <p className={styles.error}>*{errors.e3}*</p>}
             </div>
           </div>
+
+          {/* Email */}
           <div
             className={errors.e2 ? styles.inputGroupError : styles.inputGroup}
           >
             <input
-              type="text"
+              type="email"
               name="email"
               id="email"
-              required
               onChange={handleChange}
               value={data.email}
+              required
             />
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             {errors.e2 && <p className={styles.error}>*{errors.e2}*</p>}
           </div>
+
+          {/* Provincia y Localidad */}
           <div className={styles.flex1}>
             <div className={styles.divSelect}>
               <label htmlFor="province">Provincia</label>
@@ -150,7 +159,6 @@ const Form = () => {
                 onChange={handleProvinceChange}
                 required
                 className={styles.select}
-
               >
                 <option value="">Seleccione una provincia</option>
                 {Array.from(new Set(localities.map((loc) => loc.province))).map(
@@ -183,6 +191,8 @@ const Form = () => {
               </select>
             </div>
           </div>
+
+          {/* Tipo de cliente */}
           <div className={styles.divSelect}>
             <label htmlFor="Type">Tipo de cliente</label>
             <select
@@ -205,13 +215,14 @@ const Form = () => {
               <option value="otro">Otro</option>
             </select>
           </div>
+
+          {/* Mensaje */}
           <div
             className={errors.e4 ? styles.inputGroupError : styles.inputGroup}
           >
             <textarea
               name="message"
-              placeholder="Ingrese su mensaje aqui..."
-              id=""
+              placeholder="Ingrese su mensaje aquí..."
               cols="100%"
               rows="10"
               required
@@ -221,6 +232,8 @@ const Form = () => {
             ></textarea>
             {errors.e4 && <p className={styles.error}>*{errors.e4}*</p>}
           </div>
+
+          {/* Botón de envío */}
           <button className={styles.buttons} type="submit">
             Enviar mensaje
           </button>

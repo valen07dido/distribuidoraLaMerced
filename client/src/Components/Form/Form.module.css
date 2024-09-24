@@ -8,6 +8,8 @@
   padding: 20px 20px;
   background-color: #b19563;
   border-radius: 20px;
+  max-width: 90%; /* Cambia de 100% a algo más manejable */
+  margin: 0 auto; /* Asegura que esté centrado horizontalmente */
 }
 
 .title {
@@ -21,9 +23,9 @@
 .flex1 {
   display: flex;
   width: 100%;
-  margin: 0 0 -30px 0;
   justify-content: space-between;
   gap: 0px 20px;
+  flex-wrap: wrap;
 }
 .containerNet {
   display: flex;
@@ -73,10 +75,13 @@
   font-size: 19px;
 }
 .form {
-  width: 700px;
+  width: 100%;
+  max-width: 600px; /* Ajusta este valor según el diseño */
   border: solid 2px #ffff;
   padding: 20px 20px;
   border-radius: 10px;
+  box-sizing: border-box;
+  margin: 0 auto; /* Asegura que esté centrado */
 }
 .buttons {
   font-size: 1.2rem;
@@ -150,6 +155,12 @@
   font-size: 19px;
   color: red;
 }
+
+.divSelect {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 .select {
   width: 100%;
   border-radius: 10px;
@@ -161,12 +172,29 @@
   margin: 10px 0 40px 0;
   font-weight: bold;
 }
-
-@media (width < 768px) {
+.inputGroup,
+.inputGroupError {
+  width: 100%;
+}
+@media (max-width: 768px) {
   .container {
-    width: 100%;
+    width: 100%; /* Para pantallas pequeñas */
+    padding: 10px; /* Reduce el padding para evitar desbordamiento */
   }
   .form {
+    width: 90%; /* Reduce el ancho en pantallas pequeñas */
+    margin: 0 auto; /* Centrar */
+  }
+  .flex1 {
+    flex-direction: column;
+  }
+  .divSelect,
+  .inputGroup,
+  .inputGroupError {
     width: 100%;
+  }
+  .buttons {
+    width: 100%;
+    margin: 10px 0; /* Añade espacio vertical */
   }
 }

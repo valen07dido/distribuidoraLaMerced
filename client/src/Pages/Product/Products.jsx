@@ -139,7 +139,7 @@ const Products = () => {
           <div className={styles.grid}>
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (
-                  <div >
+                  <div key={product.id} >
                     <Card
                       image={product.ProductImages[0]?.address || ""}
                       name={product.name}
