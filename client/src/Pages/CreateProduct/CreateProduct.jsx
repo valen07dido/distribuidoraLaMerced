@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styles from "./CreateProduct.module.css";
-//TODO COMPLETAR ESTE COMPONENTE
+import Swal from "sweetalert2";
+import getDecryptedData from "../../../utils/getDecryptedData";
+const url = import.meta.env.VITE_URL_BACKEND;
+
 const CreateProduct = () => {
   const [product, setProduct] = useState({
     name: "",
@@ -20,9 +23,9 @@ const CreateProduct = () => {
       { peso_min: "", peso_max: "", racion_min: "", racion_max: "" },
     ],
     images: [],
-    stock: { amount: "" },
-    categories: [],
-    types: [],
+    stock: "",
+    categoryName: "",
+    typeName: "",
   });
 
   const handleChange = (e) => {
@@ -65,7 +68,7 @@ const CreateProduct = () => {
     const { value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
-      categories: value.split(",").map((cat) => cat.trim()),
+      categoryName: value.trim(), // Asegúrate de que sea una cadena
     }));
   };
 
@@ -73,7 +76,7 @@ const CreateProduct = () => {
     const { value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
-      types: value.split(",").map((type) => type.trim()),
+      typeName: value.trim(), // Asegúrate de que sea una cadena
     }));
   };
 
@@ -94,10 +97,55 @@ const CreateProduct = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // todo: Aquí agregar la lógica para enviar los datos a la API
-    console.log("Product created:", product);
+    const token = getDecryptedData("tokenSession");
+    const formData = new FormData();
+
+    // Agregar campos al FormData
+    for (const key in product) {
+      if (Array.isArray(product[key])) {
+        product[key].forEach((item, index) => {
+          for (const subKey in item) {
+            formData.append(`${key}[${index}][${subKey}]`, item[subKey]);
+          }
+        });
+      } else {
+        formData.append(key, product[key]);
+      }
+    }
+
+    try {
+      const response = await fetch(`${url}/products/create`, {
+        method: "POST",
+        headers: {
+          Authorization: `${token}`,
+          // No incluyas 'Content-Type', el navegador lo establecerá automáticamente
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        console.log(errorResponse)
+        return Swal.fire({
+          title: "Algo falló",
+          text: errorResponse.response,
+          icon: "error",
+        });
+      }
+
+      Swal.fire({
+        title: "Producto creado exitosamente",
+        icon: "success",
+      });
+    } catch (error) {
+      return Swal.fire({
+        title: "Algo falló",
+        text: error,
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -117,7 +165,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className={styles.containTextarea}>
-            <label htmlFor="description">Descripcion:</label>
+            <label htmlFor="description">Descripción:</label>
             <textarea
               id="description"
               name="description"
@@ -135,7 +183,6 @@ const CreateProduct = () => {
               value={product.ingredients}
               onChange={handleChange}
               className={styles.textarea}
-
             />
           </div>
           {product.composition.map((item, index) => (
@@ -143,7 +190,7 @@ const CreateProduct = () => {
               <h4>Composición - {item.name}</h4>
               {item.value !== undefined && item.value !== null ? (
                 <div>
-                  <label>valor:</label>
+                  <label>Valor:</label>
                   <input
                     type="number"
                     name="value"
@@ -176,7 +223,7 @@ const CreateProduct = () => {
             </div>
           ))}
 
-          <h3>Guia alimentaria:</h3>
+          <h3>Guía alimentaria:</h3>
           {product.feedingGuide.map((guide, index) => (
             <div key={index}>
               <div>
@@ -198,7 +245,7 @@ const CreateProduct = () => {
                 />
               </div>
               <div>
-                <label>Racion Min:</label>
+                <label>Ración Min:</label>
                 <input
                   type="number"
                   name="racion_min"
@@ -207,7 +254,7 @@ const CreateProduct = () => {
                 />
               </div>
               <div>
-                <label>Racion Max:</label>
+                <label>Ración Max:</label>
                 <input
                   type="number"
                   name="racion_max"
@@ -225,7 +272,7 @@ const CreateProduct = () => {
           </button>
 
           <div>
-            <label htmlFor="images">Imagenes:</label>
+            <label htmlFor="images">Imágenes:</label>
             <input
               type="file"
               id="images"
@@ -240,38 +287,36 @@ const CreateProduct = () => {
               type="number"
               id="stock"
               name="stock"
-              value={product.stock.amount}
+              value={product.stock}
               onChange={(e) =>
                 setProduct((prevProduct) => ({
                   ...prevProduct,
-                  stock: { amount: e.target.value },
+                  stock: parseInt(e.target.value, 10), // Convierte a número
                 }))
               }
             />
           </div>
           <div>
-            <label htmlFor="categories">Categoria (separado por comas):</label>
+            <label htmlFor="categories">Categoría:</label>
             <input
               type="text"
               id="categories"
-              name="categories"
+              name="categoryName"
               onChange={handleCategoryChange}
               placeholder="Medianos,Grandes"
             />
           </div>
           <div>
-            <label htmlFor="types">Tipo o raza (separado por comas):</label>
+            <label htmlFor="type">Tipo:</label>
             <input
               type="text"
-              id="types"
-              name="types"
+              id="type"
+              name="typeName"
               onChange={handleTypeChange}
-              placeholder="Gatos,Perros"
+              placeholder="Loros, Gatos"
             />
           </div>
-          <button type="submit" className={styles.button}>
-            Create Product
-          </button>
+          <button type="submit">Crear Producto</button>
         </form>
       </div>
     </div>
