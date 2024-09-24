@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import getDecryptedData from "../../../utils/getDecryptedData";
 import styles from "./Cart.module.css"; // Importar el archivo CSS
 const url = import.meta.env.VITE_URL_BACKEND;
-
+//todo REVISAR CART
 const Cart = () => {
   const { id } = useParams();
   const [cartItems, setCartItems] = useState([]);

@@ -54,7 +54,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
     } else {
       swal.fire({
         title: "Algo falló",
-        text: result,
+        text: result.response,
         icon: "error",
         customClass: { popup: styles.alert },
       });

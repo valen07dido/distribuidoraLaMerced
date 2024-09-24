@@ -67,8 +67,13 @@ const Form = () => {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error("Error al enviar el formulario");
+      if (!response.error) {
+        swal.fire({
+          title: "Algo fallo",
+          text: response.response,
+          icon: "error",
+          customClass: { popup: styles.alert },
+        });
       }
       setData({
         name: "",

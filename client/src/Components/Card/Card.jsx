@@ -11,6 +11,7 @@ const Card = ({ image, name, category, type, productId, onAddToCart }) => {
   const handleAddToCartClick = async (e) => {
     const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
     const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+    const userRole=getDecryptedData("role")
     e.stopPropagation(); // Evitar que el evento de clic se propague al Link
     e.preventDefault();
 
@@ -18,6 +19,12 @@ const Card = ({ image, name, category, type, productId, onAddToCart }) => {
     if (!token || !userId) {
       return Swal.fire({
         title: "Debe estar logueado para tener Carrito",
+        icon: "error",
+      });
+    }
+    if(userRole==="admin"){
+      return Swal.fire({
+        title: "El admin no tiene carrito",
         icon: "error",
       });
     }

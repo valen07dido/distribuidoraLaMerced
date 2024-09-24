@@ -15,6 +15,7 @@ const Detail = () => {
   const [quantity, setQuantity] = useState(1); // Cantidad del producto
   const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
   const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+  const userRole = getDecryptedData("role"); // Obtén el ID del usuario
   const [isFavorite, setIsFavorite] = useState(false); // Estado para gestionar favoritos
 
   const handleWhatsAppConsultation = () => {
@@ -27,6 +28,21 @@ const Detail = () => {
     window.open(whatsappUrl, "_blank"); // Abre WhatsApp en una nueva pestaña
   };
   const handleToggleFavorite = async () => {
+    const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
+    const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+    const userRole = getDecryptedData("role");
+    if (!token) {
+      return Swal.fire({
+        title: "Debe loguarse para tener Lista de Deseos",
+        icon: "info",
+      });
+    }
+    if (userRole === "admin") {
+      return Swal.fire({
+        title: "El admin no tiene lista de deseos",
+        icon: "info",
+      });
+    }
     try {
       Swal.fire({
         title: "Espere, estamos procesando la informacion...",
@@ -46,7 +62,6 @@ const Detail = () => {
       Swal.close();
       if (response.error) {
         const errorText = await response.response;
-        console.error("Error en la solicitud:", errorText);
         throw new Error("Error al modificar la lista de deseos");
       }
 

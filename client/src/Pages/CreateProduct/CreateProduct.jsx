@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./CreateProduct.module.css";
-
+//TODO COMPLETAR ESTE COMPONENTE
 const CreateProduct = () => {
   const [product, setProduct] = useState({
     name: "",
