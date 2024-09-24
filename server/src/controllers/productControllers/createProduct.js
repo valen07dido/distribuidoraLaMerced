@@ -1,3 +1,5 @@
+require("dotenv").config(); // Cargar variables de entorno al inicio
+const cloudinary = require("cloudinary").v2;
 const {
   Product,
   ProductImage,
@@ -15,40 +17,81 @@ const createProduct = async ({
   stock,
   ingredients,
   composition,
-  feedingGuide
+  feedingGuide,
 }) => {
+  // Configura Cloudinary
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
   try {
+    // Verifica si el producto ya existe
     const existingProduct = await Product.findOne({ where: { name } });
     if (existingProduct) {
-      throw new Error("El producto ya existe");
+      return {
+        error: true,
+        response: "El producto ya existe",
+      };
     }
 
-    const [category, created] = await ProductCategory.findOrCreate({
-      where: { name: categoryName },
-    });
-    const [type] = await ProductType.findOrCreate({
-      where: { name: typeName },
-    });
+    // Crea o busca la categoría y tipo
+    const [category] = await ProductCategory.findOrCreate({ where: { name: categoryName } });
+    const [type] = await ProductType.findOrCreate({ where: { name: typeName } });
 
+    // Normaliza el nombre del producto para la carpeta en Cloudinary
+    const normalizedProductName = name.replace(/\s+/g, "_").toLowerCase();
+
+    // Subir imágenes a Cloudinary y guardar las URLs en la base de datos
+    const productImages = [];
+    if (images && images.length > 0) {
+      for (const image of images) {
+        try {
+          const uploadResult = await cloudinary.uploader.upload(image, {
+            folder: `LaMerced/productos/${normalizedProductName}`, // Carpeta en Cloudinary
+            overwrite: true, // Permite sobrescribir la imagen si ya existe
+          });
+          productImages.push({ address: uploadResult.secure_url }); // Guarda la URL de la imagen
+        } catch (uploadError) {
+          console.error(`Error subiendo imagen ${image}:`, uploadError.message);
+          return {
+            error:true,
+            response:"Fallo al cargar las imagenes"
+          }
+        }
+      }
+    } else {
+      return {
+        error:true,
+        response:"No se proporcionaron imágenes para el producto."
+      }
+    }
+
+    // Crea el nuevo producto
     const newProduct = await Product.create({
       name,
       description,
       ingredients,
       composition,
-      feedingGuide
+      feedingGuide,
     });
 
+    // Relaciona el producto con la categoría y tipo
     await newProduct.addProductCategory(category);
     await newProduct.addProductType(type);
 
-    if (images && images.length > 0) {
-      const productImages = images.map((imageAddress) => ({
-        address: imageAddress,
+    // Guarda todas las imágenes asociadas al producto en la base de datos
+    const imagePromises = productImages.map((img) => {
+      return ProductImage.create({
+        address: img.address,
         ProductId: newProduct.id,
-      }));
-      await ProductImage.bulkCreate(productImages);
-    }
+      });
+    });
 
+    await Promise.all(imagePromises);
+
+    // Crea el stock del producto si se proporciona
     if (stock) {
       await ProductStock.create({
         amount: stock,
@@ -56,11 +99,12 @@ const createProduct = async ({
       });
     }
 
-    return newProduct;
+    return newProduct; // Retorna el producto creado
   } catch (error) {
+    console.error("Error al crear el producto:", error.message);
     return {
       error: true,
-      response: "algo fallo!",
+      response: error.message || "Algo falló!",
     };
   }
 };
