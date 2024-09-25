@@ -107,7 +107,7 @@ const CreateProduct = () => {
       formData.append(`feedingGuide[${index}][racion_max]`, guide.racion_max);
     });
     try {
-      const response = await fetch("http://localhost:3001/products/create", {
+      const response = await fetch(`${url}/products/create`, {
         method: "POST",
         headers: {
           Authorization: `${token}`,
