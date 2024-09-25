@@ -1,47 +1,83 @@
-/* Cart.module.css */
+.loadingMessage {
+  font-size: 18px;
+  color: blue;
+}
+
+.errorMessage {
+  font-size: 18px;
+  color: red;
+}
 
 .cartContainer {
-    color: white; /* Hace que todo el texto dentro del contenedor sea blanco */
-    background-color: #2c2c2c; /* Fondo oscuro para contraste */
-    padding: 20px;
-  }
-  
-  .cartTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .cartList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .cartListItem {
-    margin-bottom: 10px;
-  }
-  
-  .cartInput {
-    margin-left: 10px;
-    padding: 5px;
-    background-color: #444;
-    border: none;
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .cartButton {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #ff6347; /* Color del botón */
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cartButton:hover {
-    background-color: #ff4500; /* Efecto hover para el botón */
-  }
-  
+  padding: 70px 0px;
+  max-width: 800px;
+  min-height: 300px;
+  margin: 0 auto;
+}
+
+.cartTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.emptyCartMessage {
+  font-size: 18px;
+  color: gray;
+}
+
+.cartList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cartListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #b19563;
+}
+
+.cartItemDetails {
+  flex: 1;
+}
+
+.cartItemActions {
+  display: flex;
+  align-items: center;
+}
+
+.cartInput {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.cartButton {
+  padding: 10px 15px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cartButton:hover {
+  background-color: #ff0000;
+}
+.whatsappButton{
+  background-color: #f5f5f5;
+  width: 150px;
+  padding: 10px;
+  font-size: medium;
+  font-weight: bold;
+  border-radius: 15px;
+  transition: 1s;
+}
+.whatsappButton:hover{
+  background-color: #b19563;
+  color: #000;
+  cursor: pointer;
+}

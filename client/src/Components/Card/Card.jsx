@@ -1,17 +1,19 @@
 import React from "react";
 import styles from "./Card.module.css";
 import { FaCartPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate
 import getDecryptedData from "../../../utils/getDecryptedData"; // Para obtener el token
-
 import Swal from "sweetalert2";
+
 const url = import.meta.env.VITE_URL_BACKEND;
 
-const Card = ({ image, name, category, type, productId, onAddToCart }) => {
+const Card = ({ image, name, category, type, productId }) => {
+  const navigate = useNavigate(); // Crea una instancia de navigate
+
   const handleAddToCartClick = async (e) => {
     const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
     const userId = getDecryptedData("userid"); // Obtén el ID del usuario
-    const userRole=getDecryptedData("role")
+    const userRole = getDecryptedData("role");
     e.stopPropagation(); // Evitar que el evento de clic se propague al Link
     e.preventDefault();
 
@@ -22,7 +24,7 @@ const Card = ({ image, name, category, type, productId, onAddToCart }) => {
         icon: "error",
       });
     }
-    if(userRole==="admin"){
+    if (userRole === "admin") {
       return Swal.fire({
         title: "El admin no tiene carrito",
         icon: "error",
@@ -51,6 +53,15 @@ const Card = ({ image, name, category, type, productId, onAddToCart }) => {
       Swal.fire({
         title: "Producto añadido al carrito",
         icon: "success",
+        showCancelButton: true, // Muestra el botón de cancelar
+        confirmButtonText: "Ir al carrito",
+        cancelButtonText: "Quedarse en la pagina actual",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirigir al carrito
+          navigate(`/carrito/${userId}`); // Cambia la ruta según sea necesario
+        }
+        // Si el usuario elige "Quedarse en el home", no hacemos nada
       });
     } catch (error) {
       console.error("Error en la solicitud:", error);
