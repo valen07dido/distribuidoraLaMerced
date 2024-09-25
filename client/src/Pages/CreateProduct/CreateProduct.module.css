@@ -9,22 +9,22 @@
     border: 2px solid #f5f5f5;
     border-radius: 15px;
     width: 90%;
-    max-width: 1200px; /* Para evitar que se extienda demasiado en pantallas grandes */
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px; /* Para darle espacio interno */
+    padding: 20px;
 }
 
 .button {
     background-color: #f5f5f5;
-    width: 100px; /* Se corrigió el typo en el valor de 'width' */
+    width: 100px;
     height: 40px;
     border-radius: 5px;
-    transition: background-color 0.5s, color 0.5s; /* Se añadió la transición para el color */
-    border: none; /* Para quitar el borde por defecto de los botones */
-    margin-top: 20px; /* Separación con el contenido de arriba */
+    transition: background-color 0.5s, color 0.5s;
+    border: none;
+    margin-top: 20px;
 }
 
 .button:hover {
@@ -32,57 +32,61 @@
     color: #f5f5f5;
     cursor: pointer;
 }
-.containTextarea{
+
+.containTextarea {
     display: flex;
     flex-direction: column;
-    margin: 10px 0; 
-}
-.textarea{
-    resize: vertical; 
-    width: 103%;
-    height: 50px;
-    border-radius: 5px;
+    margin: 10px 0;
+    width: 90%;
 }
 
-/* ProductForm.module.css */
-.form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 70px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #b19563;
-  }
-  
-  .input {
+.textarea {
+    resize: vertical;
+    width: 101.5%; /* Cambiado a 100% para mejor ajuste */
+    height: 50px;
+    border-radius: 5px;
+    margin-left: -10px;
+}
+
+.input {
     margin: 10px 0;
     padding: 10px;
+    width: 90%;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .title {
+}
+
+.title {
     margin-top: 20px;
-  }
-  
-  .button {
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #45a049;
-  }
-  
-  .compositionSection, .feedingGuideSection {
+}
+
+.compositionSection, .feedingGuideSection {
     display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
     justify-content: space-between;
     margin: 10px 0;
-  }
-  
+    width: 93%; /* Asegura que ocupe el ancho completo */
+}
+
+.compositionSection input,
+.feedingGuideSection input {
+    flex: 1; /* Hace que los inputs crezcan igual */
+    margin: 5px; /* Añade un margen pequeño entre inputs */
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .compositionSection,
+    .feedingGuideSection {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+    }
+
+    .input, .textarea {
+        width: 100%; /* Asegura que los inputs ocupen el 100% */
+    }
+
+    .button {
+        width: 100%; /* Botones ocupan todo el ancho */
+    }
+}
