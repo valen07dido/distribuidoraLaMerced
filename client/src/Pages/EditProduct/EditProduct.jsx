@@ -33,6 +33,14 @@ const EditProduct = () => {
     fetchProducts();
   }, []);
 
+  const updateLocalProduct = (productId, field, value) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId ? { ...product, [field]: value } : product
+      )
+    );
+  };
+
   const handleEditProduct = async (productId, field, value) => {
     const token = getDecryptedData("tokenSession");
     try {
@@ -91,46 +99,47 @@ const EditProduct = () => {
                     <input
                       className={styles.input}
                       type="text"
-                      value={product.name}
-                      onChange={(e) =>
-                        handleEditProduct(product.id, "name", e.target.value)
-                      }
+                      defaultValue={product.name}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        updateLocalProduct(product.id, "name", newValue);
+                        handleEditProduct(product.id, "name", newValue);
+                      }}
+                      onChange={(e) => updateLocalProduct(product.id, "name", e.target.value)}
                     />
                   </td>
                   <td className={styles.tableCell}>
                     <input
                       className={styles.input}
                       type="text"
-                      value={product.description}
-                      onChange={(e) =>
-                        handleEditProduct(
-                          product.id,
-                          "description",
-                          e.target.value
-                        )
-                      }
+                      defaultValue={product.description}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        updateLocalProduct(product.id, "description", newValue);
+                        handleEditProduct(product.id, "description", newValue);
+                      }}
+                      onChange={(e) => updateLocalProduct(product.id, "description", e.target.value)}
                     />
                   </td>
                   <td className={styles.tableCell}>
                     <textarea
                       className={styles.textarea}
-                      value={product.ingredients}
-                      onChange={(e) =>
-                        handleEditProduct(
-                          product.id,
-                          "ingredients",
-                          e.target.value
-                        )
-                      }
+                      defaultValue={product.ingredients}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        updateLocalProduct(product.id, "ingredients", newValue);
+                        handleEditProduct(product.id, "ingredients", newValue);
+                      }}
+                      onChange={(e) => updateLocalProduct(product.id, "ingredients", e.target.value)}
                     />
                   </td>
                   <td className={styles.tableCell}>
                     <textarea
                       className={styles.textarea}
-                      value={product.composition
+                      defaultValue={product.composition
                         .map((comp) => `${comp.name}: ${comp.min}-${comp.max}`)
                         .join(", ")}
-                      onChange={(e) => {
+                      onBlur={(e) => {
                         const newComposition = e.target.value
                           .split(", ")
                           .map((item) => {
@@ -138,24 +147,22 @@ const EditProduct = () => {
                             const [min, max] = range.split("-").map(Number);
                             return { name, min, max };
                           });
-                        handleEditProduct(
-                          product.id,
-                          "composition",
-                          newComposition
-                        );
+                        updateLocalProduct(product.id, "composition", newComposition);
+                        handleEditProduct(product.id, "composition", newComposition);
                       }}
+                      onChange={(e) => updateLocalProduct(product.id, "composition", e.target.value)}
                     />
                   </td>
                   <td className={styles.tableCell}>
                     <textarea
                       className={styles.textarea}
-                      value={product.feedingGuide
+                      defaultValue={product.feedingGuide
                         .map(
                           (guide) =>
                             `Peso: ${guide.peso_min}-${guide.peso_max} Ración: ${guide.racion_min}-${guide.racion_max}`
                         )
                         .join(", ")}
-                      onChange={(e) => {
+                      onBlur={(e) => {
                         const newFeedingGuide = e.target.value
                           .split(", ")
                           .map((item) => {
@@ -174,22 +181,23 @@ const EditProduct = () => {
                               racion_max: racionMax,
                             };
                           });
-                        handleEditProduct(
-                          product.id,
-                          "feedingGuide",
-                          newFeedingGuide
-                        );
+                        updateLocalProduct(product.id, "feedingGuide", newFeedingGuide);
+                        handleEditProduct(product.id, "feedingGuide", newFeedingGuide);
                       }}
+                      onChange={(e) => updateLocalProduct(product.id, "feedingGuide", e.target.value)}
                     />
                   </td>
                   <td className={styles.tableCell}>
                     <input
                       className={styles.input}
                       type="number"
-                      value={product.ProductStock.amount}
-                      onChange={(e) =>
-                        handleEditProduct(product.id, "stock", e.target.value)
-                      }
+                      defaultValue={product.ProductStock.amount}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        updateLocalProduct(product.id, "stock", newValue);
+                        handleEditProduct(product.id, "stock", newValue);
+                      }}
+                      onChange={(e) => updateLocalProduct(product.id, "stock", e.target.value)}
                     />
                   </td>
                 </tr>
