@@ -43,3 +43,46 @@
     height: 50px;
     border-radius: 5px;
 }
+
+/* ProductForm.module.css */
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 70px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #b19563;
+  }
+  
+  .input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .title {
+    margin-top: 20px;
+  }
+  
+  .button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+  .compositionSection, .feedingGuideSection {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  

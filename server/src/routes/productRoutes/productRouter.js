@@ -20,12 +20,18 @@ const {
   updateCartHandler,
   removeItemHandler,
 } = require("../../handlers/productHandlers/cartHandler.js");
-
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const useRouter = Router();
 
 useRouter.get("/", getProductHandler);
 useRouter.get("/:id", getProductHandler);
-useRouter.post("/create", isAuthenticated, createProductHandler);
+useRouter.post(
+  "/create",
+  upload.array("images"),
+  isAuthenticated,
+  createProductHandler
+);
 useRouter.put("/update/:id", isAuthenticated, updateProductHandler);
 useRouter.post("/wishlist/:id", isAuthenticated, wishlistHandler);
 useRouter.get("/wishlist/:id", isAuthenticated, getWishlistHandler);
