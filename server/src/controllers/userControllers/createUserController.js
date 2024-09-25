@@ -30,9 +30,7 @@ const createUser = async (userData) => {
     if (roleId) {
       const existingRole = await UserRole.findByPk(roleId);
       if (!existingRole) {
-        console.log(
-          "El rol especificado no existe. Se asignará el rol por defecto."
-        );
+
         assignedRoleId = null;
       }
     }
