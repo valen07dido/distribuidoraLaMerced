@@ -44,6 +44,7 @@ const Form = () => {
         title: "Por favor revise los datos",
         text: "Verifique que no haya ningun error en los datos ingresados.",
         icon: "warning",
+        confirmButtonText: "Entendido",
         customClass: { popup: styles.alert },
       });
     }
@@ -56,6 +57,7 @@ const Form = () => {
         didClose: false,
         closeOnEsc: false,
         customClass: { popup: styles.alert },
+        confirmButtonText: "Entendido",
       });
       swal.showLoading();
 
@@ -72,6 +74,7 @@ const Form = () => {
           title: "Algo fallo",
           text: response.response,
           icon: "error",
+          confirmButtonText: "Entendido",
           customClass: { popup: styles.alert },
         });
       }
@@ -89,6 +92,7 @@ const Form = () => {
         title: "Exito!!",
         text: "mensaje enviado correctamente",
         icon: "success",
+        confirmButtonText: "Entendido",
         customClass: { popup: styles.alert },
       });
       const responseData = await response.json();

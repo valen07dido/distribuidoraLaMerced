@@ -35,12 +35,15 @@ const Detail = () => {
       return Swal.fire({
         title: "Debe loguarse para tener Lista de Deseos",
         icon: "info",
+        confirmButtonText:"Entendido"
       });
     }
     if (userRole === "admin") {
       return Swal.fire({
         title: "El admin no tiene lista de deseos",
         icon: "info",
+        confirmButtonText:"Entendido"
+
       });
     }
     try {
@@ -72,6 +75,8 @@ const Detail = () => {
       Swal.fire({
         title: "Se modificó su lista de deseos!",
         icon: "success",
+        confirmButtonText:"Entendido"
+
       });
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -126,6 +131,23 @@ const Detail = () => {
 
   // Función para manejar la acción de añadir al carrito
   const handleAddToCart = async () => {
+    const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
+    const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+    const userRole = getDecryptedData("role");
+    if (!token) {
+      return Swal.fire({
+        title: "Debe loguarse para tener carrito.",
+        icon: "info",
+        confirmButtonText: "Entendido",
+      });
+    }
+    if (userRole === "admin") {
+      return Swal.fire({
+        title: "El admin no tiene carrito.",
+        icon: "info",
+        confirmButtonText: "Entendido",
+      });
+    }
     try {
       const response = await fetch(`${url}/products/cart/add/${userId}`, {
         method: "POST",

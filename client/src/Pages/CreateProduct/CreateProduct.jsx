@@ -71,6 +71,7 @@ const CreateProduct = () => {
       allowEscapeKey: false,
       showConfirmButton: false,
     });
+    swal.showLoading()
     const token = getDecryptedData("tokenSession");
 
     const formData = new FormData();

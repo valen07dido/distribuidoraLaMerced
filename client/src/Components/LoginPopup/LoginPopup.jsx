@@ -57,6 +57,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
         text: result.response,
         icon: "error",
         customClass: { popup: styles.alert },
+        confirmButtonText: "Entendido",
       });
     }
   };
@@ -116,6 +117,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
         text: "Se ha registrado correctamente. verifique su mail para activarlo",
         icon: "success",
         customClass: { popup: styles.alert },
+        confirmButtonText: "Entendido",
       });
     } else {
       swal.fire({
@@ -123,6 +125,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
         text: result.response,
         icon: "error",
         customClass: { popup: styles.alert },
+        confirmButtonText: "Entendido",
       });
     }
   };

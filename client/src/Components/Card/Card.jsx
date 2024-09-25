@@ -22,12 +22,16 @@ const Card = ({ image, name, category, type, productId }) => {
       return Swal.fire({
         title: "Debe estar logueado para tener Carrito",
         icon: "error",
+        confirmButtonText:"Entendido"
+
       });
     }
     if (userRole === "admin") {
       return Swal.fire({
         title: "El admin no tiene carrito",
         icon: "error",
+        confirmButtonText:"Entendido"
+
       });
     }
 

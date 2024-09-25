@@ -11,3 +11,9 @@ body {
 h1 {
   color: #f5f5f5;
 }
+
+.swal2-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

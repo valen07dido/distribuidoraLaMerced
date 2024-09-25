@@ -103,6 +103,7 @@ const Navbar = () => {
       return Swal.fire({
         title: "el admin no tiene carrito de compras",
         icon: "error",
+        confirmButtonText: "Entendido",
       });
     }
     if (role && role === "customer") {
@@ -111,6 +112,7 @@ const Navbar = () => {
       return Swal.fire({
         title: "Debe registrarse para tener carrito",
         icon: "error",
+        confirmButtonText: "Entendido",
       });
     }
   };

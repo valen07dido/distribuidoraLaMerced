@@ -98,12 +98,12 @@
     color: black;
   }
 }
-.alert {
+/* .alert {
   background-color: #b19563;
   color: black;
   border: 2px white solid;
   border-radius: 20px;
-}
+} */
 .message {
   width: 100%;
   padding: 10px 0;

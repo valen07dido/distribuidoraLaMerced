@@ -34,6 +34,7 @@ const ActivateAccount = () => {
             icon: "error",
             title: "Error al activar la cuenta",
             text: data.response,
+            confirmButtonText: "Entendido",
           });
         } else {
           Swal.fire({
