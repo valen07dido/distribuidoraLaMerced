@@ -188,11 +188,8 @@ const Navbar = () => {
                   ) : (
                     <>
                       {/* Opciones para CUSTOMER */}
-                      <Link to="/mi-cuenta" className={styles.userPanelLink}>
-                        Mi Cuenta
-                      </Link>
                       <Link
-                        to="/mis-favoritos"
+                        to={`/favoritos/${UserId}`}
                         className={styles.userPanelLink}
                       >
                         Mis Favoritos

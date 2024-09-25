@@ -1,0 +1,83 @@
+.loadingMessage {
+    font-size: 18px;
+    color: blue;
+  }
+  
+  .errorMessage {
+    font-size: 18px;
+    color: red;
+  }
+  
+  .wishlistContainer {
+    padding: 70px 0px;
+    max-width: 800px;
+    min-height: 300px;
+    margin: 0 auto;
+  }
+  
+  .wishlistTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .emptywishlistMessage {
+    font-size: 18px;
+    color: gray;
+  }
+  
+  .wishlistList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .wishlistListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #b19563;
+  }
+  
+  .wishlistItemDetails {
+    flex: 1;
+  }
+  
+  .wishlistItemActions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .wishlistInput {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  .wishlistButton {
+    padding: 10px 15px;
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .wishlistButton:hover {
+    background-color: #ff0000;
+  }
+  .whatsappButton{
+    background-color: #f5f5f5;
+    width: 150px;
+    padding: 10px;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 15px;
+    transition: 1s;
+  }
+  .whatsappButton:hover{
+    background-color: #b19563;
+    color: #000;
+    cursor: pointer;
+  }

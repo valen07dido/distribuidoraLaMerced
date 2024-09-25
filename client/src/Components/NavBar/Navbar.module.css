@@ -82,6 +82,7 @@
 }
 .userPanel{
   gap: 10px;
+  padding-top: 20px;
   background-color: #b19563;
   border: solid 1px #f5f5f5;
   border-radius: 0 0 15px 15px;

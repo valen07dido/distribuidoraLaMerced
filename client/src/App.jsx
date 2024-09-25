@@ -14,6 +14,7 @@ import EditProduct from "./Pages/EditProduct/EditProduct";
 import NotFound from "./Pages/NotFound/NotFound"; // Importa la página de 404
 import CreateProduct from "./Pages/CreateProduct/CreateProduct";
 import Cart from "./Pages/Cart/Cart";
+import Wishlist from "./Pages/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/productos" element={<Products />} />
         <Route path="/productos/:id" element={<Detail />} />
         <Route path="/carrito/:id" element={<Cart />} />
+        <Route path="/favoritos/:id" element={<Wishlist />} />
         <Route path="/activate/:token" element={<ActivateAccount />} />
         <Route
           path="/editar/:token"
@@ -35,7 +37,7 @@ function App() {
               <EditProduct />
             </ProtectedRoute>
           }
-        />{" "}
+        />
         <Route
           path="/crear/:token"
           element={
