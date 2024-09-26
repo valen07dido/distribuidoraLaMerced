@@ -116,11 +116,11 @@ const CreateProduct = () => {
         body: formData,
       });
       swal.close();
-      if (!response.ok) {
-        const errorResponse = await response.json(); // Obtiene el error del backend
+      const data =await response.json()
+      if (data.error) {
         return swal.fire({
           title: "Error",
-          text: response,
+          text: data.response,
           icon: "error",
         });
       }
@@ -131,7 +131,6 @@ const CreateProduct = () => {
         icon: "success",
       });
     } catch (error) {
-      console.error("Error:", error);
       return swal.fire({
         title: "Error",
         text: error,

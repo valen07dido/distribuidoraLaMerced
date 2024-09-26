@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import getDecryptedData from "../../../utils/getDecryptedData";
 import styles from "./Cart.module.css";
+import Swal from "sweetalert2";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Cart = () => {
@@ -24,7 +25,11 @@ const Cart = () => {
       setCartItems(data);
       setLoading(false);
     } catch (error) {
-      setError("Hubo un problema al cargar el carrito.");
+      Swal.fire({
+        title: "Hubo un Error",
+        text: "Error interno del servidor, recargue la pagina por favor!",
+        confirmButtonText: "Entendido",
+      });
       setLoading(false);
     }
   };
@@ -44,15 +49,24 @@ const Cart = () => {
         },
         body: JSON.stringify({ productId, quantity: newQuantity }),
       });
-
-      if (!response.ok) {
-        throw new Error("Error al actualizar la cantidad");
+      const data = await response.json();
+      console.log(data);
+      if (data.error) {
+        Swal.fire({
+          title: "Hubo un Error",
+          text: data.response,
+          confirmButtonText: "Entendido",
+        });
       }
 
       // Volver a cargar el carrito
       fetchCartItems();
     } catch (error) {
-      setError("Hubo un problema al cambiar la cantidad.");
+      Swal.fire({
+        title: "Hubo un Error",
+        text: "Error interno del servidor, recargue la pagina por favor!",
+        confirmButtonText: "Entendido",
+      });
     }
   };
 
@@ -67,32 +81,42 @@ const Cart = () => {
         body: JSON.stringify({ productId }),
       });
 
-      if (!response.ok) {
-        throw new Error("Error al eliminar el producto");
+      const data = await response.json();
+      if (data.error) {
+        Swal.fire({
+          title: "Hubo un Error",
+          text: data.response,
+          confirmButtonText: "Entendido",
+        });
       }
 
       // Volver a cargar el carrito
       fetchCartItems();
     } catch (error) {
-      setError("Hubo un problema al eliminar el producto.");
+      Swal.fire({
+        title: "Hubo un Error",
+        text: "Error interno del servidor, recargue la pagina por favor!",
+        confirmButtonText: "Entendido",
+      });
     }
   };
 
   const handleWhatsAppShare = () => {
-    const message = cartItems.Products.map(item => 
-      `${item.name}: ${item.ProductCart.quantity} unidades`
-    ).join('\n');
+    const message = cartItems.Products.map(
+      (item) => `${item.name}: ${item.ProductCart.quantity} unidades`
+    ).join("\n");
 
-    const phoneNumber = '3415778294'; // Reemplaza con el número deseado
-    const urlWhatsApp = `https://wa.me/${phoneNumber}?text=Hola,%20me%20gustaría%20consultar%20los%20siguientes%20productos%20en%20mi%20carrito:%0A${encodeURIComponent(message)}`;
+    const phoneNumber = "3415778294"; // Reemplaza con el número deseado
+    const urlWhatsApp = `https://wa.me/${phoneNumber}?text=Hola,%20me%20gustaría%20consultar%20los%20siguientes%20productos%20en%20mi%20carrito:%0A${encodeURIComponent(
+      message
+    )}`;
 
-    window.open(urlWhatsApp, '_blank');
-};
+    window.open(urlWhatsApp, "_blank");
+  };
 
   if (loading)
     return <p className={styles.loadingMessage}>Cargando tu carrito...</p>;
   if (error) return <p className={styles.errorMessage}>{error}</p>;
-
   return (
     <div className={styles.cartContainer}>
       <h1 className={styles.cartTitle}>Carrito de: {username}</h1>

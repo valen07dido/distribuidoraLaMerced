@@ -17,15 +17,22 @@ const Products = () => {
     type: "", // Filtro para tipos
   });
   const [loading, setLoading] = useState(false);
+  const [noProducts, setNoProducts] = useState(false); // Nuevo estado
 
   const fetchProducts = async () => {
     setLoading(true);
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-      setProducts(data);
-      setFilteredProducts(data);
-      extractUniqueCategoriesAndTypes(data);
+
+      if (!data || data.length === 0) {
+        setNoProducts(true); // No hay productos
+      } else {
+        setProducts(data);
+        setFilteredProducts(data);
+        extractUniqueCategoriesAndTypes(data);
+        setNoProducts(false); // Resetear estado si hay productos
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -134,50 +141,57 @@ const Products = () => {
 
       {loading ? (
         <Loading/>
+      ) : noProducts ? (
+        <div className={styles.noProductsMessage}>
+          <h2>No hay productos disponibles en este momento.</h2>
+          <p>Por favor, vuelve más tarde o crea un nuevo producto.</p>
+        </div>
       ) : (
         <div>
           <div className={styles.grid}>
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (
-                  <div key={product.id} >
-                    <Card
-                      image={product.ProductImages[0]?.address || ""}
-                      name={product.name}
-                      productId={product.id}
-                      category={product.ProductCategories[0]}
-                      type={product.ProductTypes[0]}
-                    />
-                  </div>
+                <div key={product.id}>
+                  <Card
+                    image={product.ProductImages[0]?.address || ""}
+                    name={product.name}
+                    productId={product.id}
+                    category={product.ProductCategories[0]}
+                    type={product.ProductTypes[0]}
+                  />
+                </div>
               ))
             ) : (
-              <p>No se encontraron productos.</p>
+              <p>No se encontraron productos para los filtros seleccionados.</p>
             )}
           </div>
         </div>
       )}
 
       {/* Paginación */}
-      <div>
-        <button
-          disabled={page === 1}
-          onClick={() => handlePageChange(page - 1)}
-          className={page === 1 ? styles.notAllowed : styles.pagination}
-        >
-          Anterior
-        </button>
-        <span className={styles.page}>Página {page}</span>
-        <button
-          disabled={page * pageSize >= filteredProducts.length}
-          onClick={() => handlePageChange(page + 1)}
-          className={
-            page * pageSize >= filteredProducts.length
-              ? styles.notAllowed
-              : styles.pagination
-          }
-        >
-          Siguiente
-        </button>
-      </div>
+      {!noProducts && (
+        <div>
+          <button
+            disabled={page === 1}
+            onClick={() => handlePageChange(page - 1)}
+            className={page === 1 ? styles.notAllowed : styles.pagination}
+          >
+            Anterior
+          </button>
+          <span className={styles.page}>Página {page}</span>
+          <button
+            disabled={page * pageSize >= filteredProducts.length}
+            onClick={() => handlePageChange(page + 1)}
+            className={
+              page * pageSize >= filteredProducts.length
+                ? styles.notAllowed
+                : styles.pagination
+            }
+          >
+            Siguiente
+          </button>
+        </div>
+      )}
     </div>
   );
 };

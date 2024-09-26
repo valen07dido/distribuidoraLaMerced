@@ -15,6 +15,7 @@ const url = import.meta.env.VITE_URL_BACKEND;
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [noProducts, setNoProducts] = useState(false); // Nuevo estado
 
   useEffect(() => {
     getProducts();
@@ -27,11 +28,7 @@ const Home = () => {
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        return (
-          <div>
-            <h1>Por Favor Cree un producto</h1>
-          </div>
-        );
+        setNoProducts(true); // Indicar que no hay productos
       } else {
         // Suponiendo que cada producto tiene una propiedad `createdAt` para ordenar por fecha de creación
         const sortedProducts = data.sort(
@@ -40,10 +37,12 @@ const Home = () => {
 
         // Selecciona los últimos 3 productos
         setProducts(sortedProducts.slice(0, 3));
-        setLoading(false);
+        setNoProducts(false); // Resetear el estado en caso de encontrar productos
       }
     } catch (error) {
       console.error("Error al obtener los productos", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,6 +80,11 @@ const Home = () => {
       {/* Sección de productos */}
       {loading ? (
         <Loading />
+      ) : noProducts ? (
+        <div className={styles.noProductsMessage}>
+          <h1>No hay productos disponibles en este momento.</h1>
+          <p>Por favor, vuelve más tarde o crea un nuevo producto.</p>
+        </div>
       ) : (
         <div className={styles.products}>
           <h1>Nuestros productos</h1>
@@ -90,12 +94,12 @@ const Home = () => {
             className={styles.grid}
           >
             {products.map((product, index) => (
-                <Card
-                  key={index}
-                  image={product.ProductImages[1].address}
-                  name={product.name}
-                  productId={product.id}
-                />
+              <Card
+                key={index}
+                image={product.ProductImages[1].address}
+                name={product.name}
+                productId={product.id}
+              />
             ))}
           </div>
 

@@ -52,21 +52,23 @@ const EditProduct = () => {
         },
         body: JSON.stringify({ field, value }),
       });
-
+  
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Error al actualizar el producto");
+        // En lugar de usar el mensaje del servidor, usa uno genérico
+        throw new Error("Error en la actualización del producto");
       }
-
+  
       Swal.fire({
         title: "Producto actualizado con éxito",
         icon: "success",
       });
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
+  
+      // Muestra un mensaje genérico al cliente sin exponer el error original
       Swal.fire({
         title: "Error al actualizar el producto",
-        text: error.message,
+        text: "Ocurrió un problema al intentar actualizar el producto. Por favor, inténtalo de nuevo.",
         icon: "error",
       });
     }
