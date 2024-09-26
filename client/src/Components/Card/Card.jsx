@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.css";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaWhatsapp } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate
 import getDecryptedData from "../../../utils/getDecryptedData"; // Para obtener el token
 import Swal from "sweetalert2";
@@ -9,7 +9,15 @@ const url = import.meta.env.VITE_URL_BACKEND;
 
 const Card = ({ image, name, category, type, productId }) => {
   const navigate = useNavigate(); // Crea una instancia de navigate
-
+  const handleWhatsAppClick = (e) => {
+    e.stopPropagation(); // Evitar que el evento de clic se propague al Link
+    const message = `Hola, estoy interesado en el producto: ${name} (ID: ${productId}).`;
+    const phoneNumber = "123456789"; // Cambia por el número de teléfono deseado
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank"); // Abre WhatsApp en una nueva pestaña
+  };
   const handleAddToCartClick = async (e) => {
     const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
     const userId = getDecryptedData("userid"); // Obtén el ID del usuario
@@ -22,16 +30,14 @@ const Card = ({ image, name, category, type, productId }) => {
       return Swal.fire({
         title: "Debe estar logueado para tener Carrito",
         icon: "error",
-        confirmButtonText:"Entendido"
-
+        confirmButtonText: "Entendido",
       });
     }
     if (userRole === "admin") {
       return Swal.fire({
         title: "El admin no tiene carrito",
         icon: "error",
-        confirmButtonText:"Entendido"
-
+        confirmButtonText: "Entendido",
       });
     }
 
@@ -86,10 +92,21 @@ const Card = ({ image, name, category, type, productId }) => {
       <div className={styles.flex}>
         <h1 className={styles.title}>{name}</h1>
         {/* Botón de Añadir al carrito */}
-        <div className={styles.addToCart} onClick={handleAddToCartClick}>
-          <h3>
-            <FaCartPlus /> Añadir al Carrito
-          </h3>
+        <div className={styles.containerButton}>
+          <button
+            className={styles.addToCart}
+            onClick={handleAddToCartClick}
+            title="Añadir al carrito"
+          >
+            <FaCartPlus />
+          </button>
+          <button
+            className={styles.addToCart}
+            onClick={handleWhatsAppClick}
+            title="Enviar a WhatsApp"
+          >
+            <FaWhatsapp />
+          </button>
         </div>
       </div>
     </Link>

@@ -104,6 +104,8 @@ console.log(noProducts)
                 image={product.ProductImages[1].address}
                 name={product.name}
                 productId={product.id}
+                category={product.ProductCategories[0]}
+                type={product.ProductTypes[0]}
               />
             ))}
           </div>
