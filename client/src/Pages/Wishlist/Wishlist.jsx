@@ -69,17 +69,21 @@ const Wishlist = () => {
 
   if (loading)
     return <Loading/>;
-  
 
   return (
     <div className={styles.wishlistContainer}>
       <h1 className={styles.wishlistTitle}>Lista de Deseos de: {username}</h1>
-      {error&&<p className={styles.TextError}>{error}</p>}
+      {error && <p className={styles.TextError}>{error}</p>}
       {wishlistItems.products && wishlistItems.products.length > 0 ? (
         <ul className={styles.wishlistList}>
           {wishlistItems.products.map((item) => (
             <li key={item.id} className={styles.wishlistListItem}>
               <div className={styles.wishlistItemDetails}>
+              <img
+                    src={item.ProductImages[0].address}
+                    alt="img"
+                    className={styles.image}
+                  />
                 <h3>{item.name}</h3>
               </div>
               <div className={styles.wishlistItemActions}>

@@ -118,47 +118,57 @@ const Cart = () => {
     return <p className={styles.loadingMessage}>Cargando tu carrito...</p>;
   if (error) return <p className={styles.errorMessage}>{error}</p>;
   return (
-    <div className={styles.cartContainer}>
-      <h1 className={styles.cartTitle}>Carrito de: {username}</h1>
-      {cartItems.Products?.length > 0 ? (
-        <ul className={styles.cartList}>
-          {cartItems.Products.map((item) => (
-            <li key={item.id} className={styles.cartListItem}>
-              <div className={styles.cartItemDetails}>
-                <h3>{item.name}</h3>
-                <p>{item.ProductCart.quantity} unidades</p>
-              </div>
-              <div className={styles.cartItemActions}>
-                <label>
-                  Cambiar cantidad:
-                  <input
-                    type="number"
-                    value={item.ProductCart.quantity}
-                    min="1"
-                    onChange={(e) =>
-                      handleQuantityChange(item.id, e.target.value)
-                    }
-                    className={styles.cartInput}
+    <div className={styles.containerGlobal}>
+      <div className={styles.cartContainer}>
+        <h1 className={styles.cartTitle}>Carrito de: {username}</h1>
+        {cartItems.Products?.length > 0 ? (
+          <ul className={styles.cartList}>
+            {cartItems.Products.map((item) => (
+              <li key={item.id} className={styles.cartListItem}>
+                <div className={styles.cartItemDetails}>
+                  <img
+                    src={item.ProductImages[0].address}
+                    alt="img"
+                    className={styles.image}
                   />
-                </label>
-                <button
-                  onClick={() => handleRemoveItem(item.id)}
-                  className={styles.cartButton}
-                >
-                  Eliminar
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className={styles.emptyCartMessage}>Tu carrito está vacío</p>
-      )}
-      {cartItems.Products.length > 0 && (
-        <button onClick={handleWhatsAppShare} className={styles.whatsappButton}>
-          Consultar en WhatsApp
-        </button>
-      )}
+                  <h3>{item.name}</h3>
+                  <p>{item.ProductCart.quantity} unidades</p>
+                </div>
+                <div className={styles.cartItemActions}>
+                  <label>
+                    Cambiar cantidad:{" "}
+                    <input
+                      type="number"
+                      value={item.ProductCart.quantity}
+                      min="1"
+                      onChange={(e) =>
+                        handleQuantityChange(item.id, e.target.value)
+                      }
+                      className={styles.cartInput}
+                    />
+                  </label>
+                  <button
+                    onClick={() => handleRemoveItem(item.id)}
+                    className={styles.cartButton}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.emptyCartMessage}>Tu carrito está vacío</p>
+        )}
+        {cartItems.Products.length > 0 && (
+          <button
+            onClick={handleWhatsAppShare}
+            className={styles.whatsappButton}
+          >
+            Consultar en WhatsApp
+          </button>
+        )}
+      </div>
     </div>
   );
 };

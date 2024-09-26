@@ -1,83 +1,118 @@
-.loadingMessage {
-  font-size: 18px;
-  color: blue;
+.containerGlobal {
+  padding: 70px 0;
 }
-
-.errorMessage {
-  font-size: 18px;
-  color: red;
-}
-
 .cartContainer {
-  padding: 70px 0px;
   max-width: 800px;
   min-height: 300px;
+  padding: 40px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar el contenido horizontalmente */
+  background-color: #b19563; /* Color de fondo suave */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .cartTitle {
-  font-size: 24px;
+  font-size: 2rem;
   margin-bottom: 20px;
-}
-
-.emptyCartMessage {
-  font-size: 18px;
-  color: gray;
+  text-align: center;
+  color: #333; /* Color de texto más oscuro */
 }
 
 .cartList {
-  list-style-type: none;
+  width: 100%; /* Tomar el ancho completo */
   padding: 0;
+  list-style-type: none;
 }
 
 .cartListItem {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Colocar en columna para mejor ajuste */
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
-  background-color: #b19563;
+  background-color: #b19563; /* Fondo blanco para los elementos */
+  transition: background-color 0.3s; /* Transición suave */
 }
 
 .cartItemDetails {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrar elementos dentro */
+}
+
+.image {
+  width: 100px; /* Ancho fijo para imagen */
+  max-width: 100%; /* Asegurarse que no se exceda del contenedor */
+  margin-right: 15px; /* Espacio entre imagen y texto */
 }
 
 .cartItemActions {
   display: flex;
+  flex-direction: column; /* Alinear los botones verticalmente */
   align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .cartInput {
-  width: 50px;
-  margin-right: 10px;
+  width: 60%; /* Ancho ajustado para mayor responsividad */
+  margin: 5px 0; /* Margen vertical */
+  border: 1px solid #ddd; /* Borde sutil */
+  border-radius: 5px; /* Bordes redondeados */
 }
 
-.cartButton {
-  padding: 10px 15px;
+.cartButton,
+.whatsappButton {
+  width: 50%; /* Ancho ajustado para botones */
+  height: 40px;
   background-color: #ff4c4c;
   color: white;
   border: none;
   border-radius: 5px;
+  margin-bottom: 5px;
   cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave */
 }
 
 .cartButton:hover {
   background-color: #ff0000;
 }
-.whatsappButton{
+
+.whatsappButton {
   background-color: #f5f5f5;
-  width: 150px;
-  padding: 10px;
   font-size: medium;
   font-weight: bold;
-  border-radius: 15px;
-  transition: 1s;
-}
-.whatsappButton:hover{
-  background-color: #b19563;
   color: #000;
-  cursor: pointer;
+  border-radius: 15px;
+}
+
+.whatsappButton:hover {
+  background-color: green;
+  color: #000;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .cartListItem {
+    flex-direction: column; /* Colocar en columna para pantallas pequeñas */
+    align-items: center; /* Centrar elementos */
+  }
+
+  .cartItemDetails {
+    flex-direction: column; /* Cambiar a columna para imagen y texto */
+    align-items: center; /* Centrar los elementos */
+  }
+
+  .image {
+    margin: 0 0 10px 0; /* Espacio debajo de la imagen */
+  }
+
+  .cartInput {
+    width: 80%;
+    margin-left: 15px;
+  }
 }

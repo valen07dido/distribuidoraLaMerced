@@ -1,80 +1,117 @@
- 
-  .TextError {
-    font-size: 18px;
-    color: white;
-  }
-  
+.TextError {
+  font-size: 18px;
+  color: white;
+}
+.image{
+  width: 100px;
+  border-radius: 10px;
+}
+.wishlistContainer {
+  padding: 70px 20px; /* Agregar un poco de espacio lateral */
+  max-width: 800px;
+  min-height: 300px;
+  margin: 0 auto;
+  color: #f5f5f5;
+  background-color: #2c2c2c; /* Color de fondo más oscuro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  display: flex;
+  flex-direction: column; /* Columna para centrar mejor el contenido */
+  align-items: center; /* Centrar elementos horizontalmente */
+}
+
+.wishlistTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ffffff; /* Color de texto más claro */
+}
+
+.emptyWishlistMessage {
+  font-size: 18px;
+  color: #f5f5f5;
+  text-align: center; /* Centrar mensaje */
+}
+
+.wishlistList {
+  width: 100%; /* Tomar el ancho completo */
+  padding: 0;
+  list-style-type: none;
+}
+
+.wishlistListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #b19563; /* Color de fondo de los elementos */
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.wishlistListItem:hover {
+  background-color: #d9c4a0; /* Color de fondo al pasar el ratón */
+}
+
+.wishlistItemDetails {
+  flex: 1;
+}
+
+.wishlistItemActions {
+  display: flex;
+  align-items: center;
+}
+
+.wishlistButton {
+  padding: 10px 15px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.wishlistButton:hover {
+  background-color: #ff0000;
+}
+
+.whatsappButton {
+  background-color: #f5f5f5;
+  width: 150px;
+  padding: 10px;
+  font-size: medium;
+  font-weight: bold;
+  border-radius: 15px;
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.whatsappButton:hover {
+  background-color: #b19563;
+  color: #000;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
   .wishlistContainer {
-    padding: 70px 0px;
-    max-width: 800px;
-    min-height: 300px;
-    margin: 0 auto;
-    color: #f5f5f5;
+    padding: 50px 10px; /* Ajustar el padding en pantallas pequeñas */
   }
-  
-  .wishlistTitle {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .emptywishlistMessage {
-    font-size: 18px;
-    color: #f5f5f5;
-  }
-  
-  .wishlistList {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+
   .wishlistListItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #b19563;
+    flex-direction: column; /* Colocar en columna para pantallas pequeñas */
+    align-items: center; /* Centrar elementos */
   }
-  
+
   .wishlistItemDetails {
-    flex: 1;
+    text-align: center; /* Centrar texto en pantallas pequeñas */
   }
-  
-  .wishlistItemActions {
-    display: flex;
-    align-items: center;
-  }
-  
-  .wishlistInput {
-    width: 50px;
-    margin-right: 10px;
-  }
-  
+
   .wishlistButton {
-    padding: 10px 15px;
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 90%; /* Aumentar el ancho en pantallas pequeñas */
   }
-  
-  .wishlistButton:hover {
-    background-color: #ff0000;
+
+  .whatsappButton {
+    width: 90%; /* Aumentar el ancho en pantallas pequeñas */
   }
-  .whatsappButton{
-    background-color: #f5f5f5;
-    width: 150px;
-    padding: 10px;
-    font-size: medium;
-    font-weight: bold;
-    border-radius: 15px;
-    transition: 1s;
-  }
-  .whatsappButton:hover{
-    background-color: #b19563;
-    color: #000;
-    cursor: pointer;
-  }
+}
