@@ -1,10 +1,30 @@
-const { Cart, Product, ProductCart, User } = require("../../db");
+const { Cart, Product, ProductCart, ProductImage, ProductStock, ProductCategory, ProductType } = require("../../db");
 
 const getCartController = async (UserId) => {
   const cart = await Cart.findOne({
     where: { UserId },
     include: {
       model: Product,
+      include: [
+        {
+          model: ProductImage,
+          attributes: ["address"],
+        },
+        {
+          model: ProductStock,
+          attributes: ["amount"],
+        },
+        {
+          model: ProductCategory,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: ProductType,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
       through: {
         model: ProductCart,
         attributes: ["quantity"],
@@ -16,6 +36,7 @@ const getCartController = async (UserId) => {
 
   return cart;
 };
+
 
 const addCartController = async (productId, quantity, UserId) => {
   let cart = await Cart.findOne({ where: { UserId } });

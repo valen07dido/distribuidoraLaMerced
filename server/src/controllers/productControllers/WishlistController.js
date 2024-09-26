@@ -1,4 +1,4 @@
-const { User, Product, WishList } = require("../../db");
+const { User, Product, WishList, ProductImage, ProductStock, ProductCategory, ProductType } = require("../../db");
 
 const wishlistController = async (userId, productId) => {
   try {
@@ -55,7 +55,29 @@ const getWishlistController = async (userId) => {
     // Verifica si la wishlist del usuario existe
     const wishlist = await WishList.findOne({
       where: { userId },
-      include: [{ model: Product }], // Incluir los productos asociados
+      include: [{
+        model: Product,
+        include: [
+          {
+            model: ProductImage,
+            attributes: ["address"],
+          },
+          {
+            model: ProductStock,
+            attributes: ["amount"],
+          },
+          {
+            model: ProductCategory,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+          {
+            model: ProductType,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+        ]
+      }],
     });
 
     if (!wishlist) {
@@ -66,11 +88,11 @@ const getWishlistController = async (userId) => {
       };
     }
 
-    // Devuelve los productos en la wishlist
+    // Devuelve los productos en la wishlist con los detalles adicionales
     return {
       error: false,
       response: "Wishlist obtenida con éxito.",
-      products: wishlist.Products, // Devuelve los productos asociados a la wishlist
+      products: wishlist.Products, // Incluye los productos con sus detalles asociados
     };
   } catch (error) {
     return {
@@ -79,6 +101,7 @@ const getWishlistController = async (userId) => {
     };
   }
 };
+
 
 module.exports = {
   wishlistController,
