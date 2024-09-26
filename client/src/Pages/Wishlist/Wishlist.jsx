@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import getDecryptedData from "../../../utils/getDecryptedData";
 import styles from "./Wishlist.module.css";
+import Loading from "../../Components/Loading/Loading";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Wishlist = () => {
@@ -60,19 +61,20 @@ const Wishlist = () => {
       `${item.name}`
     ).join('\n');
 
-    const phoneNumber = '3415778294'; // Reemplaza con el número deseado
+    const phoneNumber = '3464581375'; // Reemplaza con el número deseado
     const urlWhatsApp = `https://wa.me/${phoneNumber}?text=Hola,%20me%20gustaría%20consultar%20los%20siguientes%20productos%20en%20mi%20wishlist:%0A${encodeURIComponent(message)}`;
 
     window.open(urlWhatsApp, '_blank');
   };
 
   if (loading)
-    return <p className={styles.loadingMessage}>Cargando tu lista de deseos...</p>;
-  if (error) return <p className={styles.errorMessage}>{error}</p>;
+    return <Loading/>;
+  
 
   return (
     <div className={styles.wishlistContainer}>
       <h1 className={styles.wishlistTitle}>Lista de Deseos de: {username}</h1>
+      {error&&<p className={styles.TextError}>{error}</p>}
       {wishlistItems.products && wishlistItems.products.length > 0 ? (
         <ul className={styles.wishlistList}>
           {wishlistItems.products.map((item) => (

@@ -24,22 +24,25 @@ const Products = () => {
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-
-      if (!data || data.length === 0) {
+  
+      // Asegúrate de que data es un array
+      if (!Array.isArray(data) || data.length === 0) {
         setNoProducts(true); // No hay productos
+        setProducts([]); // Limpia el estado de products
+        setFilteredProducts([]); // Limpia el estado de filteredProducts
       } else {
         setProducts(data);
-        setFilteredProducts(data);
-        extractUniqueCategoriesAndTypes(data);
+        setFilteredProducts(data); // Actualiza ambos estados
+        extractUniqueCategoriesAndTypes(data); // Extrae categorías y tipos
         setNoProducts(false); // Resetear estado si hay productos
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      setNoProducts(true); // Si hay un error, asume que no hay productos
     } finally {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -61,7 +64,7 @@ const Products = () => {
 
   const applyFilters = () => {
     let filtered = products;
-
+  
     if (filters.category) {
       filtered = filtered.filter((product) =>
         product.ProductCategories.some(
@@ -69,17 +72,20 @@ const Products = () => {
         )
       );
     }
-
+  
     if (filters.type) {
       filtered = filtered.filter((product) =>
         product.ProductTypes.some((type) => type.name === filters.type)
       );
     }
-
+  
     setFilteredProducts(filtered);
+  
+    // Si no hay productos después de filtrar, establecer noProducts en true
+    setNoProducts(filtered.length === 0);
     setPage(1);
   };
-
+  
   useEffect(() => {
     applyFilters();
   }, [filters, products]);
@@ -143,8 +149,8 @@ const Products = () => {
         <Loading/>
       ) : noProducts ? (
         <div className={styles.noProductsMessage}>
-          <h2>No hay productos disponibles en este momento.</h2>
-          <p>Por favor, vuelve más tarde o crea un nuevo producto.</p>
+          <h2>No hay productos disponibles.</h2>
+          <p className={styles.p}>Por favor, vuelve más tarde o verifique los filtros.</p>
         </div>
       ) : (
         <div>
@@ -162,7 +168,7 @@ const Products = () => {
                 </div>
               ))
             ) : (
-              <p>No se encontraron productos para los filtros seleccionados.</p>
+              <p className={styles.p}>No se encontraron productos para los filtros seleccionados.</p>
             )}
           </div>
         </div>

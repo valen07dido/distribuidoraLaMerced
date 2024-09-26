@@ -26,26 +26,31 @@ const Home = () => {
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-
-      if (!data || data.length === 0) {
+  
+      // Verifica si el resultado es un array vacío o indefinido
+      if (!Array.isArray(data) || data.length === 0) {
         setNoProducts(true); // Indicar que no hay productos
+        setProducts([]); // Asegúrate de que `products` esté vacío
       } else {
-        // Suponiendo que cada producto tiene una propiedad `createdAt` para ordenar por fecha de creación
+        // Ordenar productos por fecha de creación
         const sortedProducts = data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-
-        // Selecciona los últimos 3 productos
+  
+        // Seleccionar los últimos 3 productos
         setProducts(sortedProducts.slice(0, 3));
         setNoProducts(false); // Resetear el estado en caso de encontrar productos
       }
     } catch (error) {
       console.error("Error al obtener los productos", error);
+      setNoProducts(true); // Manejo de error: asume que no hay productos si hay un fallo
     } finally {
       setLoading(false);
     }
   };
-
+  
+console.log(products)
+console.log(noProducts)
   return (
     <div className={styles.container}>
       <Carousel

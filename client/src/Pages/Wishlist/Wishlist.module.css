@@ -1,11 +1,7 @@
-.loadingMessage {
+ 
+  .TextError {
     font-size: 18px;
-    color: blue;
-  }
-  
-  .errorMessage {
-    font-size: 18px;
-    color: red;
+    color: white;
   }
   
   .wishlistContainer {
@@ -13,6 +9,7 @@
     max-width: 800px;
     min-height: 300px;
     margin: 0 auto;
+    color: #f5f5f5;
   }
   
   .wishlistTitle {
@@ -22,7 +19,7 @@
   
   .emptywishlistMessage {
     font-size: 18px;
-    color: gray;
+    color: #f5f5f5;
   }
   
   .wishlistList {

@@ -106,7 +106,7 @@ const Cart = () => {
       (item) => `${item.name}: ${item.ProductCart.quantity} unidades`
     ).join("\n");
 
-    const phoneNumber = "3415778294"; // Reemplaza con el número deseado
+    const phoneNumber = "3464581375"; // Reemplaza con el número deseado
     const urlWhatsApp = `https://wa.me/${phoneNumber}?text=Hola,%20me%20gustaría%20consultar%20los%20siguientes%20productos%20en%20mi%20carrito:%0A${encodeURIComponent(
       message
     )}`;

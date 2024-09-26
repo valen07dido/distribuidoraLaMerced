@@ -192,6 +192,7 @@ const Navbar = () => {
                       {/* Opciones para CUSTOMER */}
                       <Link
                         to={`/favoritos/${UserId}`}
+                        onClick={toggleUserPanel}
                         className={styles.userPanelLink}
                       >
                         Mis Favoritos

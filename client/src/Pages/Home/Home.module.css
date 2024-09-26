@@ -35,7 +35,9 @@
   background: radial-gradient(#b19563, #000 50%);
   border-radius: 25px;
 }
-
+.noProductsMessage{
+  color: #f5f5f5;
+}
 .grid {
   width: 100%;
   display: grid;
