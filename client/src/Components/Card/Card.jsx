@@ -9,15 +9,7 @@ const url = import.meta.env.VITE_URL_BACKEND;
 
 const Card = ({ image, name, category, type, productId }) => {
   const navigate = useNavigate(); // Crea una instancia de navigate
-  const handleWhatsAppClick = (e) => {
-    e.stopPropagation(); // Evitar que el evento de clic se propague al Link
-    const message = `Hola, estoy interesado en el producto: ${name} (ID: ${productId}).`;
-    const phoneNumber = "3464581375"; // Cambia por el número de teléfono deseado
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank"); // Abre WhatsApp en una nueva pestaña
-  };
+
   const handleAddToCartClick = async (e) => {
     const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
     const userId = getDecryptedData("userid"); // Obtén el ID del usuario
@@ -100,13 +92,7 @@ const Card = ({ image, name, category, type, productId }) => {
           >
             <FaCartPlus />
           </button>
-          <button
-            className={styles.addToCart}
-            onClick={handleWhatsAppClick}
-            title="Enviar a WhatsApp"
-          >
-            <FaWhatsapp />
-          </button>
+
         </div>
       </div>
     </Link>
