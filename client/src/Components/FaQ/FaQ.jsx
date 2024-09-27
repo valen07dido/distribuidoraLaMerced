@@ -28,20 +28,24 @@ const FAQ = () => {
         "Aceptamos tarjetas de crédito, débito, y también pagos mediante transferencias bancarias.",
     },
     {
+      question:"¿Puedo hacer comprar siendo cliente particular?",
+      answer:(<>Por Supuesto! Clickea <a href="https://www.mercadolibre.com.ar/pagina/lamercedeleita">AQUI</a> y visita nuestro canal de Mercado Libre!</>)
+       },
+    {
       question: "¿Hacen envíos a todo el país?",
       answer:
         "Sí, realizamos envíos a todas las regiones del país. Los costos y tiempos de envío pueden variar según la ubicación.",
     },
     {
-      question: "¿Dónde está la zona de envío gratuito?",
+      question: "¿Realizan envios gratuitos?",
       answer: (
         <div className={styles.containerMap}>
           <div className={styles.textMap}>
-            La zona de envío gratuito abarca desde la distribuidora en casilda
+            La zona de envío gratuito abarca desde la distribuidora en Casilda
             hasta Venado Tuerto, ademas, tambien nos extendemos por la ruta 92
             hasta Cruz Alta:{"  "}
             <button onClick={toggleMap} className={styles.mapButton}>
-              {mapVisible ? "Ocultar Mapa" : "Mostrar Mapa"}
+              {mapVisible ? "Ocultar Mapa" : "Ver Mapa"}
             </button>
           </div>
           {mapVisible && (
