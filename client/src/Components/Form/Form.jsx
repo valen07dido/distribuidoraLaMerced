@@ -228,7 +228,7 @@ const Form = () => {
                 Estoy comenzando un emprendimiento
               </option>
               <option value="tengo un refugio">Tengo un refugio</option>
-              <option value="soy creador">Soy creador</option>
+              <option value="soy criador">Soy criador</option>
               <option value="otro">Otro</option>
             </select>
           </div>
