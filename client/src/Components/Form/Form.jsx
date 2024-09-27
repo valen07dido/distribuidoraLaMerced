@@ -220,7 +220,7 @@ const Form = () => {
               required
               className={styles.select}
             >
-              <option value="">Seleccione un asunto</option>
+              <option value="">Seleccione su negocio</option>
               <option value="soy particular">Soy particular</option>
               <option value="tengo un pet shop">Tengo un pet shop</option>
               <option value="vendo online">Vendo online</option>
