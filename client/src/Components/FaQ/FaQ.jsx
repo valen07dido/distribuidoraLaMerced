@@ -28,9 +28,17 @@ const FAQ = () => {
         "Aceptamos tarjetas de crédito, débito, y también pagos mediante transferencias bancarias.",
     },
     {
-      question:"¿Puedo hacer comprar siendo cliente particular?",
-      answer:(<>Por Supuesto! Clickea <a href="https://www.mercadolibre.com.ar/pagina/lamercedeleita">AQUI</a> y visita nuestro canal de Mercado Libre!</>)
-       },
+      question: "¿Puedo hacer una comprar siendo un cliente particular?",
+      answer: (
+        <>
+          Por Supuesto! Clickea{" "}
+          <a href="https://www.mercadolibre.com.ar/pagina/lamercedeleita">
+            AQUI
+          </a>{" "}
+          y visita nuestro canal de Mercado Libre!
+        </>
+      ),
+    },
     {
       question: "¿Hacen envíos a todo el país?",
       answer:

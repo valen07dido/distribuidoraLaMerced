@@ -49,7 +49,7 @@ const About = () => {
           amor por lo que hacemos. En La Merced, cada día es una nueva
           oportunidad para crecer y servir a quienes confían en nosotros.
         </h3>
-        <h2 className={styles.subtitle}>Nuesta ubicacion</h2>
+        <h2 className={styles.subtitle}>Nuesta ubicación</h2>
         <div className={styles.containerMap}>
           <h3 className={styles.text}>
             Queremos conocerte y compartir nuestra pasión por el bienestar de
