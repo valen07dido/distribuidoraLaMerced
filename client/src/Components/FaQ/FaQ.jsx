@@ -43,33 +43,34 @@ const FAQ = () => {
           <div className={styles.textMap}>
             La zona de envío gratuito abarca desde la distribuidora en Casilda
             hasta Venado Tuerto, ademas, tambien nos extendemos por la ruta 92
-            hasta Cruz Alta:{"  "}
-            <button onClick={toggleMap} className={styles.mapButton}>
+            hasta Cruz Alta. {"  "}
+            {/* <button onClick={toggleMap} className={styles.mapButton}>
               {mapVisible ? "Ocultar Mapa" : "Ver Mapa"}
-            </button>
+            </button> */}
           </div>
           {mapVisible && (
-            <MapContainer
-              center={[-33.3819423, -61.5524715]}
-              zoom={9}
-              style={{ height: "350px", width: "50%", borderRadius: "15px" }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {/* Polígono que representa la zona de envío gratuito */}
-              <Polygon
-                positions={[
-                  [-33.0445798, -61.1653698], // Casilda
-                  [-33.7467752, -61.9772648], // Venado Tuerto
-                  [-33.0073022, -61.8095736], // Cruz Alta
-                ]}
-                color="green"
-                fillColor="green"
-                fillOpacity={0.3}
-              />
-            </MapContainer>
+            // <MapContainer
+            //   center={[-33.3819423, -61.5524715]}
+            //   zoom={9}
+            //   style={{ height: "350px", width: "50%", borderRadius: "15px" }}
+            // >
+            //   <TileLayer
+            //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            //     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            //   />
+            //   {/* Polígono que representa la zona de envío gratuito */}
+            //   <Polygon
+            //     positions={[
+            //       [-33.0445798, -61.1653698], // Casilda
+            //       [-33.7467752, -61.9772648], // Venado Tuerto
+            //       [-33.0073022, -61.8095736], // Cruz Alta
+            //     ]}
+            //     color="green"
+            //     fillColor="green"
+            //     fillOpacity={0.3}
+            //   />
+            // </MapContainer>
+            <p>hola</p>
           )}
         </div>
       ),
