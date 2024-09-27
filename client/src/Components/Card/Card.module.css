@@ -11,7 +11,9 @@
   position: relative;
   text-decoration: none;
 }
-
+.imgContainer{
+  height: 300px;
+}
 .img {
   width: 100%; /* Ocupa el ancho disponible */
   max-width: 300px; /* Limitar tamaño máximo */
@@ -82,6 +84,10 @@
 @media (max-width: 720px) {
   .container {
     width: 90%; /* Asegurar que ocupe casi toda la pantalla en móviles */
+  }
+  .imgContainer{
+    height: 65%;
+    width: 100%;
   }
   .img {
     width: 100%; /* Ajustar la imagen al ancho disponible */
