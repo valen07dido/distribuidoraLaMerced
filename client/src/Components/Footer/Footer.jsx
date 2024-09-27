@@ -24,13 +24,13 @@ const Footer = () => {
         <div className={styles.network}>
           <h2 className={styles.netTitle}>Visitanos en nuestras Redes!</h2>
           <div className={styles.LinkContainer1}>
-            <Link to="" className={styles.net}>
+            <Link to="https://www.instagram.com/distribuidoralamerced/" className={styles.net}>
               <FaInstagram /> Instagram
             </Link>
-            <Link to="" className={styles.net}>
+            <Link to="https://wa.me/+5493464547253" className={styles.net}>
               <FaWhatsapp /> Whatsapp
             </Link>
-            <Link to="" className={styles.net}>
+            <Link to="https://www.facebook.com/LaMercedDistribuidora" className={styles.net}>
               <FaFacebook /> Facebook
             </Link>
           </div>
