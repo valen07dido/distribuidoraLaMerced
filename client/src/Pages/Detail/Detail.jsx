@@ -19,7 +19,7 @@ const Detail = () => {
   const userId = getDecryptedData("userid"); // Obtén el ID del usuario
   const userRole = getDecryptedData("role"); // Obtén el ID del usuario
   const [isFavorite, setIsFavorite] = useState(false); // Estado para gestionar favoritos
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleWhatsAppConsultation = () => {
     const phoneNumber = "3464581375"; // Cambia esto por el número de teléfono deseado
     const message = `Hola, estoy interesado en el producto ${data.name}.`; // Mensaje predefinido
@@ -65,7 +65,7 @@ const Detail = () => {
       });
       Swal.close();
       if (!response.ok) {
-       return Swal.fire({
+        return Swal.fire({
           title: "Error",
           icon: "error",
           text: data.response,
@@ -218,6 +218,7 @@ const Detail = () => {
       console.error("Error en la solicitud:", error);
     }
   };
+  console.log(data.composition);
   if (loading) {
     return (
       <div className={styles.container}>
@@ -327,13 +328,15 @@ const Detail = () => {
                 <tbody>
                   {data.composition.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>{item.min !== undefined ? `${item.min}%` : "-"}</td>
-                      <td>{item.max !== undefined ? `${item.max}%` : "-"}</td>
+                      <td>{item.name || "-"}</td>
+                      <td>{item.min ? `${item.min}%` : "-"}</td>
+                      <td>{item.max ? `${item.max}%` : "-"}</td>
                       <td>
                         {item.name === "Valor Energético"
-                          ? `${item.value} kcal`
-                          : item.value !== undefined
+                          ? item.value
+                            ? `${item.value} kcal`
+                            : "-"
+                          : item.value
                           ? `${item.value}%`
                           : "-"}
                       </td>

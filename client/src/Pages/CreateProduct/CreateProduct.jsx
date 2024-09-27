@@ -269,7 +269,7 @@ const CreateProduct = () => {
         ))}
         <button
           type="button"
-          className={styles.button}
+          className={styles.buttonMore}
           onClick={addComposition}
         >
           Agregar Composición
@@ -317,7 +317,7 @@ const CreateProduct = () => {
         ))}
         <button
           type="button"
-          className={styles.button}
+          className={styles.buttonMore}
           onClick={addFeedingGuide}
         >
           Agregar Guía de Alimentación

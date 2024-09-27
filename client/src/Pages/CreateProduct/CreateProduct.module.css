@@ -15,8 +15,8 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
 }
-
 .button {
     background-color: #f5f5f5;
     width: 100px;
@@ -73,20 +73,19 @@
     flex: 1; /* Hace que los inputs crezcan igual */
     margin: 5px; /* Añade un margen pequeño entre inputs */
 }
-
+    
 /* Media Queries para Responsividad */
 @media (max-width: 768px) {
-    .compositionSection,
-    .feedingGuideSection {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        align-items: flex-start; /* Alinea los elementos a la izquierda */
+    .globalContainer {
+        padding: 40px 0; /* Reduce el padding en móviles */
     }
 
-    .input, .textarea {
-        width: 100%; /* Asegura que los inputs ocupen el 100% */
+    .container {
+        width: 100%; /* Asegúrate de que el ancho sea 100% en móviles */
+        padding: 15px; /* Ajusta el padding si es necesario */
     }
 
-    .button {
-        width: 100%; /* Botones ocupan todo el ancho */
+    .input, .textarea, .button {
+        width: 100%; /* Asegura que los inputs y botones ocupen todo el ancho */
     }
 }
