@@ -2,16 +2,20 @@ const nodemailer = require("nodemailer");
 const { EMAIL, PASSWORD, EMAIL_RECEIVER, URL_FRONTEND } = process.env;
 
 const PostMessage = (req, res) => {
+ const {name,phone,email,Type,province,locality,message}=req.body
   const output = `
     <p>Tienes una nueva solicitud de contacto</p>
     <h3>Detalles del contacto</h3>
     <ul>
-      <li>Nombre: ${req.body.name}</li>
-      <li>Email: ${req.body.email}</li>
-      <li>Asunto: ${req.body.affair}</li>
+      <li>Nombre: ${name}</li>
+      <li>Email: ${email}</li>
+      <li>Telefono: ${phone}</li>
+      <li>Tipo de negocio: ${Type}</li>
+      <li>localidad: ${locality}</li>
+      <li>provincia: ${province}</li>
     </ul>
     <h3>Mensaje</h3>
-    <p>${req.body.message}</p>
+    <p>${message}</p>
   `;
 
   let transporter = nodemailer.createTransport({
@@ -33,8 +37,6 @@ const PostMessage = (req, res) => {
     if (error) {
       return console.log(error);
     }
-    console.log("Mensaje enviado: %s", info.messageId);
-    console.log("Vista previa del URL: %s", nodemailer.getTestMessageUrl(info));
 
     res.send("Email ha sido enviado");
   });

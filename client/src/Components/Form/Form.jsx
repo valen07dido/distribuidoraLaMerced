@@ -42,7 +42,7 @@ const Form = () => {
     if (Object.keys(errors).length > 0) {
       return Swal.fire({
         title: "Por favor revise los datos",
-        text: "Verifique que no haya ningun error en los datos ingresados.",
+        text: "Verifique que no haya ningún error en los datos ingresados.",
         icon: "warning",
         confirmButtonText: "Entendido",
         customClass: { popup: styles.alert },
@@ -51,7 +51,7 @@ const Form = () => {
     try {
       swal.fire({
         title: "Por Favor espere.",
-        text: "estamos enviando su mensaje.",
+        text: "Estamos enviando su mensaje.",
         icon: "info",
         showConfirmButton: false,
         didClose: false,
@@ -60,7 +60,7 @@ const Form = () => {
         confirmButtonText: "Entendido",
       });
       swal.showLoading();
-
+  
       const response = await fetch(`${url}/send`, {
         method: "POST",
         headers: {
@@ -68,38 +68,47 @@ const Form = () => {
         },
         body: JSON.stringify(data),
       });
-
-      if (!response.error) {
+  
+  
+      if (response.error) {
         swal.fire({
-          title: "Algo fallo",
-          text: response.response,
+          title: "Algo falló",
+          text: responseData.response,
           icon: "error",
           confirmButtonText: "Entendido",
           customClass: { popup: styles.alert },
         });
+      } else {
+        setData({
+          name: "",
+          phone: "",
+          email: "",
+          Type: "",
+          province: "",
+          locality: "",
+          message: "",
+        });
+        swal.close();
+        swal.fire({
+          title: "¡Éxito!",
+          text: "Mensaje enviado correctamente",
+          icon: "success",
+          confirmButtonText: "Entendido",
+          customClass: { popup: styles.alert },
+        });
       }
-      setData({
-        name: "",
-        phone: "",
-        email: "", // Agregamos email
-        Type: "", // Type reemplaza a affair
-        province: "", // Añadimos province y locality
-        locality: "",
-        message: "",
-      });
-      swal.close();
+    } catch (error) {
+      console.error("Fetch error:", error);
       swal.fire({
-        title: "Exito!!",
-        text: "mensaje enviado correctamente",
-        icon: "success",
+        title: "Error",
+        text: "Hubo un problema al enviar su mensaje. Por favor, inténtelo nuevamente más tarde.",
+        icon: "error",
         confirmButtonText: "Entendido",
         customClass: { popup: styles.alert },
       });
-      const responseData = await response.json();
-    } catch (error) {
-      console.error(error);
     }
   };
+  
   return (
     <div className={styles.container}>
       <div>
