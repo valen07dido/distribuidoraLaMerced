@@ -268,12 +268,12 @@ const Detail = () => {
             </div>
           </div>
           <div className={styles.flex2}>
-            <button
+            {/* <button
               onClick={handleWhatsAppConsultation}
               className={styles.comunication}
             >
               Consultar <PiWhatsappLogo />
-            </button>
+            </button> */}
             {/* Mostrar categorías y tipos si están disponibles */}
             {data.ProductCategories && data.ProductCategories.length > 0 && (
               <h2 className={styles.caracters}>
