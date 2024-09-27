@@ -12,7 +12,7 @@ const Card = ({ image, name, category, type, productId }) => {
   const handleWhatsAppClick = (e) => {
     e.stopPropagation(); // Evitar que el evento de clic se propague al Link
     const message = `Hola, estoy interesado en el producto: ${name} (ID: ${productId}).`;
-    const phoneNumber = "123456789"; // Cambia por el número de teléfono deseado
+    const phoneNumber = "3464581375"; // Cambia por el número de teléfono deseado
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
