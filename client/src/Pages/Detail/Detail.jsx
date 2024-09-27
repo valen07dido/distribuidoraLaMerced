@@ -141,7 +141,6 @@ const Detail = () => {
       }
 
       const isProductFavorite = wishlistData.products.some((product) => {
-        console.log(product); // Muestra cada producto de la wishlist
         return product.id === id; // Compara directamente el UUID sin parsearlo
       });
 

@@ -50,7 +50,6 @@ const Cart = () => {
         body: JSON.stringify({ productId, quantity: newQuantity }),
       });
       const data = await response.json();
-      console.log(data);
       if (data.error) {
         Swal.fire({
           title: "Hubo un Error",

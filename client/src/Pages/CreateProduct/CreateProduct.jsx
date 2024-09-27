@@ -16,7 +16,6 @@ const CreateProduct = () => {
     composition: [],
     feedingGuide: [],
   });
-  console.log(product);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));

@@ -12,7 +12,6 @@ const createProduct = async ({
   composition,
   feedingGuide,
 }) => {
-  console.log("hola")
   // Configura Cloudinary
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

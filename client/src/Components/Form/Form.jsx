@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 const url = import.meta.env.VITE_URL_BACKEND;
 import localities from "../../../utils/localities";
 
-console.log(localities);
 const Form = () => {
   const [data, setData] = useState({
     name: "",
