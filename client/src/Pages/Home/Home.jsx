@@ -137,7 +137,7 @@ const Home = () => {
         data-aos="fade-right"
         data-aos-duration="1000"
       >
-        <h1>¿Quieres ser distribuidor o comprar nuestros productos?</h1>
+        <h1>¿Queres ser distribuidor o revender nuestros productos en tu local?</h1>
         <h2>
           Haz clic{" "}
           <Link to="/contacto" className={styles.contactLink}>
