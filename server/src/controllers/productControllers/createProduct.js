@@ -1,5 +1,11 @@
 const cloudinary = require("cloudinary").v2;
-const { Product, ProductCategory, ProductType, ProductImage, ProductStock } = require("../../db");
+const {
+  Product,
+  ProductCategory,
+  ProductType,
+  ProductImage,
+  ProductStock,
+} = require("../../db");
 
 const createProduct = async ({
   name,
@@ -51,9 +57,15 @@ const createProduct = async ({
       for (const image of images) {
         try {
           const uploadResult = await cloudinary.uploader.upload(image, {
-            folder: `LaMerced/productos/${name.replace(/\s+/g, "_").toLowerCase()}`, // Carpeta en Cloudinary
+            folder: `LaMerced/productos/${name
+              .replace(/\s+/g, "_")
+              .toLowerCase()}`, // Carpeta en Cloudinary
             overwrite: true, // Permite sobrescribir la imagen si ya existe
-            transformation: [{ width: 2126, height: 2126, crop: "fill" }] 
+            transformation: [
+              { width: 2126, height: 2126, crop: "fill" },
+              { quality: 35 },
+              { fetch_format: "auto" },
+            ],
           });
           productImages.push({ address: uploadResult.secure_url }); // Guarda la URL de la imagen
         } catch (uploadError) {
