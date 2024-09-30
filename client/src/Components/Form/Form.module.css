@@ -6,7 +6,11 @@
   text-align: center;
   margin-top: 50px;
   padding: 20px 20px;
-  background-color: #b19563;
+  background-image: url("https://res.cloudinary.com/dpa8t14c2/image/upload/v1727697912/LaMerced/images/luyktncqerlhpseassyp.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: .8;
   border-radius: 20px;
   max-width: 90%; /* Cambia de 100% a algo más manejable */
   margin: 0 auto; /* Asegura que esté centrado horizontalmente */
