@@ -53,7 +53,7 @@ const createProduct = async ({
           const uploadResult = await cloudinary.uploader.upload(image, {
             folder: `LaMerced/productos/${name.replace(/\s+/g, "_").toLowerCase()}`, // Carpeta en Cloudinary
             overwrite: true, // Permite sobrescribir la imagen si ya existe
-            transformation: [{ width: 300, height: 300, crop: "fill" }] 
+            transformation: [{ width: 2126, height: 2126, crop: "fill" }] 
           });
           productImages.push({ address: uploadResult.secure_url }); // Guarda la URL de la imagen
         } catch (uploadError) {

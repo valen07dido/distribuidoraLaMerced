@@ -13,21 +13,20 @@
 }
 
 .imgContainer {
-  height: 350px; /* Altura fija para mantener proporciones */
-  width: 100%; /* Asegurar que ocupa todo el ancho */
+  height: 300px; /* Altura fija para mantener proporciones */
+  width: 80%; /* Asegurar que ocupa todo el ancho */
 }
 
 .img {
   width: 100%; /* Ocupa el ancho disponible */
   max-width: 500px; /* Limitar tamaño máximo */
   border-radius: 10px;
-  position: relative;
 }
 
 .breadcrumb,
 .breadcrumb2 {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7); /* Mayor opacidad para mejor visibilidad */
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
@@ -35,13 +34,13 @@
 }
 
 .breadcrumb {
-  bottom: 20px;
-  right: 30px;
+  bottom: 30px;
+  right: 10px; /* Reducir margen derecho */
 }
 
 .breadcrumb2 {
-  bottom: 55px;
-  right: 30px;
+  bottom: 60px; /* Ajustar para que no se superponga */
+  right: 10px; /* Reducir margen derecho */
 }
 
 .flex {
@@ -88,7 +87,7 @@
 /* Media Queries para Responsividad */
 @media (max-width: 720px) {
   .container {
-    width: 90%; /* Asegurar que ocupe casi toda la pantalla en móviles */
+    width: 80%; /* Asegurar que ocupe casi toda la pantalla en móviles */
   }
   
   .imgContainer {
@@ -107,14 +106,30 @@
   }
 
   .containerButton {
-    justify-content: flex-start; /* Centrar los botones en móviles */
+    justify-content: center; /* Centrar los botones en móviles */
     width: 100%; /* Asegurar que ocupa todo el ancho en móviles */
-    margin: 0 0 20px -60px;
+    margin: auto;
   }
 
   .addToCart {
     width: 50px; /* Ajustar tamaño del botón para móviles */
     height: 50px; /* Ajustar tamaño del botón para móviles */
-    font-size: x-large; /* Ajustar el tamaño del icono */
+    font-size: large; /* Ajustar el tamaño del icono */
+  }
+
+  .breadcrumb,
+  .breadcrumb2 {
+    font-size: 0.8em; /* Ajustar el tamaño de la fuente en móviles */
+    padding: 4px 8px; /* Ajustar el padding para móviles */
+  }
+
+  .breadcrumb {
+    bottom: 20px; /* Reducir el margen desde el fondo */
+    right: 5px; /* Ajustar el margen derecho */
+  }
+
+  .breadcrumb2 {
+    bottom: 50px; /* Reducir el margen desde el fondo */
+    right: 5px; /* Ajustar el margen derecho */
   }
 }
