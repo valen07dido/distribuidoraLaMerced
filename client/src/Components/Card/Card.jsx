@@ -11,59 +11,57 @@ const Card = ({ image, name, category, type, productId }) => {
   const navigate = useNavigate(); // Crea una instancia de navigate
 
   const handleAddToCartClick = async (e) => {
-    const token = getDecryptedData("tokenSession"); // Obtén el token del usuario
-    const userId = getDecryptedData("userid"); // Obtén el ID del usuario
+    const token = getDecryptedData("tokenSession");
+    const userId = getDecryptedData("userid");
     const userRole = getDecryptedData("role");
-    e.stopPropagation(); // Evitar que el evento de clic se propague al Link
+    e.stopPropagation();
     e.preventDefault();
-
-    // Verifica si el usuario está logueado
+  
     if (!token || !userId) {
       return Swal.fire({
-        title: "Debe estar logueado para tener Carrito",
+        title: "Debe estar logueado para añadir productos al carrito.",
         icon: "error",
         confirmButtonText: "Entendido",
       });
     }
+  
     if (userRole === "admin") {
       return Swal.fire({
-        title: "El admin no tiene carrito",
+        title: "Los administradores no pueden usar el carrito.",
         icon: "error",
         confirmButtonText: "Entendido",
       });
     }
-
+  
     try {
       const response = await fetch(`${url}/products/cart/add/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`, // Asegúrate de usar el prefijo adecuado
+          Authorization: `${token}`,
         },
-        body: JSON.stringify({ productId, quantity: 1 }), // Usa la cantidad seleccionada
+        body: JSON.stringify({ productId, quantity: 1 }),
       });
-
-      const responseData = await response.json(); // Suponiendo que la respuesta es JSON
-      if (!response.ok || responseData.error) {
+  
+      const responseData = await response.json();
+      if (!response.ok) {
+        const errorMessage = responseData.message || "Error al añadir al carrito";
         return Swal.fire({
-          title: "Error al añadir al carrito",
+          title: errorMessage,
           icon: "error",
         });
       }
-
-      // Aquí puedes actualizar el estado del carrito o mostrar un mensaje de éxito
+  
       Swal.fire({
         title: "Producto añadido al carrito",
         icon: "success",
-        showCancelButton: true, // Muestra el botón de cancelar
+        showCancelButton: true,
         confirmButtonText: "Ir al carrito",
-        cancelButtonText: "Quedarse en la pagina actual",
+        cancelButtonText: "Quedarse en la página actual",
       }).then((result) => {
         if (result.isConfirmed) {
-          // Redirigir al carrito
-          navigate(`/carrito/${userId}`); // Cambia la ruta según sea necesario
+          navigate(`/carrito/${userId}`);
         }
-        // Si el usuario elige "Quedarse en el home", no hacemos nada
       });
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -73,6 +71,7 @@ const Card = ({ image, name, category, type, productId }) => {
       });
     }
   };
+  
 
   return (
     <Link to={`/productos/${productId}`} className={styles.container}>

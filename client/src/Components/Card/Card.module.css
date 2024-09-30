@@ -11,9 +11,12 @@
   position: relative;
   text-decoration: none;
 }
-.imgContainer{
-  height: 300px;
+
+.imgContainer {
+  height: 300px; /* Altura fija para mantener proporciones */
+  width: 100%; /* Asegurar que ocupa todo el ancho */
 }
+
 .img {
   width: 100%; /* Ocupa el ancho disponible */
   max-width: 300px; /* Limitar tamaño máximo */
@@ -32,8 +35,8 @@
 }
 
 .breadcrumb {
-  bottom:20px;
-  right:30px;
+  bottom: 20px;
+  right: 30px;
 }
 
 .breadcrumb2 {
@@ -74,29 +77,44 @@
   background-color: #f5f5f5;
   cursor: pointer;
 }
-.containerButton{
-  
+
+.containerButton {
   display: flex;
   gap: 10px;
   justify-content: flex-start;
   width: 300px;
 }
+
+/* Media Queries para Responsividad */
 @media (max-width: 720px) {
   .container {
     width: 90%; /* Asegurar que ocupe casi toda la pantalla en móviles */
   }
-  .imgContainer{
-    height: 65%;
-    width: 100%;
+  
+  .imgContainer {
+    height: auto; /* Ajustar la altura para que sea dinámica en móviles */
+    width: 100%; /* Asegurar que ocupa el ancho completo */
   }
+
   .img {
     width: 100%; /* Ajustar la imagen al ancho disponible */
+    height: auto; /* Mantener proporciones de la imagen */
     max-width: none; /* Eliminar el límite de tamaño máximo en pantallas pequeñas */
   }
+
   .title {
     font-size: 1rem; /* Ajustar el tamaño del texto para móviles */
   }
-  .comunication {
-    width: 150px; /* Asegurarse de que el botón ocupe el ancho completo en móviles */
+
+  .containerButton {
+    justify-content: flex-start; /* Centrar los botones en móviles */
+    width: 100%; /* Asegurar que ocupa todo el ancho en móviles */
+    margin: 0 0 20px -60px;
+  }
+
+  .addToCart {
+    width: 50px; /* Ajustar tamaño del botón para móviles */
+    height: 50px; /* Ajustar tamaño del botón para móviles */
+    font-size: x-large; /* Ajustar el tamaño del icono */
   }
 }
