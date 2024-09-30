@@ -6,15 +6,19 @@
   text-align: center;
   margin-top: 50px;
   padding: 20px 20px;
+  background-color: #b1946311;
+  border-radius: 20px;
+  max-width: 40%; /* Cambia de 100% a algo más manejable */
+  margin: 0 auto; /* Asegura que esté centrado horizontalmente */
+}
+.globalContainer{
   background-image: url("https://res.cloudinary.com/dpa8t14c2/image/upload/v1727697912/LaMerced/images/luyktncqerlhpseassyp.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 20px;
-  max-width: 90%; /* Cambia de 100% a algo más manejable */
-  margin: 0 auto; /* Asegura que esté centrado horizontalmente */
+  width: 100%;
+  padding: 70px;
 }
-
 .title {
   font-size: 15px;
   color: #ffffff;
@@ -179,25 +183,26 @@
 .inputGroupError {
   width: 100%;
 }
-@media (max-width: 768px) {
+ @media (max-width: 768px) {
+
   .container {
-    width: 100%; /* Para pantallas pequeñas */
-    padding: 10px; /* Reduce el padding para evitar desbordamiento */
+    padding: 20px;
   }
-  .form {
-    width: 90%; /* Reduce el ancho en pantallas pequeñas */
-    margin: 0 auto; /* Centrar */
+
+  .globalContainer {
+    padding: 50px 10px;
   }
+
   .flex1 {
     flex-direction: column;
   }
-  .divSelect,
-  .inputGroup,
-  .inputGroupError {
-    width: 100%;
-  }
+
   .buttons {
-    width: 100%;
-    margin: 10px 0; /* Añade espacio vertical */
+    margin: 10px 0;
+  }
+
+  /* Ajustar el ancho del formulario en pantallas pequeñas */
+  .form {
+    max-width: 1500%; /* Cambia el ancho del formulario a un 90% en lugar de 100% */
   }
 }
