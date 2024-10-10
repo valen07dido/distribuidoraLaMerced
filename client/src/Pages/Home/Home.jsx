@@ -99,7 +99,7 @@ const Home = () => {
             {products.map((product, index) => (
               <Card
                 key={index}
-                image={product.ProductImages[1].address}
+                image={product.ProductImages[0].address}
                 name={product.name}
                 productId={product.id}
                 category={product.ProductCategories[0]}
