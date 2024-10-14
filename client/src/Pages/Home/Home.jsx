@@ -90,7 +90,7 @@ const Home = () => {
         </div>
       ) : (
         <div className={styles.products}>
-          <h1>Nuestros productos</h1>
+          <h1>Ultimas Novedades</h1>
           <div
             data-aos="fade-in"
             data-aos-duration="1000"

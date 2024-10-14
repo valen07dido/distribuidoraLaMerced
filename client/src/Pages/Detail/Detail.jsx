@@ -218,7 +218,6 @@ const Detail = () => {
       console.error("Error en la solicitud:", error);
     }
   };
-  console.log(data.composition);
   if (loading) {
     return (
       <div className={styles.container}>
