@@ -20,7 +20,7 @@ const Footer = () => {
             Contacto
           </Link>
         </div>
-        <img src={logo} alt="logo" className={styles.logo} />
+        <img src={"https://res.cloudinary.com/dpa8t14c2/image/upload/v1728922885/LaMerced/images/xd33y4g7t5dvqyltysbh.png"} alt="logo" className={styles.logo} />
         <div className={styles.network}>
           <h2 className={styles.netTitle}>Visitanos en nuestras Redes!</h2>
           <div className={styles.LinkContainer1}>

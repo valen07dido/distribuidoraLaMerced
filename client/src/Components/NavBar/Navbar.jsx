@@ -141,7 +141,7 @@ const Navbar = () => {
     <>
       <nav className={styles.container}>
         <Link to="/">
-          <img src={logo} alt="logo" className={styles.logo} />
+          <img src={"https://res.cloudinary.com/dpa8t14c2/image/upload/v1728922885/LaMerced/images/xd33y4g7t5dvqyltysbh.png"} alt="logo" className={styles.logo} />
         </Link>
         <div className={`${styles.flex1} ${menuOpen ? styles.menuOpen : ""}`}>
           <Link
