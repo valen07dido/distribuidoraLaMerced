@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./LoginPopup.module.css"; // Estilos para el popup
+import styles from "./LoginPopup.module.css"; 
 const url = import.meta.env.VITE_URL_BACKEND;
 import swal from "sweetalert2";
 const key = import.meta.env.VITE_SECRET_KEY;
@@ -8,13 +8,12 @@ import CryptoJS from "crypto-js";
 const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [showRegister, setShowRegister] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [telephone, setTelephone] = useState("");
-  const [showRegister, setShowRegister] = useState(false);
-  // Función de login
+
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     swal.fire({
@@ -27,6 +26,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       customClass: { popup: styles.alert },
     });
     swal.showLoading();
+
     const response = await fetch(`${url}/sesion/login`, {
       method: "POST",
       headers: {
@@ -44,10 +44,16 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
       const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
       const encryptedId = CryptoJS.AES.encrypt(result.userId, key).toString();
+      
       localStorage.setItem("tokenSession", encryptedToken);
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
-      localStorage.setItem("userid",encryptedId)
+      localStorage.setItem("userid", encryptedId);
+      
+      // Establecer la expiración de la sesión (por ejemplo, 2 horas)
+      const sessionExpiration = Date.now() + 7200000; // 2 horas en milisegundos
+      localStorage.setItem("sessionExpiration", sessionExpiration);
+      
       onLoginSuccess(result.user);
       toggleLoginPopup();
       swal.close();
@@ -62,10 +68,8 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
     }
   };
 
-  // Función de registro
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
-
     swal.fire({
       title: "Por favor espere.",
       text: "Estamos procesando su registro.",
@@ -100,12 +104,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
       const encryptedUser = CryptoJS.AES.encrypt(result.user, key).toString();
       const encryptedRole = CryptoJS.AES.encrypt(result.role, key).toString();
 
-      if (typeof Storage !== "undefined") {
-        localStorage.setItem("tokenSession", encryptedToken);
-      } else {
-        console.error("localStorage no está disponible.");
-      }
-
+      localStorage.setItem("tokenSession", encryptedToken);
       localStorage.setItem("username", encryptedUser);
       localStorage.setItem("role", encryptedRole);
 
@@ -114,7 +113,7 @@ const LoginPopup = ({ toggleLoginPopup, onLoginSuccess }) => {
 
       swal.fire({
         title: "Registro exitoso",
-        text: "Se ha registrado correctamente. verifique su mail para activarlo",
+        text: "Se ha registrado correctamente. Verifique su email para activarlo.",
         icon: "success",
         customClass: { popup: styles.alert },
         confirmButtonText: "Entendido",

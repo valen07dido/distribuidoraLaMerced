@@ -35,20 +35,20 @@ const Navbar = () => {
     const user = getDecryptedData("username");
     const role = getDecryptedData("role");
     const userId = getDecryptedData("userid");
+
+    // Verificar si la sesión ha expirado
+    const sessionExpiration = localStorage.getItem("sessionExpiration");
+    if (sessionExpiration && Date.now() > sessionExpiration) {
+      handleLogout(); // Cerrar sesión si ha expirado
+      return;
+    }
+
     if (token && user) {
-      try {
-        setIsLoggedIn(true);
-        setUsername(user);
-        setRole(role);
-        setToken(token);
-        setUserId(userId);
-      } catch (error) {
-        setIsLoggedIn(false);
-        setUsername("");
-        setRole("");
-        setToken("");
-        setUserId("");
-      }
+      setIsLoggedIn(true);
+      setUsername(user);
+      setRole(role);
+      setToken(token);
+      setUserId(userId);
     } else {
       setIsLoggedIn(false);
       setUsername("");
@@ -59,37 +59,57 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    loadUserData(); // Cargar los datos del usuario al montar el componente
+    const interval = setInterval(() => {
+      const sessionExpiration = localStorage.getItem("sessionExpiration");
+      if (sessionExpiration && Date.now() > sessionExpiration) {
+        Swal.fire({
+          title: "Sesión expirada",
+          text: "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
+          icon: "info",
+          confirmButtonText: "Entendido",
+        }).then(() => {
+          handleLogout(); // Llama a la función para cerrar sesión
+        });
+      }
+    }, 60000); // Revisa cada minuto
 
-    // Agregar un listener para escuchar cambios en el localStorage
-    window.addEventListener("storage", loadUserData);
-
-    // Limpiar el listener cuando el componente se desmonte
-    return () => {
-      window.removeEventListener("storage", loadUserData);
-    };
+    return () => clearInterval(interval); // Limpia el intervalo cuando se desmonte el componente
   }, []);
 
-  // Este useEffect se ejecuta cada vez que cambian el token, el rol o el username
   useEffect(() => {
     if (!isLoggedIn) {
       setIsUserPanelOpen(false); // Cerrar el panel de usuario si no está logueado
     }
   }, [token, role, username]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const sessionExpiration = localStorage.getItem("sessionExpiration");
+      if (sessionExpiration && Date.now() > sessionExpiration) {
+        Swal.fire({
+          title: "Sesión expirada",
+          text: "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
+          icon: "info",
+          confirmButtonText: "Entendido",
+        }).then(() => {
+          handleLogout(); // Llama a la función para cerrar sesión
+        });
+      }
+    }, 60000); // Revisa cada minuto
 
+    return () => clearInterval(interval); // Limpia el intervalo cuando se desmonte el componente
+  }, []);
   const handleLogout = () => {
     localStorage.removeItem("tokenSession");
     localStorage.removeItem("username");
     localStorage.removeItem("userid");
-    localStorage.removeItem("role"); // Asegúrate de eliminar también el rol
+    localStorage.removeItem("role");
+    localStorage.removeItem("sessionExpiration"); // Asegúrate de eliminar también la expiración
     setIsLoggedIn(false);
     setUsername("");
     setUserId("");
-    setRole(""); // Actualizar el estado del rol a vacío
+    setRole("");
     setIsUserPanelOpen(false);
-    navigate("/"); // Redirigir al home después del logout
-
-    // Forzar la recarga de la página para eliminar cualquier caché de estado
+    navigate("/");
     window.location.reload();
   };
 
@@ -101,7 +121,7 @@ const Navbar = () => {
   const handleShopCart = () => {
     if (role && role === "admin") {
       return Swal.fire({
-        title: "el admin no tiene carrito de compras",
+        title: "El admin no tiene carrito de compras",
         icon: "error",
         confirmButtonText: "Entendido",
       });
@@ -116,6 +136,7 @@ const Navbar = () => {
       });
     }
   };
+
   return (
     <>
       <nav className={styles.container}>
@@ -199,7 +220,6 @@ const Navbar = () => {
                       </Link>
                     </>
                   )}
-
                   <button className={styles.logOut} onClick={handleLogout}>
                     Cerrar sesión
                   </button>
