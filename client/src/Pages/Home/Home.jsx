@@ -26,7 +26,7 @@ const Home = () => {
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-  
+
       // Verifica si el resultado es un array vacío o indefinido
       if (!Array.isArray(data) || data.length === 0) {
         setNoProducts(true); // Indicar que no hay productos
@@ -36,7 +36,7 @@ const Home = () => {
         const sortedProducts = data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-  
+
         // Seleccionar los últimos 3 productos
         setProducts(sortedProducts.slice(0, 3));
         setNoProducts(false); // Resetear el estado en caso de encontrar productos
@@ -48,7 +48,7 @@ const Home = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <Carousel
@@ -79,7 +79,6 @@ const Home = () => {
           />
         </div>
       </Carousel>
-      
       {/* Sección de productos */}
       {loading ? (
         <Loading />
@@ -137,7 +136,9 @@ const Home = () => {
         data-aos="fade-right"
         data-aos-duration="1000"
       >
-        <h1>¿Queres ser distribuidor o revender nuestros productos en tu local?</h1>
+        <h1>
+          ¿Queres ser distribuidor o revender nuestros productos en tu local?
+        </h1>
         <h2>
           Haz clic{" "}
           <Link to="/contacto" className={styles.contactLink}>
@@ -150,6 +151,18 @@ const Home = () => {
       {/* Sección de preguntas frecuentes */}
       <div className={styles.faqContainer}>
         <FAQ />
+      </div>
+      <div
+        className={styles.contact}
+        data-aos="fade-right"
+        data-aos-duration="1000"
+      >
+        <h1>¿Quienes somos?</h1>
+        <h2>
+          En <b>DISTRIBUIDORA LA MERCED</b> nos dedicamos a la distribución de
+          productos para mascotas. Comprometidos con valores familiares y la
+          adaptación a las necesidades de los clientes.
+        </h2>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { IoStar } from "react-icons/io5";
 import Swal from "sweetalert2";
 import Loading from "../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
+import Carouselimg from "../../Components/Carousel/Carousel";
 const url = import.meta.env.VITE_URL_BACKEND;
 
 const Detail = () => {
@@ -376,6 +377,7 @@ const Detail = () => {
           )}
         </div>
       </div>
+      <Carouselimg/>
     </div>
   );
 };
