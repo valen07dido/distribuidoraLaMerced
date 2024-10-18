@@ -97,9 +97,10 @@ const createProduct = async ({
     await newProduct.addProductType(type);
 
     // Guarda todas las imágenes asociadas al producto en la base de datos
-    const imagePromises = productImages.map((img) => {
+    const imagePromises = productImages.map((img, index) => {
       return ProductImage.create({
         address: img.address,
+        position: index,
         ProductId: newProduct.id,
       });
     });

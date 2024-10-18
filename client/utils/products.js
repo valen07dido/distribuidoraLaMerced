@@ -1,6 +1,6 @@
 const products=[
   {
-    "name":"DELEITA PERROS ADULTOS MORDIDA PEQUEÑA",
+    "name":"DELEITA SUPER PREMIUM PERROS ADULTOS MORDIDA PEQUEÑA",
     "description":"Deleita Perros Adultos mordida pequeña está elaborado con materias primas seleccionadas, logrando una fórmula completa y equilibrada de Calidad SUPER PREMIUM, cubriendo las necesidades nutricionales de los perros adultos de 12/15 meses en adelante.",
     "categoryName":"Razas pequeñas",
       "typeName":"perros",

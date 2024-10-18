@@ -7,13 +7,15 @@ const {
 } = require("../../db");
 
 const getProducts = async (id) => {
+  const includeProductImages = {
+    model: ProductImage,
+    attributes: ["address", "position"],
+  };
+
   if (id) {
     const product = await Product.findByPk(id, {
       include: [
-        {
-          model: ProductImage,
-          attributes: ["address"],
-        },
+        includeProductImages,
         {
           model: ProductStock,
           attributes: ["amount"],
@@ -42,10 +44,7 @@ const getProducts = async (id) => {
   } else {
     const products = await Product.findAll({
       include: [
-        {
-          model: ProductImage,
-          attributes: ["address"],
-        },
+        includeProductImages,
         {
           model: ProductStock,
           attributes: ["amount"],

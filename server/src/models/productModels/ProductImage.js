@@ -15,6 +15,10 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: false,
       },
+      position: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,

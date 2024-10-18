@@ -26,7 +26,7 @@ const Home = () => {
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-
+  
       // Verifica si el resultado es un array vacío o indefinido
       if (!Array.isArray(data) || data.length === 0) {
         setNoProducts(true); // Indicar que no hay productos
@@ -36,7 +36,12 @@ const Home = () => {
         const sortedProducts = data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-
+  
+        // Ordenar las imágenes de cada producto por su posición
+        sortedProducts.forEach(product => {
+          product.ProductImages.sort((a, b) => a.position - b.position);
+        });
+  
         // Seleccionar los últimos 3 productos
         setProducts(sortedProducts.slice(0, 3));
         setNoProducts(false); // Resetear el estado en caso de encontrar productos

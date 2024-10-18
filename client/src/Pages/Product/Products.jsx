@@ -24,13 +24,18 @@ const Products = () => {
     try {
       const response = await fetch(`${url}/products`);
       const data = await response.json();
-  
+
       // Asegúrate de que data es un array
       if (!Array.isArray(data) || data.length === 0) {
         setNoProducts(true); // No hay productos
         setProducts([]); // Limpia el estado de products
         setFilteredProducts([]); // Limpia el estado de filteredProducts
       } else {
+        // Ordenar las imágenes de cada producto por su posición
+        data.forEach((product) => {
+          product.ProductImages.sort((a, b) => a.position - b.position);
+        });
+
         setProducts(data);
         setFilteredProducts(data); // Actualiza ambos estados
         extractUniqueCategoriesAndTypes(data); // Extrae categorías y tipos
@@ -64,7 +69,7 @@ const Products = () => {
 
   const applyFilters = () => {
     let filtered = products;
-  
+
     if (filters.category) {
       filtered = filtered.filter((product) =>
         product.ProductCategories.some(
@@ -72,20 +77,20 @@ const Products = () => {
         )
       );
     }
-  
+
     if (filters.type) {
       filtered = filtered.filter((product) =>
         product.ProductTypes.some((type) => type.name === filters.type)
       );
     }
-  
+
     setFilteredProducts(filtered);
-  
+
     // Si no hay productos después de filtrar, establecer noProducts en true
     setNoProducts(filtered.length === 0);
     setPage(1);
   };
-  
+
   useEffect(() => {
     applyFilters();
   }, [filters, products]);
@@ -146,11 +151,13 @@ const Products = () => {
       </div>
 
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : noProducts ? (
         <div className={styles.noProductsMessage}>
           <h2>No hay productos disponibles.</h2>
-          <p className={styles.p}>Por favor, vuelve más tarde o verifique los filtros.</p>
+          <p className={styles.p}>
+            Por favor, vuelve más tarde o verifique los filtros.
+          </p>
         </div>
       ) : (
         <div>
@@ -168,7 +175,9 @@ const Products = () => {
                 </div>
               ))
             ) : (
-              <p className={styles.p}>No se encontraron productos para los filtros seleccionados.</p>
+              <p className={styles.p}>
+                No se encontraron productos para los filtros seleccionados.
+              </p>
             )}
           </div>
         </div>
