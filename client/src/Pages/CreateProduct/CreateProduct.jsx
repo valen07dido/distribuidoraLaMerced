@@ -16,6 +16,7 @@ const CreateProduct = () => {
     composition: [],
     feedingGuide: [],
   });
+  console.log(product.images)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));
@@ -70,7 +71,7 @@ const CreateProduct = () => {
       allowEscapeKey: false,
       showConfirmButton: false,
     });
-    swal.showLoading()
+    swal.showLoading();
     const token = getDecryptedData("tokenSession");
 
     const formData = new FormData();
@@ -84,7 +85,7 @@ const CreateProduct = () => {
     // Agregar imágenes a FormData
     if (product.images.length > 0) {
       product.images.forEach((image) => {
-        formData.append("images", image); // Ahora se agrega como un archivo
+        formData.append("images", image);
       });
     } else {
       console.error("No se han seleccionado imágenes.");
@@ -115,7 +116,7 @@ const CreateProduct = () => {
         body: formData,
       });
       swal.close();
-      const data =await response.json()
+      const data = await response.json();
       if (data.error) {
         return swal.fire({
           title: "Error",
@@ -126,7 +127,7 @@ const CreateProduct = () => {
 
       swal.fire({
         title: "Producto Creado exitosamente",
-        text: "Ya esta disponible en el apartado Productos",
+        text: "Ya está disponible en el apartado Productos",
         icon: "success",
       });
     } catch (error) {
@@ -136,6 +137,24 @@ const CreateProduct = () => {
         icon: "error",
       });
     }
+  };
+
+  // Funciones para manejar el arrastre de imágenes
+  const handleDragStart = (index) => (e) => {
+    e.dataTransfer.setData("dragIndex", index);
+  };
+
+  const handleDrop = (index) => (e) => {
+    const dragIndex = e.dataTransfer.getData("dragIndex");
+    const draggedImage = product.images[dragIndex];
+    const updatedImages = [...product.images];
+    updatedImages.splice(dragIndex, 1);
+    updatedImages.splice(index, 0, draggedImage);
+    setProduct((prev) => ({ ...prev, images: updatedImages }));
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Permitir que el área de destino acepte el drop
   };
 
   return (
@@ -206,6 +225,27 @@ const CreateProduct = () => {
           onChange={handleImageChange}
           required
         />
+        
+        <h3 className={styles.title}>Imágenes Seleccionadas</h3>
+        <div className={styles.imagePreviewContainer}>
+          {product.images.length > 0 ? (
+            product.images.map((image, index) => (
+              <div
+                key={index}
+                className={styles.imagePreview}
+                draggable
+                onDragStart={handleDragStart(index)}
+                onDrop={handleDrop(index)}
+                onDragOver={handleDragOver}
+              >
+                <img src={URL.createObjectURL(image)} alt={`Imagen ${index + 1}`} />
+              </div>
+            ))
+          ) : (
+            <p>No hay imágenes seleccionadas.</p>
+          )}
+        </div>
+
         <h3 className={styles.title}>Composición</h3>
         {product.composition.map((comp, index) => (
           <div key={index} className={styles.compositionSection}>
@@ -248,7 +288,7 @@ const CreateProduct = () => {
                 <input
                   className={styles.input}
                   type="number"
-                  placeholder="Min"
+                  placeholder="Mínimo"
                   value={comp.min}
                   onChange={(e) =>
                     handleCompositionChange(index, "min", e.target.value)
@@ -257,7 +297,7 @@ const CreateProduct = () => {
                 <input
                   className={styles.input}
                   type="number"
-                  placeholder="Max"
+                  placeholder="Máximo"
                   value={comp.max}
                   onChange={(e) =>
                     handleCompositionChange(index, "max", e.target.value)
@@ -267,13 +307,10 @@ const CreateProduct = () => {
             )}
           </div>
         ))}
-        <button
-          type="button"
-          className={styles.buttonMore}
-          onClick={addComposition}
-        >
+        <button type="button" onClick={addComposition}>
           Agregar Composición
         </button>
+
         <h3 className={styles.title}>Guía de Alimentación</h3>
         {product.feedingGuide.map((guide, index) => (
           <div key={index} className={styles.feedingGuideSection}>
@@ -315,16 +352,10 @@ const CreateProduct = () => {
             />
           </div>
         ))}
-        <button
-          type="button"
-          className={styles.buttonMore}
-          onClick={addFeedingGuide}
-        >
+        <button type="button" onClick={addFeedingGuide}>
           Agregar Guía de Alimentación
         </button>
-        <button type="submit" className={styles.button}>
-          Crear Producto
-        </button>
+        <button type="submit"  className={styles.button}>Crear Producto</button>
       </form>
     </div>
   );

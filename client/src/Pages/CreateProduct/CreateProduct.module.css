@@ -73,7 +73,22 @@
     flex: 1; /* Hace que los inputs crezcan igual */
     margin: 5px; /* Añade un margen pequeño entre inputs */
 }
-    
+.imagePreviewContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .imagePreview {
+    margin: 5px;
+    border: 2px dashed #ccc;
+    padding: 10px;
+    cursor: move;
+  }
+  
+  .imagePreview img {
+    max-width: 100px;
+    max-height: 100px;
+  }
 /* Media Queries para Responsividad */
 @media (max-width: 768px) {
     .globalContainer {
