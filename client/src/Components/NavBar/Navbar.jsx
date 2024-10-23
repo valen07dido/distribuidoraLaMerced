@@ -59,6 +59,11 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    // Cargar los datos de la sesión del usuario al montar el componente
+    loadUserData();
+  }, []); // El efecto se ejecuta solo una vez al montar el componente
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const sessionExpiration = localStorage.getItem("sessionExpiration");
       if (sessionExpiration && Date.now() > sessionExpiration) {
@@ -76,28 +81,6 @@ const Navbar = () => {
     return () => clearInterval(interval); // Limpia el intervalo cuando se desmonte el componente
   }, []);
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      setIsUserPanelOpen(false); // Cerrar el panel de usuario si no está logueado
-    }
-  }, [token, role, username]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const sessionExpiration = localStorage.getItem("sessionExpiration");
-      if (sessionExpiration && Date.now() > sessionExpiration) {
-        Swal.fire({
-          title: "Sesión expirada",
-          text: "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
-          icon: "info",
-          confirmButtonText: "Entendido",
-        }).then(() => {
-          handleLogout(); // Llama a la función para cerrar sesión
-        });
-      }
-    }, 60000); // Revisa cada minuto
-
-    return () => clearInterval(interval); // Limpia el intervalo cuando se desmonte el componente
-  }, []);
   const handleLogout = () => {
     localStorage.removeItem("tokenSession");
     localStorage.removeItem("username");
@@ -141,7 +124,13 @@ const Navbar = () => {
     <>
       <nav className={styles.container}>
         <Link to="/">
-          <img src={"https://res.cloudinary.com/dpa8t14c2/image/upload/v1728922885/LaMerced/images/xd33y4g7t5dvqyltysbh.png"} alt="logo" className={styles.logo} />
+          <img
+            src={
+              "https://res.cloudinary.com/dpa8t14c2/image/upload/v1728922885/LaMerced/images/xd33y4g7t5dvqyltysbh.png"
+            }
+            alt="logo"
+            className={styles.logo}
+          />
         </Link>
         <div className={`${styles.flex1} ${menuOpen ? styles.menuOpen : ""}`}>
           <Link
@@ -182,7 +171,6 @@ const Navbar = () => {
           </Link>
         </div>
         <div className={styles.flex2}>
-          {/* Icono de usuario y carrito */}
           {isLoggedIn ? (
             <>
               <span className={styles.username} onClick={toggleUserPanel}>
@@ -190,7 +178,6 @@ const Navbar = () => {
               </span>
               {isUserPanelOpen && (
                 <div className={styles.userPanel}>
-                  {/* Opciones para ADMIN */}
                   {role === "admin" ? (
                     <>
                       <Link
@@ -217,7 +204,6 @@ const Navbar = () => {
                     </>
                   ) : (
                     <>
-                      {/* Opciones para CUSTOMER */}
                       <Link
                         to={`/favoritos/${UserId}`}
                         onClick={toggleUserPanel}
@@ -240,7 +226,6 @@ const Navbar = () => {
             className={styles.icon}
             onClick={() => handleShopCart()}
           />
-          {/* Botón de menú hamburguesa */}
           <button className={styles.menuButton} onClick={toggleMenu}>
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>

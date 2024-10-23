@@ -234,6 +234,7 @@ const Form = () => {
                 <option value="tengo un refugio">Tengo un refugio</option>
                 <option value="soy criador">Soy criador</option>
                 <option value="soy veterinario">Soy veterinario</option>
+                <option value="soy distribuidor">Soy distribuidor</option>
                 <option value="otro">Otro</option>
               </select>
             </div>

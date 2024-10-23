@@ -22,6 +22,13 @@ const {
   updateCartStateHandler,
   getAllCartsHandler,
 } = require("../../handlers/productHandlers/cartHandler.js");
+const {
+  getCategoryHandler,
+} = require("../../handlers/productHandlers/getCategoryHandler");
+const {
+  getTypesHandler,
+} = require("../../handlers/productHandlers/getTypesHandler.js");
+
 const multer = require("multer");
 const { useInflection } = require("sequelize");
 const upload = multer({ dest: "uploads/" });
@@ -48,5 +55,6 @@ useRouter.put(
   isAuthenticated,
   updateCartStateHandler
 );
-
+useRouter.get("/get/categories", getCategoryHandler);
+useRouter.get("/get/types", getTypesHandler);
 module.exports = useRouter;

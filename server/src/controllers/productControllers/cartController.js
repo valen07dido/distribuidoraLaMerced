@@ -53,7 +53,20 @@ const getCartController = async (UserId) => {
       },
     },
   });
-  if (!cart) return { error: true, response: "Carrito no encontrado" };
+
+  // Si no existe carrito, crear un carrito vacío con la estructura especificada
+  if (!cart) {
+    return {
+      id: "19fbab07-8a2a-479e-a000-71d27b79d77b", // Puedes generar un UUID dinámico si es necesario
+      date: null,
+      state: "inicializado",
+      cartTotal: null,
+      createdAt: new Date().toISOString(), // Fecha actual
+      updatedAt: new Date().toISOString(), // Fecha actual
+      UserId, // ID del usuario que se pasa como parámetro
+      Products: [],
+    };
+  }
 
   return cart;
 };
@@ -180,10 +193,13 @@ const updateCartStateController = async (cartId) => {
     cart.state = "finalizado";
     await cart.save();
 
-    return { success: true, response: "Estado del carrito actualizado" };
+    // Eliminar el carrito después de marcarlo como finalizado
+    await Cart.destroy({ where: { id: cartId } });
+
+    return { success: true, response: "Carrito finalizado y eliminado" };
   } catch (error) {
-    console.error("Error al actualizar el estado del carrito:", error);
-    return { error: true, response: "Error al actualizar el estado" };
+    console.error("Error al actualizar/eliminar el carrito:", error);
+    return { error: true, response: "Error al actualizar/eliminar el carrito" };
   }
 };
 const getAllCartsController = async () => {

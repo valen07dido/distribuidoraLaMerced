@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CreateProduct.module.css";
 import getDecryptedData from "../../../utils/getDecryptedData";
 import swal from "sweetalert2";
@@ -15,8 +15,28 @@ const CreateProduct = () => {
     ingredients: "",
     composition: [],
     feedingGuide: [],
+    priceCategory: "", // Nuevo campo para la categoría de precio
   });
-  console.log(product.images)
+  const [categories, setCategories] = useState([]); // Para almacenar categorías
+  const [types, setTypes] = useState([]); // Para almacenar tipos
+
+  useEffect(() => {
+    const fetchCategoriesAndTypes = async () => {
+      try {
+        const responseCategories = await fetch(`${url}/products/get/categories`); // Cambia la URL según tu API
+        const responseTypes = await fetch(`${url}/products/get/types`); // Cambia la URL según tu API
+        const categoriesData = await responseCategories.json();
+        const typesData = await responseTypes.json();
+        setCategories(categoriesData); // Asigna las categorías a su estado
+        setTypes(typesData); // Asigna los tipos a su estado
+      } catch (error) {
+        console.error("Error fetching categories or types:", error);
+      }
+    };
+
+    fetchCategoriesAndTypes();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));
@@ -25,7 +45,6 @@ const CreateProduct = () => {
   const handleImageChange = (e) => {
     setProduct((prev) => ({ ...prev, images: Array.from(e.target.files) }));
   };
-
   const handleCompositionChange = (index, field, value) => {
     const updatedComposition = [...product.composition];
     updatedComposition[index] = {
@@ -180,24 +199,69 @@ const CreateProduct = () => {
             required
           />
         </div>
-        <input
-          className={styles.input}
-          type="text"
+
+        {/* Selector de categorías */}
+        <select
           name="categoryName"
-          placeholder="Categoría"
-          onChange={handleChange}
           value={product.categoryName}
-          required
-        />
-        <input
-          className={styles.input}
-          type="text"
-          name="typeName"
-          placeholder="Tipo"
           onChange={handleChange}
-          value={product.typeName}
           required
-        />
+        >
+          <option value="">Seleccionar categoría</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+          <option value="otro">Otra categoría...</option>
+        </select>
+        {product.categoryName === "otro" && (
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Escriba su categoría"
+            onChange={(e) => setProduct((prev) => ({ ...prev, categoryName: e.target.value }))}
+          />
+        )}
+
+        {/* Selector de tipos */}
+        <select
+          name="typeName"
+          value={product.typeName}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Seleccionar tipo</option>
+          {types.map((type) => (
+            <option key={type.id} value={type.name}>
+              {type.name}
+            </option>
+          ))}
+          <option value="otro">Otro tipo...</option>
+        </select>
+        {product.typeName === "otro" && (
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Escriba su tipo"
+            onChange={(e) => setProduct((prev) => ({ ...prev, typeName: e.target.value }))}
+          />
+        )}
+
+        {/* Selector de categoría de precio */}
+        <select
+          name="priceCategory"
+          value={product.priceCategory}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Seleccionar categoría de precio</option>
+          <option value="Económico">Económico</option>
+          <option value="Premium">Premium</option>
+          <option value="Super Premium">Super Premium</option>
+          <option value="Otro">Otro</option>
+        </select>
+
         <input
           className={styles.input}
           type="number"

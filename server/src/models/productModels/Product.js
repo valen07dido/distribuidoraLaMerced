@@ -30,5 +30,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: [],
     },
+    priceCategory: { // Nuevo campo para el filtro
+      type: DataTypes.ENUM('Premium', 'Económico','Super Premium','Otro'), // ENUM para las categorías
+      allowNull: false,
+      defaultValue: "Otro",
+    },
   });
 };

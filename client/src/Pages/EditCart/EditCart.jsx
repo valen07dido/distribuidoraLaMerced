@@ -44,14 +44,14 @@ const EditCart = () => {
   const finalizeCart = async (cartId) => {
     const token = getDecryptedData("tokenSession");
     try {
-      const response = await fetch(`${url}/cart/update/state/${cartId}`, {
+      const response = await fetch(`${url}/products/cart/update/state/${cartId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${token}`,
         },
       });
-
+      console.log(response.json)
       if (!response.ok) {
         throw new Error("Error al finalizar el carrito");
       }

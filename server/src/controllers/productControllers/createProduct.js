@@ -17,6 +17,7 @@ const createProduct = async ({
   ingredients,
   composition,
   feedingGuide,
+  priceCategory
 }) => {
   // Configura Cloudinary
   cloudinary.config({
@@ -90,6 +91,7 @@ const createProduct = async ({
       ingredients,
       composition,
       feedingGuide,
+      priceCategory
     });
 
     // Relaciona el producto con la categoría y tipo

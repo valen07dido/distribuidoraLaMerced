@@ -10,11 +10,13 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]); // Tipos únicos
+  const [priceCategories, setPriceCategories] = useState([]); // Categorías de precio
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
   const [filters, setFilters] = useState({
     category: "",
     type: "", // Filtro para tipos
+    priceCategory: "", // Filtro para categorías de precio
   });
   const [loading, setLoading] = useState(false);
   const [noProducts, setNoProducts] = useState(false); // Nuevo estado
@@ -38,7 +40,7 @@ const Products = () => {
 
         setProducts(data);
         setFilteredProducts(data); // Actualiza ambos estados
-        extractUniqueCategoriesAndTypes(data); // Extrae categorías y tipos
+        extractUniqueCategoriesAndTypes(data); // Extrae categorías, tipos y categorías de precio
         setNoProducts(false); // Resetear estado si hay productos
       }
     } catch (error) {
@@ -48,6 +50,7 @@ const Products = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -63,8 +66,12 @@ const Products = () => {
     );
     const uniqueTypes = [...new Set(allTypes)];
 
+    const allPriceCategories = products.map((product) => product.priceCategory);
+    const uniquePriceCategories = [...new Set(allPriceCategories)];
+
     setCategories(uniqueCategories);
     setTypes(uniqueTypes);
+    setPriceCategories(uniquePriceCategories);
   };
 
   const applyFilters = () => {
@@ -81,6 +88,12 @@ const Products = () => {
     if (filters.type) {
       filtered = filtered.filter((product) =>
         product.ProductTypes.some((type) => type.name === filters.type)
+      );
+    }
+
+    if (filters.priceCategory) {
+      filtered = filtered.filter(
+        (product) => product.priceCategory === filters.priceCategory
       );
     }
 
@@ -104,6 +117,13 @@ const Products = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       category: e.target.value,
+    }));
+  };
+
+  const handlePriceCategoryChange = (e) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      priceCategory: e.target.value,
     }));
   };
 
@@ -145,6 +165,20 @@ const Products = () => {
           {types.map((type) => (
             <option key={type} value={type}>
               {type}
+            </option>
+          ))}
+        </select>
+
+        <label>Categoría de Precio:</label>
+        <select
+          value={filters.priceCategory}
+          onChange={handlePriceCategoryChange}
+          className={styles.category}
+        >
+          <option value="">Todas</option>
+          {priceCategories.map((priceCategory) => (
+            <option key={priceCategory} value={priceCategory}>
+              {priceCategory}
             </option>
           ))}
         </select>
