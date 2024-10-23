@@ -15,6 +15,7 @@ import NotFound from "./Pages/NotFound/NotFound"; // Importa la página de 404
 import CreateProduct from "./Pages/CreateProduct/CreateProduct";
 import Cart from "./Pages/Cart/Cart";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import EditCart from "./Pages/EditCart/EditCart";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+               <Route
+          path="/editarCarrito/:token"
+          element={
+            <ProtectedRoute>
+              <EditCart />
             </ProtectedRoute>
           }
         />

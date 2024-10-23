@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     state: {
-      type: DataTypes.ENUM("inicializado", "comprado"),
+      type: DataTypes.ENUM("inicializado", "finalizado"),
     },
     cartTotal: {
       type: DataTypes.DECIMAL(10, 2),

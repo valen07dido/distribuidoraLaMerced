@@ -1,0 +1,108 @@
+.globalContain {
+    padding: 80px 0;
+  }
+  
+  .container {
+    padding: 20px;
+    background-color: #f7e7d7; /* Color más claro para contraste */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2.5rem; /* Aumentado para mayor impacto */
+    font-weight: bold;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem; /* Aumentado para mayor legibilidad */
+    color: #555;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f7e7d7; /* Color de fondo similar al contenedor */
+    border-radius: 10px; /* Más redondeo */
+    overflow: hidden;
+  }
+  
+  .tableHeader th {
+    background-color: #b19563; /* Color de fondo más oscuro */
+    color: white;
+    padding: 15px; /* Espaciado aumentado */
+    text-align: left;
+  }
+  
+  .tableRow {
+    transition: background-color 0.3s ease;
+  }
+  
+  .tableRow:hover {
+    background-color: #ebd6c1; /* Color claro al pasar el ratón */
+  }
+  
+  .tableCell {
+    padding: 15px; /* Espaciado aumentado */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .finalizeButton {
+    background-color: #b19563; /* Color de botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .finalizeButton:hover {
+    background-color: #a57c4e; /* Color de fondo del botón al pasar el ratón */
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  .productImages {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las imágenes se ajusten en múltiples líneas si es necesario */
+    justify-content: center; /* Centra las imágenes en la fila */
+    margin-top: 10px; /* Espaciado superior */
+  }
+  
+  .productImage {
+    max-width: 100px; /* Ajusta el tamaño máximo de las imágenes */
+    margin: 5px; /* Espaciado entre imágenes */
+    border-radius: 5px; /* Bordes redondeados para las imágenes */
+  }
+  @media (max-width: 768px) {
+    .table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    
+    .globalContain {
+      padding: 150px 0; /* Mayor espacio en móviles */
+    }
+  }
+  

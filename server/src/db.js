@@ -70,8 +70,14 @@ WishList.belongsTo(User, {
 Cart.belongsTo(User);
 User.hasOne(Cart);
 
-Cart.belongsToMany(Product, { through: "ProductCart" });
-Product.belongsToMany(Cart, { through: "ProductCart" });
+// Definir relaciones entre modelos
+Cart.belongsToMany(Product, { through: ProductCart });
+Product.belongsToMany(Cart, { through: ProductCart });
+
+// Agregar la relación de ProductCart con Product
+ProductCart.belongsTo(Product, { foreignKey: "ProductId" });
+ProductCart.belongsTo(Cart, { foreignKey: "CartId" });
+
 
 module.exports = {
   ...sequelize.models, // para importar los modelos así: const { Product, User } = require('./db.js');

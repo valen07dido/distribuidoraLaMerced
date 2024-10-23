@@ -201,6 +201,13 @@ const Navbar = () => {
                         Editar Productos
                       </Link>
                       <Link
+                        to={`/editarCarrito/${token}`}
+                        onClick={toggleUserPanel}
+                        className={styles.userPanelLink}
+                      >
+                        Editar Carritos
+                      </Link>
+                      <Link
                         to={`/crear/${token}`}
                         onClick={toggleUserPanel}
                         className={styles.userPanelLink}
