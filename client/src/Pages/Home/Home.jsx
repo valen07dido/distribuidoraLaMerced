@@ -32,9 +32,9 @@ const Home = () => {
         setNoProducts(true); // Indicar que no hay productos
         setProducts([]); // Asegúrate de que `products` esté vacío
       } else {
-        // Ordenar productos por fecha de creación
+        // Ordenar productos por fecha de creación (ascendente)
         const sortedProducts = data.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
   
         // Ordenar las imágenes de cada producto por su posición
@@ -42,7 +42,7 @@ const Home = () => {
           product.ProductImages.sort((a, b) => a.position - b.position);
         });
   
-        // Seleccionar los últimos 3 productos
+        // Seleccionar los primeros 3 productos creados
         setProducts(sortedProducts.slice(0, 3));
         setNoProducts(false); // Resetear el estado en caso de encontrar productos
       }
@@ -53,6 +53,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className={styles.container}>

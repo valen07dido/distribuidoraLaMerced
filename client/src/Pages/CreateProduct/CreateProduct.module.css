@@ -89,6 +89,16 @@
     max-width: 100px;
     max-height: 100px;
   }
+  .select {
+    width: 91.5%; /* Igual que los inputs */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 0;
+    background-color: #fff;
+    font-size: 16px;
+    appearance: none; /* Elimina el estilo por defecto del select */
+}
 /* Media Queries para Responsividad */
 @media (max-width: 768px) {
     .globalContainer {
@@ -102,5 +112,8 @@
 
     .input, .textarea, .button {
         width: 100%; /* Asegura que los inputs y botones ocupen todo el ancho */
+    }
+    .select {
+        width: 100%; /* Asegura que el select ocupe el ancho completo en móviles */
     }
 }

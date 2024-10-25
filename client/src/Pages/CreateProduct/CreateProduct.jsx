@@ -19,7 +19,8 @@ const CreateProduct = () => {
   });
   const [categories, setCategories] = useState([]); // Para almacenar categorías
   const [types, setTypes] = useState([]); // Para almacenar tipos
-
+  const [otherCategory, setOtherCategory]=useState(false)
+  const [otherType,SetOtherType]=useState(false)
   useEffect(() => {
     const fetchCategoriesAndTypes = async () => {
       try {
@@ -39,7 +40,23 @@ const CreateProduct = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Actualiza el estado del producto
     setProduct((prev) => ({ ...prev, [name]: value }));
+  
+    // Verifica si el campo categoryName ha cambiado
+    if (name === "categoryName") {
+      // Comprueba si el valor seleccionado no está en el arreglo de categorías
+      const isCustomCategory = !categories.some(category => category.name === value);
+      setOtherCategory(isCustomCategory); // Cambia el estado según el resultado
+    }
+  
+    // Verifica si el campo typeName ha cambiado
+    if (name === "typeName") {
+      // Comprueba si el valor seleccionado no está en el arreglo de tipos
+      const isCustomType = !types.some(type => type.name === value);
+      SetOtherType(isCustomType); // Cambia el estado según el resultado
+    }
   };
 
   const handleImageChange = (e) => {
@@ -205,7 +222,7 @@ const CreateProduct = () => {
           name="categoryName"
           value={product.categoryName}
           onChange={handleChange}
-          required
+          className={styles.select}
         >
           <option value="">Seleccionar categoría</option>
           {categories.map((category) => (
@@ -215,7 +232,7 @@ const CreateProduct = () => {
           ))}
           <option value="otro">Otra categoría...</option>
         </select>
-        {product.categoryName === "otro" && (
+        {otherCategory && (
           <input
             className={styles.input}
             type="text"
@@ -229,7 +246,7 @@ const CreateProduct = () => {
           name="typeName"
           value={product.typeName}
           onChange={handleChange}
-          required
+          className={styles.select}
         >
           <option value="">Seleccionar tipo</option>
           {types.map((type) => (
@@ -239,7 +256,7 @@ const CreateProduct = () => {
           ))}
           <option value="otro">Otro tipo...</option>
         </select>
-        {product.typeName === "otro" && (
+        {otherType && (
           <input
             className={styles.input}
             type="text"
@@ -254,6 +271,8 @@ const CreateProduct = () => {
           value={product.priceCategory}
           onChange={handleChange}
           required
+          className={styles.select}
+
         >
           <option value="">Seleccionar categoría de precio</option>
           <option value="Económico">Económico</option>
