@@ -13,7 +13,7 @@ const getCartHandler = async (req, res) => {
     if (response.error) {
       return res.status(404).json(response);
     }
-    res.status(200).json(response);
+   return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -74,11 +74,11 @@ const getAllCartsHandler = async (req, res) => {
   try {
     const carts = await getAllCartsController();
     if(carts.error){
-      res.status(400).json(carts.response)
+      return res.status(400).json(carts.response)
     }
-    res.status(200).json(carts);
+   return res.status(200).json(carts);
   } catch (error) {
-    res.status(500).json(error.message);
+   return res.status(500).json(error.message);
   }
 };
 
