@@ -21,12 +21,14 @@ const EditCart = () => {
         },
       });
       const data = await response.json();
+      console.log(data)
       if (response.ok) {
         setCarts(data);
       } else {
         Swal.fire({
           title: "Error al cargar los carritos",
           icon: "error",
+          text:data
         });
       }
     } catch (error) {
