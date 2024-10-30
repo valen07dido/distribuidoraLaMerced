@@ -117,7 +117,7 @@ const CreateProduct = () => {
     formData.append("typeName", product.typeName);
     formData.append("stock", product.stock);
     formData.append("ingredients", product.ingredients);
-
+    formData.append("priceCategory",product.priceCategory)
     // Agregar imágenes a FormData
     if (product.images.length > 0) {
       product.images.forEach((image) => {
