@@ -7,14 +7,11 @@ const {
 
 const updateProductController = async (id, field, value) => {
   try {
-    if (typeof id !== "string" && typeof id !== "number") {
-      throw new Error("El ID proporcionado no es válido.");
-    }
+    // Validación del ID
+    if (!id) throw new Error("El ID proporcionado no es válido.");
 
     const item = await Product.findByPk(id);
-    if (!item) {
-      throw new Error("No encontramos el producto a modificar.");
-    }
+    if (!item) throw new Error("No encontramos el producto a modificar.");
 
     switch (field) {
       case "name":
@@ -24,23 +21,18 @@ const updateProductController = async (id, field, value) => {
         item.description = value;
         break;
       case "price":
-        if (isNaN(value))
-          return {
-            error: true,
-            response: "El precio debe ser un número.",
-          };
-        item.price = value;
+        if (isNaN(value)) {
+          return { error: true, response: "El precio debe ser un número." };
+        }
+        item.price = parseFloat(value);
         break;
       case "image": {
         if (!Array.isArray(value)) {
-          return {
-            error: true,
-            response: "Mal formato de imagen.",
-          };
+          return { error: true, response: "El formato de las imágenes es incorrecto." };
         }
 
+        // Eliminación de imágenes actuales y creación de nuevas
         await ProductImage.destroy({ where: { ProductId: id } });
-
         const imagePromises = value.map((imageUrl) =>
           ProductImage.create({ ProductId: id, address: imageUrl })
         );
@@ -59,32 +51,44 @@ const updateProductController = async (id, field, value) => {
         return { message: "Stock actualizado correctamente." };
       }
       case "category": {
-        const category = await ProductCategory.findOne({
-          where: { name: value },
-        });
+        const category = await ProductCategory.findOne({ where: { name: value } });
 
+        // Creación o actualización de categoría
         if (!category) {
           const newCategory = await ProductCategory.create({ name: value });
-          await item.addProductCategory(newCategory);
+          await item.setProductCategories([newCategory]);
         } else {
-          await item.addProductCategory(category);
+          await item.setProductCategories([category]);
         }
         return { message: "Categoría actualizada correctamente." };
       }
       case "ingredients":
         item.ingredients = value;
         break;
-      case "composition":
-        item.composition = value; // Asegúrate de que el modelo soporte la estructura de datos
-        break;
+        case "composition": {
+          let compositionArray;
+          if (typeof value === "string") {
+            compositionArray = JSON.parse(value);
+          } else {
+            compositionArray = value;
+          }
+        
+          // Verificar si se incluye el campo 'value' en la composición
+          compositionArray = compositionArray.map((comp) => {
+            if (comp.name === "Valor Energético" && comp.value) {
+              return { ...comp, value: comp.value };
+            }
+            return { name: comp.name, min: comp.min || 0, max: comp.max || 0 };
+          });
+        
+          item.composition = compositionArray;
+          break;
+        }
       case "feedingGuide":
-        item.feedingGuide = value; // Asegúrate de que el modelo soporte la estructura de datos
+        item.feedingGuide = value;
         break;
       default:
-        return {
-          error: true,
-          response: "Campo de producto no válido para actualizar.",
-        };
+        return { error: true, response: "Campo de producto no válido para actualizar." };
     }
 
     await item.save();
