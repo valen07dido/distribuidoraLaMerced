@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from "./Components/NavBar/Navbar";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
@@ -59,6 +60,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <Analytics />
     </Router>
   );
 }
