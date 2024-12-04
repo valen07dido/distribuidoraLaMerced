@@ -1,6 +1,7 @@
 .globalContain {
   padding: 80px 0;
 }
+
 .container {
   padding: 10px;
   background-color: #b19563;
@@ -23,58 +24,116 @@
   font-size: 1.2rem;
   color: #555;
 }
-
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  background-color: #b19563;
+  background-color: #f9f9f9;
   border-radius: 8px;
   overflow: hidden;
+  table-layout: fixed; /* Fija el ancho de las columnas */
+}
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  border-right: 2px solid #ddd;
+  text-align: left;
+  overflow: hidden; /* Oculta el desbordamiento */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 15%; /* Ajusta según el contenido de las IDs */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 20%; /* Ajusta el ancho de la columna Name */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 30%; /* Ajusta el ancho de la columna Description */
 }
 
 .tableHeader th {
   background-color: #b19563;
   color: white;
-  padding: 12px;
+  padding: 15px;
   text-align: left;
+  font-weight: bold;
+  border-right: 2px solid #ddd;
+  /* Ajusta el ancho de las columnas Name y Description */
 }
-
+.element{
+  width: auto;
+}
 .tableRow {
   transition: background-color 0.3s ease;
 }
 
 .tableRow:hover {
-  background-color: #f1f1f1;
+  background-color: #f1f1f1; /* Cambio de color al pasar el mouse */
 }
 
 .tableCell {
-  padding: 12px;
+  padding: 15px;
   border-bottom: 1px solid #ddd;
+  border-right: 2px solid #ddd;
+  word-wrap: break-word; /* Permite que el texto se ajuste */
+  max-width: 300px; /* Controla el tamaño máximo */
+}
+input,
+textarea {
+  width: 100%; /* Ocupa todo el ancho de la celda */
+  height: auto;
+  box-sizing: border-box; /* Incluye padding y border en el tamaño total */
+  resize: none; /* Evita que los usuarios cambien el tamaño de los textareas */
 }
 
-.input {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-}
-
-.input:focus {
+.input:focus,
+.textarea:focus {
   border-color: #007bff;
   outline: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pageButton {
+  padding: 8px 12px;
+  margin: 0 5px;
+  background-color: #b19563;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pageButton:hover {
+  background-color: #9a7e50;
 }
 
 @media (max-width: 768px) {
   .table {
     display: block;
     overflow-x: auto;
-    white-space: nowrap;
   }
-  .globalContain{
-    padding: 150px 0;
+
+  .tableRow {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  th,
+  td {
+    display: block;
+    width: 100%;
   }
 }

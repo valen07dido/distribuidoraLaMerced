@@ -8,6 +8,8 @@ const url = import.meta.env.VITE_URL_BACKEND;
 const EditProduct = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5); // Número de productos por página
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -70,6 +72,13 @@ const EditProduct = () => {
     }
   };
 
+  // Paginación
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className={styles.globalContain}>
       <div className={styles.container}>
@@ -77,146 +86,101 @@ const EditProduct = () => {
         {loading ? (
           <p className={styles.loading}>Cargando productos...</p>
         ) : (
-          <table className={styles.table}>
-            <thead>
-              <tr className={styles.tableHeader}>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Ingredients</th>
-                <th>Composition</th>
-                <th>Feeding Guide</th>
-                <th>Stock</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id}>
-                  <td>{product.id}</td>
-                  <td>
-                    <input
-                      type="text"
-                      defaultValue={product.name}
-                      onBlur={(e) => {
-                        const newValue = e.target.value;
-                        updateLocalProduct(product.id, "name", newValue);
-                        handleEditProduct(product.id, "name", newValue);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      defaultValue={product.description}
-                      onBlur={(e) => {
-                        const newValue = e.target.value;
-                        updateLocalProduct(product.id, "description", newValue);
-                        handleEditProduct(product.id, "description", newValue);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      defaultValue={product.ingredients}
-                      onBlur={(e) => {
-                        const newValue = e.target.value;
-                        updateLocalProduct(product.id, "ingredients", newValue);
-                        handleEditProduct(product.id, "ingredients", newValue);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      defaultValue={product.composition
-                        .map((comp) => {
-                          if (comp.name === "Valor Energético" && comp.value) {
-                            return `${comp.name}: ${comp.value}`;
-                          }
-                          return `${comp.name}: ${comp.min}-${comp.max}`;
-                        })
-                        .join(", ")}
-                      onBlur={(e) => {
-                        const newComposition = e.target.value
-                          .split(", ")
-                          .map((item) => {
+          <>
+            <table className={styles.table}>
+              <thead>
+                <tr className={styles.tableHeader}>
+                  <th className={styles.element}>ID</th>
+                  <th className={styles.element}>Name</th>
+                  <th className={styles.element}>Description</th>
+                  <th className={styles.element}>Ingredients</th>
+                  <th className={styles.element}>Composition</th>
+                  <th className={styles.element}>Feeding Guide</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentProducts.map((product) => (
+                  <tr key={product.id} className={styles.tableRow}>
+                    <td>{product.id}</td>
+                    <td>
+                      <input
+                        type="text"
+                        defaultValue={product.name}
+                        onBlur={(e) => {
+                          const newValue = e.target.value;
+                          updateLocalProduct(product.id, "name", newValue);
+                          handleEditProduct(product.id, "name", newValue);
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        defaultValue={product.description}
+                        onBlur={(e) => {
+                          const newValue = e.target.value;
+                          updateLocalProduct(product.id, "description", newValue);
+                          handleEditProduct(product.id, "description", newValue);
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <textarea
+                        defaultValue={product.ingredients}
+                        onBlur={(e) => {
+                          const newValue = e.target.value;
+                          updateLocalProduct(product.id, "ingredients", newValue);
+                          handleEditProduct(product.id, "ingredients", newValue);
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <textarea
+                        defaultValue={product.composition
+                          .map((comp) => `${comp.name}: ${comp.value || `${comp.min}-${comp.max}`}`)
+                          .join(", ")}
+                        onBlur={(e) => {
+                          const newComposition = e.target.value.split(", ").map((item) => {
                             const [name, values] = item.split(": ");
-                            if (name === "Valor Energético") {
-                              // Manejo especial para "Valor Energético"
-                              const energyValue = values.replace(" kcal", "");
-                              return { name, value: energyValue };
-                            }
                             const [min, max] = values.split("-").map(Number);
                             return { name, min, max };
                           });
-
-                        updateLocalProduct(
-                          product.id,
-                          "composition",
-                          newComposition
-                        );
-                        handleEditProduct(
-                          product.id,
-                          "composition",
-                          JSON.stringify(newComposition)
-                        );
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      defaultValue={product.feedingGuide
-                        .map(
-                          (guide) =>
-                            `Peso: ${guide.peso_min}-${guide.peso_max} Ración: ${guide.racion_min}-${guide.racion_max}`
-                        )
-                        .join(", ")}
-                      onBlur={(e) => {
-                        const newFeedingGuide = e.target.value
-                          .split(", ")
-                          .map((item) => {
+                          updateLocalProduct(product.id, "composition", newComposition);
+                          handleEditProduct(product.id, "composition", JSON.stringify(newComposition));
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <textarea
+                        defaultValue={product.feedingGuide
+                          .map((guide) => `Peso: ${guide.peso_min}-${guide.peso_max} Ración: ${guide.racion_min}-${guide.racion_max}`)
+                          .join(", ")}
+                        onBlur={(e) => {
+                          const newFeedingGuide = e.target.value.split(", ").map((item) => {
                             const [weight, ration] = item.split(" Ración: ");
-                            const [pesoMin, pesoMax] = weight
-                              .replace("Peso: ", "")
-                              .split("-")
-                              .map(Number);
-                            const [racionMin, racionMax] = ration
-                              .split("-")
-                              .map(Number);
-                            return {
-                              peso_min: pesoMin,
-                              peso_max: pesoMax,
-                              racion_min: racionMin,
-                              racion_max: racionMax,
-                            };
+                            const [pesoMin, pesoMax] = weight.replace("Peso: ", "").split("-").map(Number);
+                            const [racionMin, racionMax] = ration.split("-").map(Number);
+                            return { peso_min: pesoMin, peso_max: pesoMax, racion_min: racionMin, racion_max: racionMax };
                           });
-                        updateLocalProduct(
-                          product.id,
-                          "feedingGuide",
-                          newFeedingGuide
-                        );
-                        handleEditProduct(
-                          product.id,
-                          "feedingGuide",
-                          newFeedingGuide
-                        );
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      defaultValue={product.ProductStock.amount}
-                      onBlur={(e) => {
-                        const newValue = e.target.value;
-                        updateLocalProduct(product.id, "stock", newValue);
-                        handleEditProduct(product.id, "stock", newValue);
-                      }}
-                    />
-                  </td>
-                </tr>
+                          updateLocalProduct(product.id, "feedingGuide", newFeedingGuide);
+                          handleEditProduct(product.id, "feedingGuide", newFeedingGuide);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            
+            {/* Paginación */}
+            <div className={styles.pagination}>
+              {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+                <button key={index} onClick={() => paginate(index + 1)} className={styles.pageButton}>
+                  {index + 1}
+                </button>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </>
         )}
       </div>
     </div>
