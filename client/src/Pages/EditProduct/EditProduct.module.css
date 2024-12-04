@@ -1,3 +1,4 @@
+/* General */
 .globalContain {
   padding: 80px 0;
 }
@@ -24,53 +25,30 @@
   font-size: 1.2rem;
   color: #555;
 }
+
+/* Tabla */
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  background-color: #f9f9f9;
+  background-color: #b19563;
   border-radius: 8px;
   overflow: hidden;
   table-layout: fixed; /* Fija el ancho de las columnas */
 }
-th,
-td {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  border-right: 2px solid #ddd;
-  text-align: left;
-  overflow: hidden; /* Oculta el desbordamiento */
-  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
-  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-}
 
-th:nth-child(1),
-td:nth-child(1) {
-  width: 15%; /* Ajusta según el contenido de las IDs */
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-  width: 20%; /* Ajusta el ancho de la columna Name */
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-  width: 30%; /* Ajusta el ancho de la columna Description */
+.tableHeader {
+  background-color: #b19563;
+  color: white;
 }
 
 .tableHeader th {
-  background-color: #b19563;
-  color: white;
   padding: 15px;
   text-align: left;
   font-weight: bold;
   border-right: 2px solid #ddd;
-  /* Ajusta el ancho de las columnas Name y Description */
 }
-.element{
-  width: auto;
-}
+
 .tableRow {
   transition: background-color 0.3s ease;
 }
@@ -83,23 +61,61 @@ td:nth-child(3) {
   padding: 15px;
   border-bottom: 1px solid #ddd;
   border-right: 2px solid #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
   word-wrap: break-word; /* Permite que el texto se ajuste */
   max-width: 300px; /* Controla el tamaño máximo */
 }
-input,
-textarea {
+
+.tdID {
+  width: 15%; /* Ajusta según el contenido de las IDs */
+}
+
+.tdName {
+  width: 10%; /* Ajusta el ancho de la columna Name */
+}
+
+.tdDescription {
+  width: 15%; /* Ajusta el ancho de la columna Description */
+}
+.tdIngredients {
+  width: 30%; /* Aumenta el ancho de la columna ingredientes */
+}
+
+.tdComposition {
+  width: 40%; /* Aumenta el ancho de la columna composición */
+}
+
+.tableCell {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  border-right: 2px solid #ddd;
+  overflow: visible; /* Permite que el contenido crezca */
+  white-space: normal; /* Permite el ajuste a múltiples líneas */
+  word-wrap: break-word; /* Ajusta el texto si es muy largo */
+}
+
+.textareaField {
+  height: 80px; /* Aumenta la altura inicial del textarea */
+  resize: vertical; /* Permite que los usuarios ajusten el tamaño vertical */
+}
+/* Inputs y textareas */
+.inputField,
+.textareaField {
   width: 100%; /* Ocupa todo el ancho de la celda */
   height: auto;
   box-sizing: border-box; /* Incluye padding y border en el tamaño total */
-  resize: none; /* Evita que los usuarios cambien el tamaño de los textareas */
+  resize:vertical; /* Evita que los usuarios cambien el tamaño de los textareas */
 }
 
-.input:focus,
-.textarea:focus {
+.inputField:focus,
+.textareaField:focus {
   border-color: #007bff;
   outline: none;
 }
 
+/* Paginación */
 .pagination {
   display: flex;
   justify-content: center;
@@ -120,6 +136,7 @@ textarea {
   background-color: #9a7e50;
 }
 
+/* Responsivo */
 @media (max-width: 768px) {
   .table {
     display: block;
@@ -131,8 +148,8 @@ textarea {
     margin-bottom: 10px;
   }
 
-  th,
-  td {
+  .tableHeader th,
+  .tableRow td {
     display: block;
     width: 100%;
   }

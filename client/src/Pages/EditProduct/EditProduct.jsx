@@ -75,7 +75,10 @@ const EditProduct = () => {
   // Paginación
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -90,22 +93,29 @@ const EditProduct = () => {
             <table className={styles.table}>
               <thead>
                 <tr className={styles.tableHeader}>
-                  <th className={styles.element}>ID</th>
-                  <th className={styles.element}>Name</th>
-                  <th className={styles.element}>Description</th>
-                  <th className={styles.element}>Ingredients</th>
-                  <th className={styles.element}>Composition</th>
-                  <th className={styles.element}>Feeding Guide</th>
+                  <th className={`${styles.tableCell} ${styles.tdID}`}>ID</th>
+                  <th className={`${styles.tableCell} ${styles.tdName}`}>
+                    Name
+                  </th>
+                  <th className={`${styles.tableCell} ${styles.tdDescription}`}>
+                    Description
+                  </th>
+                  <th className={styles.tableCell}>Ingredients</th>
+                  <th className={styles.tableCell}>Composition</th>
+                  <th className={styles.tableCell}>Feeding Guide</th>
                 </tr>
               </thead>
               <tbody>
                 {currentProducts.map((product) => (
                   <tr key={product.id} className={styles.tableRow}>
-                    <td>{product.id}</td>
-                    <td>
+                    <td className={`${styles.tableCell} ${styles.tdID}`}>
+                      {product.id}
+                    </td>
+                    <td className={`${styles.tableCell} ${styles.tdName}`}>
                       <input
                         type="text"
                         defaultValue={product.name}
+                        className={styles.inputField}
                         onBlur={(e) => {
                           const newValue = e.target.value;
                           updateLocalProduct(product.id, "name", newValue);
@@ -113,57 +123,117 @@ const EditProduct = () => {
                         }}
                       />
                     </td>
-                    <td>
+                    <td
+                      className={`${styles.tableCell} ${styles.tdDescription}`}
+                    >
                       <input
                         type="text"
                         defaultValue={product.description}
+                        className={styles.inputField}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          updateLocalProduct(product.id, "description", newValue);
-                          handleEditProduct(product.id, "description", newValue);
+                          updateLocalProduct(
+                            product.id,
+                            "description",
+                            newValue
+                          );
+                          handleEditProduct(
+                            product.id,
+                            "description",
+                            newValue
+                          );
                         }}
                       />
                     </td>
-                    <td>
+                    <td className={styles.tableCell}>
                       <textarea
                         defaultValue={product.ingredients}
+                        className={styles.textareaField}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          updateLocalProduct(product.id, "ingredients", newValue);
-                          handleEditProduct(product.id, "ingredients", newValue);
+                          updateLocalProduct(
+                            product.id,
+                            "ingredients",
+                            newValue
+                          );
+                          handleEditProduct(
+                            product.id,
+                            "ingredients",
+                            newValue
+                          );
                         }}
                       />
                     </td>
-                    <td>
+                    <td className={styles.tableCell}>
                       <textarea
                         defaultValue={product.composition
-                          .map((comp) => `${comp.name}: ${comp.value || `${comp.min}-${comp.max}`}`)
+                          .map(
+                            (comp) =>
+                              `${comp.name}: ${
+                                comp.value || `${comp.min}-${comp.max}`
+                              }`
+                          )
                           .join(", ")}
+                        className={styles.textareaField}
                         onBlur={(e) => {
-                          const newComposition = e.target.value.split(", ").map((item) => {
-                            const [name, values] = item.split(": ");
-                            const [min, max] = values.split("-").map(Number);
-                            return { name, min, max };
-                          });
-                          updateLocalProduct(product.id, "composition", newComposition);
-                          handleEditProduct(product.id, "composition", JSON.stringify(newComposition));
+                          const newComposition = e.target.value
+                            .split(", ")
+                            .map((item) => {
+                              const [name, values] = item.split(": ");
+                              const [min, max] = values.split("-").map(Number);
+                              return { name, min, max };
+                            });
+                          updateLocalProduct(
+                            product.id,
+                            "composition",
+                            newComposition
+                          );
+                          handleEditProduct(
+                            product.id,
+                            "composition",
+                            JSON.stringify(newComposition)
+                          );
                         }}
                       />
                     </td>
-                    <td>
+                    <td className={styles.tableCell}>
                       <textarea
                         defaultValue={product.feedingGuide
-                          .map((guide) => `Peso: ${guide.peso_min}-${guide.peso_max} Ración: ${guide.racion_min}-${guide.racion_max}`)
+                          .map(
+                            (guide) =>
+                              `Peso: ${guide.peso_min}-${guide.peso_max} Ración: ${guide.racion_min}-${guide.racion_max}`
+                          )
                           .join(", ")}
+                        className={styles.textareaField}
                         onBlur={(e) => {
-                          const newFeedingGuide = e.target.value.split(", ").map((item) => {
-                            const [weight, ration] = item.split(" Ración: ");
-                            const [pesoMin, pesoMax] = weight.replace("Peso: ", "").split("-").map(Number);
-                            const [racionMin, racionMax] = ration.split("-").map(Number);
-                            return { peso_min: pesoMin, peso_max: pesoMax, racion_min: racionMin, racion_max: racionMax };
-                          });
-                          updateLocalProduct(product.id, "feedingGuide", newFeedingGuide);
-                          handleEditProduct(product.id, "feedingGuide", newFeedingGuide);
+                          const newFeedingGuide = e.target.value
+                            .split(", ")
+                            .map((item) => {
+                              const [weight, ration] = item.split(" Ración: ");
+                              const [pesoMin, pesoMax] = weight
+                                .replace("Peso: ", "")
+                                .split("-")
+                                .map(Number);
+                              const [racionMin, racionMax] = ration
+                                .split("-")
+                                .map(Number);
+                              return {
+                                peso_min: pesoMin,
+                                peso_max: pesoMax,
+                                racion_min: racionMin,
+                                racion_max: racionMax,
+                              };
+                            });
+                          updateLocalProduct(
+                            product.id,
+                            "feedingGuide",
+                            newFeedingGuide
+                          );
+                          handleEditProduct(
+                            product.id,
+                            "feedingGuide",
+                            newFeedingGuide
+                          );
                         }}
                       />
                     </td>
@@ -171,11 +241,17 @@ const EditProduct = () => {
                 ))}
               </tbody>
             </table>
-            
+
             {/* Paginación */}
             <div className={styles.pagination}>
-              {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
-                <button key={index} onClick={() => paginate(index + 1)} className={styles.pageButton}>
+              {Array.from({
+                length: Math.ceil(products.length / productsPerPage),
+              }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                  className={styles.pageButton}
+                >
                   {index + 1}
                 </button>
               ))}
