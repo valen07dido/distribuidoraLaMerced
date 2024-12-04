@@ -41,7 +41,7 @@ const ActivateAccount = () => {
             icon: "success",
             title: "Cuenta activada exitosamente",
             text: "Tu cuenta ha sido activada. ¡Bienvenido!",
-            confirmButtonText: "Ir al Home",
+            confirmButtonText: "Ir al Inicio",
           }).then(() => {
             navigate("/"); 
           });

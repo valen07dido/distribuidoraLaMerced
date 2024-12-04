@@ -16,7 +16,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [noProducts, setNoProducts] = useState(false); // Nuevo estado
-
+  const [showUpdateBanner, setShowUpdateBanner] = useState(true); 
   useEffect(() => {
     getProducts();
   }, []);
@@ -57,6 +57,20 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+            {/* Banner de actualización */}
+            {showUpdateBanner && (
+        <div className={styles.updateBanner}>
+          <p>
+            ¡Estamos realizando actualizaciones en la web! Por favor, crea tu cuenta nuevamente.
+          </p>
+          <button 
+            className={styles.closeBanner} 
+            onClick={() => setShowUpdateBanner(false)}
+          >
+            X
+          </button>
+        </div>
+      )}
       <Carousel
         autoPlay
         infiniteLoop={true}

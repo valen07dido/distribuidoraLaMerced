@@ -149,7 +149,73 @@
 .cardLink {
   text-decoration: none;
 }
+.updateBanner {
+  background-color: #b19563;
+  color: #333;
+  padding: 10px 20px;
+  text-align: center;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  font-size: 16px; /* Tamaño base para el texto */
+  font-weight: bold;
+}
 
+.updateBanner p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.closeBanner {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10%;
+}
+
+.closeBanner:hover {
+  color: #000;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 720px) {
+  .updateBanner {
+    padding: 8px 15px; /* Reduce el padding */
+    font-size: 14px; /* Reduce el tamaño del texto */
+    top: 50px; /* Ajusta la posición del banner */
+  }
+
+  .updateBanner p {
+    font-size: 14px; /* Reduce el tamaño del texto en el mensaje */
+  }
+
+  .closeBanner {
+    font-size: 16px; /* Reduce el tamaño del botón */
+    right: 5%; /* Ajusta la posición del botón en pantallas pequeñas */
+  top: 25px;
+  right: 15%;
+  }
+}
+
+@media (max-width: 480px) {
+  .updateBanner {
+    padding: 6px 10px; /* Asegúrate de que el padding sea pequeño en pantallas muy pequeñas */
+    font-size: 12px; /* Ajusta el texto para pantallas muy pequeñas */
+    top: 40px; /* Ajusta aún más la posición */
+  }
+
+  .closeBanner {
+    font-size: 14px; /* Reduce aún más el tamaño del botón */
+    right: 2%; /* Asegúrate de que el botón esté alineado */
+  }
+}
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
